@@ -46,11 +46,9 @@ public class Cliente {
 	private Endereco endereco;
 	
 	public Cliente() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-	
-
 	public Cliente(Long id, String email, String nomeUsuario, String nomeCompleto, String senha, String cpf,
 			String telefone, LocalDate dataNascimento, Endereco endereco) {
 		super();
