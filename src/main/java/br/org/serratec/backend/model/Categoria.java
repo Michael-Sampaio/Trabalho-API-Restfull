@@ -19,11 +19,22 @@ public enum Categoria {
 		this.descricao = descricao;
 	}
 
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
 	
 	@JsonCreator
 	public static Categoria verifica(Integer valor) throws EnumValidationException {
 		for (Categoria categoria : Categoria.values()) {
-			if (valor.equals(categoria)) {
+			if (valor.equals(categoria.getId())) {
 				return categoria;
 			}
 		}
