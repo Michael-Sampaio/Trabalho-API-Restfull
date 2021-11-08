@@ -42,11 +42,9 @@ public class Endereco {
 	private List<Cliente> cliente;
 	
 	public Endereco() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-	
-
 	public Endereco(Long id, String cep, String rua, String bairro, String cidade, String numero, String complemento,
 			String estado) {
 		super();
