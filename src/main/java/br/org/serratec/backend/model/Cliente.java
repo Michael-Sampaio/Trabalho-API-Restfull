@@ -2,7 +2,6 @@ package br.org.serratec.backend.model;
 
 import java.time.LocalDate;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +39,6 @@ public class Cliente {
 	@Column(name = "data_nasc")
 	private LocalDate dataNascimento;
 	
-
 	@ManyToOne
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
