@@ -2,31 +2,17 @@ package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
 public class ProdutoDTO {
 	
 	private Long id;
-	
-	@Column
 	private String nome;
-	
-	@Column
 	private String descricao;
-	
-	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
-	
-	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro;
-	
-	@Column(name = "valor_unitario")
 	private Double valorUnitario;
-	
-	@Column
 	private Categoria categoria;
 	
 	public ProdutoDTO() {
@@ -42,6 +28,62 @@ public class ProdutoDTO {
 		this.dataCadastro = produto.getDataCadastro();
 		this.valorUnitario = produto.getValorUnitario();
 		this.categoria = produto.getCategoria();
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Integer getQtdEstoque() {
+		return this.qtdEstoque;
+	}
+
+	public void setQtdEstoque(Integer qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+
+	public LocalDate getDataCadastro() {
+		return this.dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public Double getValorUnitario() {
+		return this.valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
+	public Categoria getCategoria() {
+		return this.categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 }
