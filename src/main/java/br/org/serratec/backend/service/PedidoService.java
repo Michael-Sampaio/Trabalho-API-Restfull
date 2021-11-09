@@ -26,7 +26,6 @@ public class PedidoService {
 //Metodo para editar pedido
  public PedidoDTO alterar(AlterarPedidoDTO pedidoAlterarDTO) throws EmailException {
 		
-
 		if (pedidoRepository.findByEmail(pedidoAlterarDTO.getpedido()) = null) {
 			throw new PedidoException("PEDIDO NÃO EXISTE, ESCOLHA PEDIDO EXISTENTE");
 		}
@@ -34,7 +33,6 @@ public class PedidoService {
 		Pedido pedido = new Pedido();
 		pedido.setId(pedidoAlterarDTO.getId());
 
-		
 		return new PedidoDTO(pedido);
 	}
 

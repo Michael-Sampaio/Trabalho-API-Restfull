@@ -32,4 +32,5 @@ public class FotoProdutoService {
 		}
 		return null;
 	}
+	
 }

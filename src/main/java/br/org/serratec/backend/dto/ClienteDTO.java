@@ -8,23 +8,14 @@ import br.org.serratec.backend.model.Endereco;
 public class ClienteDTO {
 	
 	private Long id;
-	
 	private String email;
-
 	private String nomeUsuario;
-	
 	private String nomeCompleto;
-		
 	private String senha;
-
 	private String cpf;
-
 	private String telefone;
-
 	private LocalDate dataNascimento;
-
 	private Endereco endereco;
-	
 	public ClienteDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -41,8 +32,6 @@ public class ClienteDTO {
 		this.dataNascimento = cliente.getDataNascimento();
 		this.endereco = cliente.getEndereco();
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -116,6 +105,4 @@ public class ClienteDTO {
 		this.endereco = endereco;
 	}
 	
-	
-
 }

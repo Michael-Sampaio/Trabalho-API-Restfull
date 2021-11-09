@@ -9,7 +9,7 @@ import br.org.serratec.backend.model.Produto;
 
 public class ProdutoDTO {
 	
-private Long id;
+	private Long id;
 	
 	@Column
 	private String nome;
@@ -43,7 +43,5 @@ private Long id;
 		this.valorUnitario = produto.getValorUnitario();
 		this.categoria = produto.getCategoria();
 	}
-	
-	
 
 }

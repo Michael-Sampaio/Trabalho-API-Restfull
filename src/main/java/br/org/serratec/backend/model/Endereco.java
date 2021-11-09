@@ -41,8 +41,7 @@ public class Endereco {
 	@OneToMany(mappedBy = "endereco")
 	private List<Cliente> cliente;
 	
-	public Endereco() {
-		
+	public Endereco() {	
 	}
 	
 	public Endereco(Long id, String cep, String rua, String bairro, String cidade, String numero, String complemento,
@@ -57,8 +56,6 @@ public class Endereco {
 		this.complemento = complemento;
 		this.estado = estado;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -124,7 +121,4 @@ public class Endereco {
 		this.estado = estado;
 	}
 	
-	
-	
-
 }

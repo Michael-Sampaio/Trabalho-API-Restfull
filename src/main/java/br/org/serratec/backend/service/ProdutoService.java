@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.ProdutoDTO;
-import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.Produto;
 import br.org.serratec.backend.repository.ProdutoRepository;
 
@@ -25,4 +24,5 @@ public class ProdutoService {
 	public ProdutoDTO editar(Produto produto) {
 		
 	}
+
 }
