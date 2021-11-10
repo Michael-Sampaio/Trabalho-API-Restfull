@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Categoria {
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String descricao;
@@ -22,7 +22,7 @@ public class Categoria {
 	public Integer getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -38,7 +38,7 @@ public class Categoria {
 	public String getDescricao() {
 		return this.descricao;
 	}
-  
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}

@@ -40,10 +40,8 @@ public class Pedido {
 	private Cliente cliente;
 
 	@ManyToMany
-    @JoinTable(name = "item_pedido",
-    joinColumns=@JoinColumn(name = "id_pedido"),
-    inverseJoinColumns=@JoinColumn(name = "id_produto"))
-    private List<Produto> produtos;
+	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "id_pedido"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+	private List<Produto> produtos;
 
 	public Long getId() {
 		return this.id;

@@ -22,7 +22,7 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	//METODO PARA INSERIR UM CLIENTE
+	// METODO PARA INSERIR UM CLIENTE
 	public ClienteDTO inserir(Cliente cliente) {
 		cliente = clienteRepository.save(cliente);
 		cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
@@ -43,16 +43,22 @@ public class ClienteService {
 		return clientesDTO;
 	}
 
-	//METODO PARA EDITAR UM REGISTRO DE CLIENTE
+	// METODO PARA EDITAR UM REGISTRO DE CLIENTE
 	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) {
-			
-		if (clienteRepository.findById(alterarClienteDTO.getId()) != null) {
-		Cliente cliente = new Cliente();
-		cliente.setId(alterarClienteDTO.getId());
 
-		return new ClienteDTO(cliente);
-		}else {
+		if (clienteRepository.findById(alterarClienteDTO.getId()) != null) {
+			Cliente cliente = new Cliente();
+			cliente.setId(alterarClienteDTO.getId());
+
+			return new ClienteDTO(cliente);
+		} else {
 			throw new ClienteException();
+		}
+	}
+
+	public void deletar(Long id) {
+		if (clienteRepository.existsById(id)) {
+			clienteRepository.deleteById(id);
 		}
 	}
 

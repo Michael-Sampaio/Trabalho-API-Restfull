@@ -4,11 +4,11 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class AlterarCategoriaDTO {
-	
+
 	private Integer id;
 	private String nome;
 	private String descricao;
-	
+
 	public AlterarCategoriaDTO() {
 		super();
 	}
@@ -39,5 +39,5 @@ public class AlterarCategoriaDTO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 }

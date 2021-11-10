@@ -12,31 +12,31 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Produto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Long id;
-	
+
 	@Column
 	private String nome;
-	
+
 	@Column
 	private String descricao;
-	
+
 	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
-	
+
 	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro;
-	
+
 	@Column(name = "valor_unitario")
 	private Double valorUnitario;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_categoria")
 	private Categoria categoria;
-	
+
 	public Long getId() {
 		return this.id;
 	}

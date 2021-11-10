@@ -24,18 +24,18 @@ public class ProdutoService {
 		produto = produtoRepository.save(produto);
 		return new ProdutoDTO(produto);
 	}
-	
-	//METODO PARA LISTAR OS PRODUTOS
-		public List<ProdutoDTO> listar() {
-			List<Produto> produtos = produtoRepository.findAll();
-			List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
-	
-			for (Produto produto : produtos) {
-				ProdutoDTO produtoDTO = new ProdutoDTO(produto);
-				produtosDTO.add(produtoDTO);
-			}
-			return produtosDTO;
+
+	// METODO PARA LISTAR OS PRODUTOS
+	public List<ProdutoDTO> listar() {
+		List<Produto> produtos = produtoRepository.findAll();
+		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
+
+		for (Produto produto : produtos) {
+			ProdutoDTO produtoDTO = new ProdutoDTO(produto);
+			produtosDTO.add(produtoDTO);
 		}
+		return produtosDTO;
+	}
 	// Metodo para editar um produto
 
 	public ProdutoDTO alterar(AlterarProdutoDTO alterarProdutoDTO) {
@@ -48,6 +48,12 @@ public class ProdutoService {
 			return new ProdutoDTO(produto);
 		} else {
 			throw new ProdutoException();
+		}
+	}
+
+	public void deletar(Long id) {
+		if (produtoRepository.existsById(id)) {
+			produtoRepository.deleteById(id);
 		}
 	}
 

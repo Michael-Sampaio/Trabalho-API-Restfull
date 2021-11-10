@@ -1,7 +1,5 @@
 package br.org.serratec.backend.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,24 +20,20 @@ public class PedidoItem {
 	@ManyToOne
 	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
-	
-	
+
 	@Column(name = "quantidade")
 	private Integer qntProduto;
 
 	@Column(name = "preco_venda")
 	private Double vlrUnit;
 
-	
 	public PedidoItem() {
-		// TODO Auto-generated constructor stub
 	}
-	
-		
+
 	public PedidoItem(Long id, Cliente cliente, Pedido pedido, Integer qntProduto, Double vlrUnit, Double vlrTotal,
 			Double vlrAcrescimo, Double vlrDesconto, Double vlrLiquido) {
 		super();
@@ -47,10 +41,8 @@ public class PedidoItem {
 		this.pedido = pedido;
 		this.qntProduto = qntProduto;
 		this.vlrUnit = vlrUnit;
-		
+
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -59,7 +51,6 @@ public class PedidoItem {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public Pedido getPedido() {
 		return pedido;
@@ -85,5 +76,4 @@ public class PedidoItem {
 		this.vlrUnit = vlrUnit;
 	}
 
-	
 }

@@ -60,4 +60,10 @@ public class EnderecoService {
 		return new EnderecoDTO(endereco);
 	}
 
+	public void deletar(Long id) {
+		if (enderecoRepository.existsById(id)) {
+			enderecoRepository.deleteById(id);
+		}
+	}
+
 }

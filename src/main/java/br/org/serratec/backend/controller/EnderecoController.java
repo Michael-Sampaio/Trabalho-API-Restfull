@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,27 +24,33 @@ public class EnderecoController {
 
 	@Autowired
 	EnderecoService enderecoService;
-	
+
 	@GetMapping("{cep}")
 	public ResponseEntity<EnderecoDTO> buscar(@PathVariable String cep) {
 		EnderecoDTO enderecoDTO = enderecoService.buscar(cep);
-		
+
 		if (enderecoDTO == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(enderecoDTO);
 
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<List<EnderecoDTO>> listar() {
 		return ResponseEntity.ok(enderecoService.listar());
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public EnderecoDTO inserir(@RequestBody Endereco endereco) {
 		return enderecoService.inserir(endereco);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+		enderecoService.deletar(id);
+		return ResponseEntity.ok().build();
 	}
 
 }

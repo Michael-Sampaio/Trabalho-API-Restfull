@@ -20,19 +20,25 @@ public class PedidoService {
 		pedido = pedidoRepository.save(pedido);
 		return new PedidoDTO(pedido);
 	}
-	
-	//METODO PARA ALTERAR UM PEDIDO
+
+	// METODO PARA ALTERAR UM PEDIDO
 	public PedidoDTO alterar(AlterarPedidoDTO alterarPedidoDTO) {
-			
-			if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
-	
+
+		if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
+
 			Pedido pedido = new Pedido();
 			pedido.setId(alterarPedidoDTO.getId());
-	
+
 			return new PedidoDTO(pedido);
-			}else {
-				throw new PedidoException();
-			}
+		} else {
+			throw new PedidoException();
 		}
+	}
+
+	public void deletar(Long id) {
+		if (pedidoRepository.existsById(id)) {
+			pedidoRepository.deleteById(id);
+		}
+	}
 
 }
