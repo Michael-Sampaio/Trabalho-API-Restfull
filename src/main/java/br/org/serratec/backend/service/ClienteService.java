@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.dto.InserirClienteDTO;
+import br.org.serratec.backend.exception.ClienteException;
 import br.org.serratec.backend.exception.EmailException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
@@ -21,12 +23,18 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Autowired
-	private EmailException emailException;
-	
-//Metodo para inserir clientes
-	public ClienteDTO inserir(Cliente cliente) {
-		cliente = clienteRepository.save(cliente);
+	public ClienteDTO inserir(InserirClienteDTO cDTO) throws EmailException {
+		
+		if (clienteRepository.findByEmail(cDTO.getEmail()) != null) {
+			throw new EmailException();
+		}
+		
+		Cliente cliente = new Cliente();
+		cliente.setNomeUsuario(cDTO.getNomeUsuario());
+		cliente.setEmail(cDTO.getEmail());
+		
+		cliente.setSenha(bCryptPasswordEncoder.encode(cDTO.getSenha()));
+		clienteRepository.save(cliente);
 		return new ClienteDTO(cliente);
 	}
 	
@@ -43,4 +51,15 @@ public class ClienteService {
 		return clientesDTO;
 	}
 	
+	public ClienteDTO editar(Long id, ClienteDTO clienteDTO) throws ClienteException{
+				
+		Cliente cliente = new Cliente();
+		cliente.setNomeUsuario(clienteDTO.getNomeUsuario());
+		cliente.setEmail(clienteDTO.getEmail());
+		
+		clienteRepository.save(cliente);
+		return new ClienteDTO(cliente);
+
+	}
+	 
 }

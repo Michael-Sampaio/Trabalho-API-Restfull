@@ -3,11 +3,8 @@ package br.org.serratec.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.org.serratec.backend.dto.AlterarPedidoDTO;
 import br.org.serratec.backend.dto.PedidoDTO;
-import br.org.serratec.backend.exception.EmailException;
-import br.org.serratec.backend.exception.PedidoException;
-import br.org.serratec.backend.model.Endereco;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.repository.PedidoRepository;
 
@@ -24,16 +21,14 @@ public class PedidoService {
 	}	
 	
 //Metodo para editar pedido
- public PedidoDTO alterar(AlterarPedidoDTO pedidoAlterarDTO) throws EmailException {
-		
-		if (pedidoRepository.findByEmail(pedidoAlterarDTO.getpedido()) = null) {
-			throw new PedidoException("PEDIDO NÃO EXISTE, ESCOLHA PEDIDO EXISTENTE");
-		}
+
+	public PedidoDTO editar(Long id, PedidoDTO pedidoDTO) throws RecursoBadRequestException {
 
 		Pedido pedido = new Pedido();
-		pedido.setId(pedidoAlterarDTO.getId());
-
+		pedido.setId(pedidoDTO.getId());
+		
+		pedidoRepository.save(pedido);
 		return new PedidoDTO(pedido);
 	}
-	
+	 
 }

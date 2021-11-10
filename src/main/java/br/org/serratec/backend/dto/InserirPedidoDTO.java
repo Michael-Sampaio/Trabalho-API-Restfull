@@ -33,7 +33,7 @@ public class InserirPedidoDTO {
 	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {

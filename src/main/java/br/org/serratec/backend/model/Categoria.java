@@ -38,7 +38,7 @@ public enum Categoria {
 				return categoria;
 			}
 		}
-		throw new EnumValidationException("Categoria Inválida");
+		throw new EnumValidationException();
 	}
 	
 }

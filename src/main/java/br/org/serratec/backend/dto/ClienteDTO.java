@@ -7,38 +7,27 @@ import br.org.serratec.backend.model.Endereco;
 
 public class ClienteDTO {
 	
-	private Long id;
 	private String email;
 	private String nomeUsuario;
 	private String nomeCompleto;
-	private String senha;
 	private String cpf;
 	private String telefone;
 	private LocalDate dataNascimento;
 	private Endereco endereco;
+	
 	public ClienteDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	public ClienteDTO(Cliente cliente) {
 		super();
-		this.id = cliente.getId();
 		this.email = cliente.getEmail();
 		this.nomeUsuario = cliente.getNomeUsuario();
 		this.nomeCompleto = cliente.getNomeCompleto();
-		this.senha = cliente.getSenha();
 		this.cpf = cliente.getCpf();
 		this.telefone = cliente.getTelefone();
 		this.dataNascimento = cliente.getDataNascimento();
 		this.endereco = cliente.getEndereco();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getEmail() {
@@ -63,14 +52,6 @@ public class ClienteDTO {
 
 	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 	public String getCpf() {

@@ -4,7 +4,6 @@ import br.org.serratec.backend.model.Endereco;
 
 public class EnderecoDTO {
 	
-	private Long id;
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -19,7 +18,6 @@ public class EnderecoDTO {
 		
 	public EnderecoDTO(Endereco endereco) {
 		super();
-		this.id = endereco.getId();
 		this.cep = endereco.getCep();
 		this.logradouro = endereco.getRua();
 		this.complemento = endereco.getComplemento();
@@ -27,14 +25,6 @@ public class EnderecoDTO {
 		this.bairro = endereco.getBairro();
 		this.localidade = endereco.getCidade();
 		this.uf = endereco.getEstado();	
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getCep() {
