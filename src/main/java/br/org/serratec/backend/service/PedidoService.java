@@ -24,7 +24,7 @@ public class PedidoService {
 	//METODO PARA ALTERAR UM PEDIDO
 	public PedidoDTO alterar(AlterarPedidoDTO alterarPedidoDTO) {
 			
-			if (pedidoRepository.findByIdPedido(alterarPedidoDTO.getId()) != null) {
+			if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
 	
 			Pedido pedido = new Pedido();
 			pedido.setId(alterarPedidoDTO.getId());

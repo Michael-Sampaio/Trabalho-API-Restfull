@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.org.serratec.backend.model.FotoProduto;
 import br.org.serratec.backend.model.Produto;
 import br.org.serratec.backend.repository.FotoProdutoRepository;
 
+@Service
 public class FotoProdutoService {
 
 	@Autowired
