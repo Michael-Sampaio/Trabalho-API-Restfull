@@ -65,5 +65,5 @@ public class FotoProduto {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-    
+
 }

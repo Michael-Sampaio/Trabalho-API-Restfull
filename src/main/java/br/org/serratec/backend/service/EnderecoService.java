@@ -16,18 +16,19 @@ public class EnderecoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
-//Metodo para buscar endereço por cep
+
+	// Metodo para buscar endereço por cep
 	public EnderecoDTO buscar(String cep) throws HttpClientErrorException {
 		Optional<Endereco> endereco = Optional.ofNullable(enderecoRepository.findByCep(cep));
 		if (endereco.isPresent()) {
 			return new EnderecoDTO(endereco.get());
 		} else {
 			RestTemplate restTemplate = new RestTemplate();
-			
+
 			String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
-			
-			Optional<Endereco> enderecoViaCep = Optional.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
+
+			Optional<Endereco> enderecoViaCep = Optional
+					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
 			if (enderecoViaCep.get().getCep() != null) {
 				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
 				enderecoViaCep.get().setCep(cepSemTraco);
@@ -37,10 +38,11 @@ public class EnderecoService {
 			}
 		}
 	}
-//Metodo para inserir endereço
+
+	// Metodo para inserir endereço
 	public EnderecoDTO inserir(Endereco endereco) {
 		endereco = enderecoRepository.save(endereco);
 		return new EnderecoDTO(endereco);
 	}
-	
+
 }

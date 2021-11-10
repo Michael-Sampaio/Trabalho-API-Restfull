@@ -10,16 +10,15 @@ import br.org.serratec.backend.model.Status;
 
 @Embeddable
 public class InserirPedidoDTO {
-	
+
 	private Long id;
 	private LocalDate dataPedido;
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
 	private Status status;
 	private Cliente cliente;
-	
+
 	public InserirPedidoDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public InserirPedidoDTO(Pedido pedido) {
@@ -33,7 +32,7 @@ public class InserirPedidoDTO {
 	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
@@ -79,5 +78,5 @@ public class InserirPedidoDTO {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
 }

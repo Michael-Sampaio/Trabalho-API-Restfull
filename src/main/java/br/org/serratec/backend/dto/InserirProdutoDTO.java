@@ -2,10 +2,13 @@ package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
 
+import javax.persistence.Embeddable;
+
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
-public class ProdutoDTO {
+@Embeddable
+public class InserirProdutoDTO {
 
 	private Long id;
 	private String nome;
@@ -15,10 +18,11 @@ public class ProdutoDTO {
 	private Double valorUnitario;
 	private Categoria categoria;
 
-	public ProdutoDTO() {
+	public InserirProdutoDTO() {
+		super();
 	}
 
-	public ProdutoDTO(Produto produto) {
+	public InserirProdutoDTO(Produto produto) {
 		super();
 		this.id = produto.getId();
 		this.nome = produto.getNome();
@@ -30,7 +34,7 @@ public class ProdutoDTO {
 	}
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -38,7 +42,7 @@ public class ProdutoDTO {
 	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
@@ -46,7 +50,7 @@ public class ProdutoDTO {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -54,7 +58,7 @@ public class ProdutoDTO {
 	}
 
 	public Integer getQtdEstoque() {
-		return this.qtdEstoque;
+		return qtdEstoque;
 	}
 
 	public void setQtdEstoque(Integer qtdEstoque) {
@@ -62,7 +66,7 @@ public class ProdutoDTO {
 	}
 
 	public LocalDate getDataCadastro() {
-		return this.dataCadastro;
+		return dataCadastro;
 	}
 
 	public void setDataCadastro(LocalDate dataCadastro) {
@@ -70,7 +74,7 @@ public class ProdutoDTO {
 	}
 
 	public Double getValorUnitario() {
-		return this.valorUnitario;
+		return valorUnitario;
 	}
 
 	public void setValorUnitario(Double valorUnitario) {
@@ -78,7 +82,7 @@ public class ProdutoDTO {
 	}
 
 	public Categoria getCategoria() {
-		return this.categoria;
+		return categoria;
 	}
 
 	public void setCategoria(Categoria categoria) {

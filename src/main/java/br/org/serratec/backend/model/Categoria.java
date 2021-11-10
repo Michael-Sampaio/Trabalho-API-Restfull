@@ -12,25 +12,25 @@ public enum Categoria {
 	private Integer id;
 	private String nome;
 	private String descricao;
-	
+
 	private Categoria(Integer id, String nome, String descricao) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-    public Integer getId() {
-        return this.id;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public String getNome() {
-        return this.nome;
-    }
+	public String getNome() {
+		return this.nome;
+	}
 
-    public String getDescricao() {
-        return this.descricao;
-    }
-	
+	public String getDescricao() {
+		return this.descricao;
+	}
+
 	@JsonCreator
 	public static Categoria verifica(Integer valor) throws EnumValidationException {
 		for (Categoria categoria : Categoria.values()) {
@@ -38,7 +38,7 @@ public enum Categoria {
 				return categoria;
 			}
 		}
-		throw new EnumValidationException("Categoria Inválida");
+		throw new EnumValidationException();
 	}
-	
+
 }

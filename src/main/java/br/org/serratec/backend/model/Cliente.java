@@ -12,41 +12,41 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Cliente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
 	private Long id;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "nome_usuario")
 	private String nomeUsuario;
-	
+
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
-		
+
 	@Column
 	private String senha;
-	
+
 	@Column
 	private String cpf;
-	
+
 	@Column
 	private String telefone;
-	
+
 	@Column(name = "data_nasc")
 	private LocalDate dataNascimento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
-	
+
 	public Cliente() {
-		
+
 	}
-	
+
 	public Cliente(Long id, String email, String nomeUsuario, String nomeCompleto, String senha, String cpf,
 			String telefone, LocalDate dataNascimento, Endereco endereco) {
 		super();

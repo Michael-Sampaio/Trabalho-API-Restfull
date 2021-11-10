@@ -2,35 +2,46 @@ package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
 
+import javax.persistence.Embeddable;
+
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Endereco;
 
-public class ClienteDTO {
+@Embeddable
+public class AlterarClienteDTO {
 
+	private Long id;
 	private String email;
 	private String nomeUsuario;
 	private String nomeCompleto;
+	private String senha;
 	private String cpf;
 	private String telefone;
 	private LocalDate dataNascimento;
 	private Endereco endereco;
 
-	public ClienteDTO() {
+	public AlterarClienteDTO() {
+		super();
 	}
 
-	public ClienteDTO(Cliente cliente) {
+	public AlterarClienteDTO(Cliente cliente) {
 		super();
+		this.id = cliente.getId();
 		this.email = cliente.getEmail();
 		this.nomeUsuario = cliente.getNomeUsuario();
 		this.nomeCompleto = cliente.getNomeCompleto();
+		this.senha = cliente.getSenha();
 		this.cpf = cliente.getCpf();
-		this.telefone = cliente.getTelefone();
 		this.dataNascimento = cliente.getDataNascimento();
 		this.endereco = cliente.getEndereco();
 	}
 
+	public Long getId() {
+		return this.id;
+	}
+
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -38,7 +49,7 @@ public class ClienteDTO {
 	}
 
 	public String getNomeUsuario() {
-		return nomeUsuario;
+		return this.nomeUsuario;
 	}
 
 	public void setNomeUsuario(String nomeUsuario) {
@@ -46,15 +57,23 @@ public class ClienteDTO {
 	}
 
 	public String getNomeCompleto() {
-		return nomeCompleto;
+		return this.nomeCompleto;
 	}
 
 	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
 
+	public String getSenha() {
+		return this.senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 
 	public void setCpf(String cpf) {
@@ -62,7 +81,7 @@ public class ClienteDTO {
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return this.telefone;
 	}
 
 	public void setTelefone(String telefone) {
@@ -70,7 +89,7 @@ public class ClienteDTO {
 	}
 
 	public LocalDate getDataNascimento() {
-		return dataNascimento;
+		return this.dataNascimento;
 	}
 
 	public void setDataNascimento(LocalDate dataNascimento) {
@@ -78,7 +97,7 @@ public class ClienteDTO {
 	}
 
 	public Endereco getEndereco() {
-		return endereco;
+		return this.endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
