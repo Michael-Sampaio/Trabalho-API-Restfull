@@ -1,13 +1,18 @@
 package br.org.serratec.backend.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -27,12 +32,18 @@ public class Pedido {
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 
-	@Column
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
+
+	@ManyToMany
+    @JoinTable(name = "item_pedido",
+    joinColumns=@JoinColumn(name = "id_pedido"),
+    inverseJoinColumns=@JoinColumn(name = "id_produto"))
+    private List<Produto> produtos;
 
 	public Long getId() {
 		return this.id;
