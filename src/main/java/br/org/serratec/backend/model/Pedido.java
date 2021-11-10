@@ -3,10 +3,14 @@ package br.org.serratec.backend.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Pedido {
 
 	@Id
@@ -26,7 +30,8 @@ public class Pedido {
 	@Column
 	private Status status;
 
-	@Column
+	@ManyToOne
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
 	public Long getId() {

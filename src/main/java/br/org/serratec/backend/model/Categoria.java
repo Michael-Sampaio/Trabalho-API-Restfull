@@ -1,14 +1,18 @@
 package br.org.serratec.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import br.org.serratec.backend.exception.EnumValidationException;
 
-public enum Categoria {
-
-	VESTUARIO(1, "Vestuário", "roupas em geral"), ELETRODOMESTICO(2, "Eletrodoméstico", "Artigos eletrônicos de casa"),
-	ELETRONICO(3, "Eletrônico", "Artigos eletrônicos"), INFORMÁTICA(4, "Informática", "Artigos de informatica");
-
+@Entity
+public class Categoria {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_categoria")
 	private Integer id;
 	private String nome;
 	private String descricao;
@@ -31,14 +35,5 @@ public enum Categoria {
 		return this.descricao;
 	}
 
-	@JsonCreator
-	public static Categoria verifica(Integer valor) throws EnumValidationException {
-		for (Categoria categoria : Categoria.values()) {
-			if (valor.equals(categoria.getId())) {
-				return categoria;
-			}
-		}
-		throw new EnumValidationException();
-	}
 
 }
