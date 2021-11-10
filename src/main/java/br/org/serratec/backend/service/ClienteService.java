@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
-import br.org.serratec.backend.dto.InserirClienteDTO;
 import br.org.serratec.backend.exception.ClienteException;
-import br.org.serratec.backend.exception.EmailException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
 

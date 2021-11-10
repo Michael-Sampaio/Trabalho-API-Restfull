@@ -32,6 +32,10 @@ public class AlterarProdutoDTO {
         this.categoria = produto.getCategoria();
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     public String getNome() {
         return this.nome;
     }
