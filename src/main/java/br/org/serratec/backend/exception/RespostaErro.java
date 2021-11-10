@@ -5,7 +5,7 @@ public class RespostaErro {
     private Integer status;
     private String classe;
     private String dataHora;
-    
+
     public RespostaErro(String titulo, Integer status, String classe, String dataHora) {
         this.titulo = titulo;
         this.classe = classe;
@@ -45,5 +45,4 @@ public class RespostaErro {
         this.dataHora = dataHora;
     }
 
-    
 }

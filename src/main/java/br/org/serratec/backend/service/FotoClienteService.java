@@ -11,10 +11,10 @@ import br.org.serratec.backend.model.FotoCliente;
 import br.org.serratec.backend.repository.FotoClienteRepository;
 
 public class FotoClienteService {
-	
+
 	@Autowired
 	FotoClienteRepository fotoClienteRepository;
-	
+
 	public FotoCliente inserir(Cliente cliente, MultipartFile file) throws IOException {
 		FotoCliente fotoCliente = new FotoCliente();
 		fotoCliente.setNome(file.getName());
@@ -23,14 +23,14 @@ public class FotoClienteService {
 		fotoCliente.setCliente(cliente);
 		return fotoClienteRepository.save(fotoCliente);
 	}
-	
+
 	public FotoCliente buscar(Long id) {
 		Optional<FotoCliente> fotoCliente = fotoClienteRepository.findById(id);
-		
-		if(fotoCliente.isPresent()) {
+
+		if (fotoCliente.isPresent()) {
 			return fotoCliente.get();
 		}
 		return null;
 	}
-	
+
 }

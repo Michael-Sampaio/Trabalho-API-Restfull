@@ -8,13 +8,13 @@ import br.org.serratec.backend.model.Endereco;
 public class InserirClienteDTO {
 
     private Long id;
-	private String email;
-	private String nomeUsuario;
-	private String nomeCompleto;
-	private String cpf;
-	private String telefone;
-	private LocalDate dataNascimento;
-	private Endereco endereco;
+    private String email;
+    private String nomeUsuario;
+    private String nomeCompleto;
+    private String cpf;
+    private String telefone;
+    private LocalDate dataNascimento;
+    private Endereco endereco;
     private String senha;
 
     public InserirClienteDTO(Cliente cliente) {

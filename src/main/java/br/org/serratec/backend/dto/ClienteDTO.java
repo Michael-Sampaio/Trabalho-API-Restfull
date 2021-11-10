@@ -6,7 +6,7 @@ import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Endereco;
 
 public class ClienteDTO {
-	
+
 	private String email;
 	private String nomeUsuario;
 	private String nomeCompleto;
@@ -14,11 +14,10 @@ public class ClienteDTO {
 	private String telefone;
 	private LocalDate dataNascimento;
 	private Endereco endereco;
-	
+
 	public ClienteDTO() {
-		// TODO Auto-generated constructor stub
 	}
-	
+
 	public ClienteDTO(Cliente cliente) {
 		super();
 		this.email = cliente.getEmail();
@@ -85,5 +84,5 @@ public class ClienteDTO {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
+
 }

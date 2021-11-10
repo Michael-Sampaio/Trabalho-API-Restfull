@@ -9,12 +9,14 @@ import br.org.serratec.backend.model.Endereco;
 
 @Embeddable
 public class AlterarClienteDTO {
-	
+
+	private Long id;
 	private String email;
 	private String nomeUsuario;
 	private String nomeCompleto;
 	private String senha;
 	private String cpf;
+	private String telefone;
 	private LocalDate dataNascimento;
 	private Endereco endereco;
 
@@ -24,6 +26,7 @@ public class AlterarClienteDTO {
 
 	public AlterarClienteDTO(Cliente cliente) {
 		super();
+		this.id = cliente.getId();
 		this.email = cliente.getEmail();
 		this.nomeUsuario = cliente.getNomeUsuario();
 		this.nomeCompleto = cliente.getNomeCompleto();
@@ -31,6 +34,58 @@ public class AlterarClienteDTO {
 		this.cpf = cliente.getCpf();
 		this.dataNascimento = cliente.getDataNascimento();
 		this.endereco = cliente.getEndereco();
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNomeUsuario() {
+		return this.nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getNomeCompleto() {
+		return this.nomeCompleto;
+	}
+
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
+	}
+
+	public String getSenha() {
+		return this.senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getCpf() {
+		return this.cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getTelefone() {
+		return this.telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public LocalDate getDataNascimento() {
@@ -49,44 +104,4 @@ public class AlterarClienteDTO {
 		this.endereco = endereco;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
-
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
-
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	
 }

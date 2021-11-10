@@ -9,7 +9,7 @@ import br.org.serratec.backend.model.Produto;
 
 @Embeddable
 public class InserirProdutoDTO {
-	
+
 	private Long id;
 	private String nome;
 	private String descricao;
@@ -29,7 +29,7 @@ public class InserirProdutoDTO {
 		this.descricao = produto.getDescricao();
 		this.qtdEstoque = produto.getQtdEstoque();
 		this.dataCadastro = produto.getDataCadastro();
-		this.valorUnitario =produto.getValorUnitario();
+		this.valorUnitario = produto.getValorUnitario();
 		this.categoria = produto.getCategoria();
 	}
 
@@ -88,5 +88,5 @@ public class InserirProdutoDTO {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
 }

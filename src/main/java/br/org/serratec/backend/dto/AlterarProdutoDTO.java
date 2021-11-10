@@ -9,27 +9,28 @@ import br.org.serratec.backend.model.Produto;
 
 @Embeddable
 public class AlterarProdutoDTO {
-	
-	private String nome;
-	private String descricao;
-	private Integer qtdEstoque;
-	private LocalDate dataCadastro;
-	private Double valorUnitario;
-	private Categoria categoria;
 
-	public AlterarProdutoDTO() {
-		// TODO Auto-generated constructor stub
-	}
+    private Long id;
+    private String nome;
+    private String descricao;
+    private Integer qtdEstoque;
+    private LocalDate dataCadastro;
+    private Double valorUnitario;
+    private Categoria categoria;
 
-	public AlterarProdutoDTO(Produto produto) {
-		super();
-		this.nome = produto.getNome();
-		this.descricao = produto.getDescricao();
-		this.qtdEstoque = produto.getQtdEstoque();
-		this.dataCadastro = produto.getDataCadastro();
-		this.valorUnitario = produto.getValorUnitario();
-		this.categoria = produto.getCategoria();
-	}
+    public AlterarProdutoDTO() {
+    }
+
+    public AlterarProdutoDTO(Produto produto) {
+        super();
+        this.id = produto.getId();
+        this.nome = produto.getNome();
+        this.descricao = produto.getDescricao();
+        this.qtdEstoque = produto.getQtdEstoque();
+        this.dataCadastro = produto.getDataCadastro();
+        this.valorUnitario = produto.getValorUnitario();
+        this.categoria = produto.getCategoria();
+    }
 
     public String getNome() {
         return this.nome;
@@ -78,5 +79,5 @@ public class AlterarProdutoDTO {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-	
+
 }

@@ -6,7 +6,7 @@ import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
 public class ProdutoDTO {
-	
+
 	private Long id;
 	private String nome;
 	private String descricao;
@@ -14,9 +14,8 @@ public class ProdutoDTO {
 	private LocalDate dataCadastro;
 	private Double valorUnitario;
 	private Categoria categoria;
-	
+
 	public ProdutoDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public ProdutoDTO(Produto produto) {

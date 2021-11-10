@@ -3,7 +3,7 @@ package br.org.serratec.backend.dto;
 import br.org.serratec.backend.model.Endereco;
 
 public class EnderecoDTO {
-	
+
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -11,11 +11,10 @@ public class EnderecoDTO {
 	private String bairro;
 	private String localidade;
 	private String uf;
-	
+
 	public EnderecoDTO() {
-		// TODO Auto-generated constructor stub
 	}
-		
+
 	public EnderecoDTO(Endereco endereco) {
 		super();
 		this.cep = endereco.getCep();
@@ -24,7 +23,7 @@ public class EnderecoDTO {
 		this.numero = endereco.getNumero();
 		this.bairro = endereco.getBairro();
 		this.localidade = endereco.getCidade();
-		this.uf = endereco.getEstado();	
+		this.uf = endereco.getEstado();
 	}
 
 	public String getCep() {

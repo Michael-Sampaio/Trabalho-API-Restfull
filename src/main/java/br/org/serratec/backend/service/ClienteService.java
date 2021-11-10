@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
 import br.org.serratec.backend.dto.InserirClienteDTO;
 import br.org.serratec.backend.exception.ClienteException;
@@ -16,29 +17,22 @@ import br.org.serratec.backend.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
-	
+
 	@Autowired
 	ClienteRepository clienteRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	public ClienteDTO inserir(InserirClienteDTO cDTO) throws EmailException {
-		
-		if (clienteRepository.findByEmail(cDTO.getEmail()) != null) {
-			throw new EmailException();
-		}
-		
-		Cliente cliente = new Cliente();
-		cliente.setNomeUsuario(cDTO.getNomeUsuario());
-		cliente.setEmail(cDTO.getEmail());
-		
-		cliente.setSenha(bCryptPasswordEncoder.encode(cDTO.getSenha()));
+
+	//METODO PARA INSERIR UM CLIENTE
+	public ClienteDTO inserir(Cliente cliente) {
+		cliente = clienteRepository.save(cliente);
+		cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
 		clienteRepository.save(cliente);
 		return new ClienteDTO(cliente);
 	}
-	
-//Metodo para listar os clientes
+
+	// Metodo para listar os clientes
 	public List<ClienteDTO> listar() {
 		List<Cliente> clientes = clienteRepository.findAll();
 		List<ClienteDTO> clientesDTO = new ArrayList<ClienteDTO>();
@@ -50,16 +44,18 @@ public class ClienteService {
 
 		return clientesDTO;
 	}
-	
-	public ClienteDTO editar(Long id, ClienteDTO clienteDTO) throws ClienteException{
-				
-		Cliente cliente = new Cliente();
-		cliente.setNomeUsuario(clienteDTO.getNomeUsuario());
-		cliente.setEmail(clienteDTO.getEmail());
-		
-		clienteRepository.save(cliente);
-		return new ClienteDTO(cliente);
 
+	//METODO PARA EDITAR UM REGISTRO DE CLIENTE
+	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) {
+			
+		if (clienteRepository.findById(alterarClienteDTO.getId()) != null) {
+		Cliente cliente = new Cliente();
+		cliente.setId(alterarClienteDTO.getId());
+
+		return new ClienteDTO(cliente);
+		}else {
+			throw new ClienteException();
+		}
 	}
-	 
+
 }
