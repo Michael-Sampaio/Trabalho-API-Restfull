@@ -17,7 +17,7 @@ public class EnderecoController {
 	@Autowired
 	EnderecoService enderecoService;
 	
-	@GetMapping
+	@GetMapping("/{cep}")
 	public ResponseEntity<EnderecoDTO> buscar(@PathVariable String cep) {
 		EnderecoDTO enderecoDTO = enderecoService.buscar(cep);
 		
