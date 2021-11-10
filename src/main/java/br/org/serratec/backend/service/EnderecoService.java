@@ -1,5 +1,7 @@
 package br.org.serratec.backend.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,19 @@ public class EnderecoService {
 				return null;
 			}
 		}
+	}
+
+	// Metodo para listar os clientes
+	public List<EnderecoDTO> listar() {
+		List<Endereco> enderecos = enderecoRepository.findAll();
+		List<EnderecoDTO> enderecosDTO = new ArrayList<EnderecoDTO>();
+
+		for (Endereco endereco : enderecos) {
+			EnderecoDTO enderecoDTO = new EnderecoDTO(endereco);
+			enderecosDTO.add(enderecoDTO);
+		}
+
+		return enderecosDTO;
 	}
 
 	// Metodo para inserir endereço
