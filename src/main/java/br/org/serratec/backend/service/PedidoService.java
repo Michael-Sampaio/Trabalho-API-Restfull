@@ -18,11 +18,6 @@ public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepository;
-	
-	//METODO PARA INSERIR UM PEDIDO
-	public PedidoDTO inserir(Pedido pedido) {
-		pedido = pedidoRepository.save(pedido);
-		return new PedidoDTO();
 
 	// Metodo para inserir pedido
 	public PedidoDTO inserir(Pedido pedido) {
@@ -37,8 +32,6 @@ public class PedidoService {
 
 			Pedido pedido = new Pedido();
 			pedido.setId(alterarPedidoDTO.getId());
-
-			return new PedidoDTO();
 
 			return new PedidoDTO(pedido);
 
