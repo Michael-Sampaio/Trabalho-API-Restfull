@@ -1,5 +1,9 @@
 package br.org.serratec.backend.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,24 +19,68 @@ public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoRepository;
 
-	// Metodo para inserir pedido
+	/**
+	 * METODO PARA INSERIR UM PEDIDO
+	 * 
+	 * @param pedido
+	 * @return UM NOVO PEDIDO
+	 */
 	public PedidoDTO inserir(Pedido pedido) {
 		pedido = pedidoRepository.save(pedido);
-		return new PedidoDTO(pedido);
+		return new PedidoDTO();
 	}
-	
-	//METODO PARA ALTERAR UM PEDIDO
+
+	/**
+	 * METODO PARA ALTERAR UM PEDIDO
+	 * 
+	 * @param alterarPedidoDTO
+	 * @return UM NOVO REGISTRO DE PEDIDO
+	 */
 	public PedidoDTO alterar(AlterarPedidoDTO alterarPedidoDTO) {
-			
-			if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
-	
+
+		if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
+
 			Pedido pedido = new Pedido();
 			pedido.setId(alterarPedidoDTO.getId());
-	
+
 			return new PedidoDTO(pedido);
-			}else {
-				throw new PedidoException();
-			}
+
+		} else {
+			throw new PedidoException();
 		}
+	}
+
+	/**
+	 * METODO PARA LISTAR PEDIDO POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM PEDIDO COM O TOTAL GERAL
+	 */
+	public PedidoDTO buscar(Long id) {
+		Optional<Pedido> pedido = pedidoRepository.findById(id);
+		// return pedidoRepository.findBytotalGeral(totalGeral);
+		return new PedidoDTO(pedido.get());
+	}
+
+	/**
+	 * METODO PARA LISTAR PEDIDOS
+	 * 
+	 * @return LISTA DE PEDIDOS
+	 */
+	public List<PedidoDTO> listar() {
+		List<Pedido> pedidos = pedidoRepository.findAll();
+		return pedidos.stream().map(pedidoItem -> new PedidoDTO(pedidoItem)).collect(Collectors.toList());
+	}
+
+	/**
+	 * METODO PARA DELETAR PEDIDO
+	 * 
+	 * @param id
+	 */
+	public void deletar(Long id) {
+		if (pedidoRepository.existsById(id)) {
+			pedidoRepository.deleteById(id);
+		}
+	}
 
 }

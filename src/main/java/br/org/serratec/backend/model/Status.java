@@ -1,7 +1,7 @@
 package br.org.serratec.backend.model;
 
 public enum Status {
-	
+
 	FINALIZADO("Finalizado"), NAO_FINALIZADO("Nao finalizado");
 
 	private String nome;
@@ -10,8 +10,8 @@ public enum Status {
 		this.nome = nome;
 	}
 
-    public String getNome() {
-        return this.nome;
-    }
-	
+	public String getNome() {
+		return this.nome;
+	}
+
 }

@@ -14,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido {
@@ -34,16 +38,21 @@ public class Pedido {
 
 	@Enumerated(EnumType.STRING)
 	private Status status;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
 	@ManyToMany
-    @JoinTable(name = "item_pedido",
-    joinColumns=@JoinColumn(name = "id_pedido"),
-    inverseJoinColumns=@JoinColumn(name = "id_produto"))
-    private List<Produto> produtos;
+	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "id_pedido"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+	private List<Produto> produtos;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "pedido")
+	private List<PedidoItem> pedidosItem;
+	
+	@Transient
+	private Double totalGeral;
 
 	public Long getId() {
 		return this.id;
@@ -93,4 +102,53 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public List<PedidoItem> getPedidosItem() {
+		return pedidosItem;
+	}
+
+	public void setPedidosItem(List<PedidoItem> pedidosItem) {
+		this.pedidosItem = pedidosItem;
+	}
+
+	public Double getTotalGeral() {
+        totalGeral = 0.0;
+        for (PedidoItem pedidoItem : pedidosItem) {
+            totalGeral = pedidoItem.getSubTotal();
+        } 
+        return totalGeral;
+    }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }
