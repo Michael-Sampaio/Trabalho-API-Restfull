@@ -19,7 +19,13 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-	// Metodo para buscar endereço por cep
+	/**
+	 * METODO PARA BUSCAR ENDEREÇO POR CEP
+	 * 
+	 * @param cep
+	 * @return O CEP DO CLIENTE
+	 * @throws HttpClientErrorException
+	 */
 	public EnderecoDTO buscar(String cep) throws HttpClientErrorException {
 		Optional<Endereco> endereco = Optional.ofNullable(enderecoRepository.findByCep(cep));
 		if (endereco.isPresent()) {
@@ -41,7 +47,11 @@ public class EnderecoService {
 		}
 	}
 
-	// Metodo para listar os clientes
+	/**
+	 * METODO PARA LISTAR OS ENDEREÇOS
+	 * 
+	 * @return UMA LISTA DE ENDEREÇOS REFERENTE AOS CLIENTES
+	 */
 	public List<EnderecoDTO> listar() {
 		List<Endereco> enderecos = enderecoRepository.findAll();
 		List<EnderecoDTO> enderecosDTO = new ArrayList<EnderecoDTO>();
@@ -54,12 +64,22 @@ public class EnderecoService {
 		return enderecosDTO;
 	}
 
-	// Metodo para inserir endereço
+	/**
+	 * METODO PARA INSERIR UM NOVO ENDEREÇO
+	 * 
+	 * @param endereco
+	 * @return UM NOVO ENDEREÇO
+	 */
 	public EnderecoDTO inserir(Endereco endereco) {
 		endereco = enderecoRepository.save(endereco);
 		return new EnderecoDTO(endereco);
 	}
 
+	/**
+	 * METODO PARA DELETAR UM ENDEÇO
+	 * 
+	 * @param id
+	 */
 	public void deletar(Long id) {
 		if (enderecoRepository.existsById(id)) {
 			enderecoRepository.deleteById(id);

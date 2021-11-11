@@ -134,6 +134,11 @@ public class Cliente {
 	}
 
 	@Override
+	public String toString() {
+		return "Cliente id:" + id + ", email:" + email + ", nomeUsuario:" + nomeUsuario + ", senha:" + senha + "";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

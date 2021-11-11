@@ -2,6 +2,8 @@ package br.org.serratec.backend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.exception.EmailException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.service.ClienteService;
 
@@ -32,7 +35,7 @@ public class ClienteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteDTO inserir(@RequestBody Cliente cliente) {
+	public ClienteDTO inserir(@Valid @RequestBody Cliente cliente) throws EmailException {
 		return clienteService.inserir(cliente);
 	}
 

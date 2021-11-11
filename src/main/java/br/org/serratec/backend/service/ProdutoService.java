@@ -18,14 +18,22 @@ public class ProdutoService {
 	@Autowired
 	ProdutoRepository produtoRepository;
 
-	// Metodo para inserir um produto
-
+	/**
+	 * METODO PARA INSERIR UM PRODUTO
+	 * 
+	 * @param produto
+	 * @return UM NOVO PRODUTO
+	 */
 	public ProdutoDTO inserir(Produto produto) {
 		produto = produtoRepository.save(produto);
 		return new ProdutoDTO(produto);
 	}
 
-	// METODO PARA LISTAR OS PRODUTOS
+	/**
+	 * METODO PARA LISTAR OS PRODUTOS
+	 * 
+	 * @return UMA LISTA DE PRODUTOS
+	 */
 	public List<ProdutoDTO> listar() {
 		List<Produto> produtos = produtoRepository.findAll();
 		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
@@ -36,8 +44,13 @@ public class ProdutoService {
 		}
 		return produtosDTO;
 	}
-	// Metodo para editar um produto
 
+	/**
+	 * METODO PARA ALTERAR UM PRODUTO
+	 * 
+	 * @param alterarProdutoDTO
+	 * @return UM NOVO PRODUTO ALTERADO
+	 */
 	public ProdutoDTO alterar(AlterarProdutoDTO alterarProdutoDTO) {
 
 		if (produtoRepository.findBynome(alterarProdutoDTO.getNome()) != null) {
@@ -51,6 +64,11 @@ public class ProdutoService {
 		}
 	}
 
+	/**
+	 * METODO PARA DELETAR UM PRODUTO
+	 * 
+	 * @param id
+	 */
 	public void deletar(Long id) {
 		if (produtoRepository.existsById(id)) {
 			produtoRepository.deleteById(id);

@@ -22,7 +22,6 @@ public class PedidoItemDTO {
 	
 
 	public PedidoItemDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 
