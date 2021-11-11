@@ -17,45 +17,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.backend.dto.PedidoDTO;
-import br.org.serratec.backend.model.Pedido;
-import br.org.serratec.backend.repository.PedidoRepository;
-import br.org.serratec.backend.service.PedidoService;
+import br.org.serratec.backend.dto.PedidoItemDTO;
+import br.org.serratec.backend.model.PedidoItem;
+import br.org.serratec.backend.repository.PedidoItemRepository;
+import br.org.serratec.backend.service.PedidoItemService;
 
 @RestController
-@RequestMapping("/pedidos")
-public class PedidoController {
+@RequestMapping("/pedidositem")
+public class PedidoItemController {
+	
+	@Autowired
+    PedidoItemRepository pedidoItemRepository;
 
     @Autowired
-    PedidoRepository pedidoRepository;
-
-    @Autowired
-    PedidoService pedidoService;
+    PedidoItemService pedidoItemService;
 
     @GetMapping
-    public ResponseEntity <List<PedidoDTO>> listar() {
-        return ResponseEntity.ok(pedidoService.listar());
+    public ResponseEntity <List<PedidoItemDTO>> listar() {
+        return ResponseEntity.ok(pedidoItemService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PedidoDTO> buscar(@PathVariable Long id) {
-        Optional<Pedido> PedidoDTO = pedidoRepository.findById(id);
-        if (!PedidoDTO.isPresent()) {
+    public ResponseEntity<PedidoItemDTO> buscar(@PathVariable Long id) {
+        Optional<PedidoItem> PedidoItemDTO = pedidoItemRepository.findById(id);
+        if (!PedidoItemDTO.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(pedidoService.buscar(id));
+        return ResponseEntity.ok(pedidoItemService.buscar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Pedido inserir(@Valid @RequestBody Pedido Pedido) {
-        return pedidoRepository.save(Pedido);
+    public PedidoItem inserir(@Valid @RequestBody PedidoItem PedidoItem) {
+        return pedidoItemRepository.save(PedidoItem);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        pedidoService.deletar(id);
+        pedidoItemService.deletar(id);
         return ResponseEntity.ok().build();
     }
-
 }

@@ -14,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido {
@@ -34,7 +38,7 @@ public class Pedido {
 
 	@Enumerated(EnumType.STRING)
 	private Status status;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
@@ -42,6 +46,13 @@ public class Pedido {
 	@ManyToMany
 	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "id_pedido"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
 	private List<Produto> produtos;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "pedido")
+	private List<PedidoItem> pedidosItem;
+	
+	@Transient
+	private Double totalGeral;
 
 	public Long getId() {
 		return this.id;
@@ -91,4 +102,64 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
+	public void setDataPedido(LocalDate dataPedido) {
+		this.dataPedido = dataPedido;
+	}
+
+	public LocalDate getDataEntrega() {
+		return this.dataEntrega;
+	}
+
+	public void setDataEntrega(LocalDate dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
+	public LocalDate getDataEnvio() {
+		return this.dataEnvio;
+	}
+
+	public void setDataEnvio(LocalDate dataEnvio) {
+		this.dataEnvio = dataEnvio;
+	}
+
+	public Status getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public List<PedidoItem> getPedidosItem() {
+		return pedidosItem;
+	}
+
+	public void setPedidosItem(List<PedidoItem> pedidosItem) {
+		this.pedidosItem = pedidosItem;
+	}
+
+	public Double getTotalGeral() {
+        totalGeral = 0.0;
+        for (PedidoItem pedidoItem : pedidosItem) {
+            totalGeral = pedidoItem.getSubTotal();
+        } 
+        return totalGeral;
+    }
+	
 }

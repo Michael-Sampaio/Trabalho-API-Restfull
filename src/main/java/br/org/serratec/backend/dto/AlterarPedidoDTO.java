@@ -2,13 +2,13 @@ package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
 
-import javax.persistence.Embeddable;
+
 
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.Status;
 
-@Embeddable
+
 public class AlterarPedidoDTO {
 
 	private Long id;
