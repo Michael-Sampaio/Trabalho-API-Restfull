@@ -43,7 +43,8 @@ public class PedidoService {
 			Pedido pedido = new Pedido();
 			pedido.setId(alterarPedidoDTO.getId());
 
-			return new PedidoDTO();
+			return new PedidoDTO(pedido);
+
 		} else {
 			throw new PedidoException();
 		}
