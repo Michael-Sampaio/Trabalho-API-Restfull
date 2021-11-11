@@ -13,7 +13,11 @@ public class Categoria {
 	private String nome;
 	private String descricao;
 
-	private Categoria(Integer id, String nome, String descricao) {
+	public Categoria() {
+	}
+
+	public Categoria(Integer id, String nome, String descricao) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;

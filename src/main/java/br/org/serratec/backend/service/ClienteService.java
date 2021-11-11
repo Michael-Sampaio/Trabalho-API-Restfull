@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.config.MailConfig;
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.dto.InserirClienteDTO;
 import br.org.serratec.backend.exception.EmailException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
@@ -39,29 +40,6 @@ public class ClienteService {
 //		clienteRepository.save(cliente);
 //		return new ClienteDTO(cliente);
 //	}
-	/**
-	 * METODO PARA INSERIR UM CLIENTE
-	 * 
-	 * @param cliente
-	 * @return UM NOVO CLIENTE
-	 * @throws EmailException
-	 */
-	public ClienteDTO inserir(Cliente c) throws EmailException {
-
-		if (clienteRepository.findByEmail(c.getEmail()) != null) {
-			throw new EmailException("Email já existe ! Insira outro");
-		}
-
-		Cliente cliente = new Cliente();
-		cliente.setNomeUsuario(cliente.getNomeUsuario());
-		cliente.setEmail(cliente.getEmail());
-
-		cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
-		clienteRepository.save(cliente);
-		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro De Usuário Confirmado", cliente.toString());
-		return new ClienteDTO(cliente);
-
-	}
 
 	/**
 	 * METODO PARA LISTAR OS CLIENTES
@@ -81,6 +59,29 @@ public class ClienteService {
 	}
 
 	/**
+	 * METODO PARA INSERIR UM CLIENTE
+	 * 
+	 * @param cliente
+	 * @return UM NOVO CLIENTE
+	 * @throws EmailException
+	 */
+	public ClienteDTO inserir(InserirClienteDTO inserirCDTO) throws EmailException {
+		
+		if (clienteRepository.findByEmail(inserirCDTO.getEmail()) != null) {
+			throw new EmailException("Email já existente! Escolha outro");
+		}
+		
+		Cliente cliente = new Cliente();
+		cliente.setNomeUsuario(inserirCDTO.getNomeUsuario());
+		cliente.setEmail(inserirCDTO.getEmail());
+		
+		cliente.setSenha(bCryptPasswordEncoder.encode(inserirCDTO.getSenha()));
+		clienteRepository.save(cliente);
+		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro De Usuário Confirmado", cliente.toString());
+		return new ClienteDTO(cliente);
+	}
+
+	/**
 	 * METODO PARA EDITAR UM REGISTRO DE CLIENTE
 	 * 
 	 * @param alterarClienteDTO
@@ -89,8 +90,8 @@ public class ClienteService {
 	 */
 	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) throws EmailException {
 
-		if (clienteRepository.findById(alterarClienteDTO.getId()) != null) {
-			throw new EmailException("Email já existe ! Insira outro");
+		if (clienteRepository.findByEmail(alterarClienteDTO.getEmail()) != null) {
+			throw new EmailException("Email já existe! Insira outro");
 		}
 		Cliente cliente = new Cliente();
 		cliente.setId(alterarClienteDTO.getId());

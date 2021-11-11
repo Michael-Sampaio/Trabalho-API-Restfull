@@ -7,6 +7,7 @@ import br.org.serratec.backend.model.Endereco;
 
 public class ClienteDTO {
 
+	private Long id;
 	private String email;
 	private String nomeUsuario;
 	private String nomeCompleto;
@@ -20,6 +21,7 @@ public class ClienteDTO {
 
 	public ClienteDTO(Cliente cliente) {
 		super();
+		this.id = cliente.getId();
 		this.email = cliente.getEmail();
 		this.nomeUsuario = cliente.getNomeUsuario();
 		this.nomeCompleto = cliente.getNomeCompleto();
@@ -27,6 +29,14 @@ public class ClienteDTO {
 		this.telefone = cliente.getTelefone();
 		this.dataNascimento = cliente.getDataNascimento();
 		this.endereco = cliente.getEndereco();
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {

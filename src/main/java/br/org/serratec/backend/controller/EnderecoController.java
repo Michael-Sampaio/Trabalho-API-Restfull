@@ -41,6 +41,21 @@ public class EnderecoController {
 		return ResponseEntity.ok(enderecoService.listar());
 	}
 
+/*	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Object> inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO) {
+		try {
+			 EnderecoDTO enderecoDTO = enderecoService.inserirViaCep(inserirEnderecoDTO);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+					.path("/{id}")
+					.buildAndExpand(enderecoDTO.getCep())
+					.toUri();
+			return ResponseEntity.created(uri).body(enderecoDTO);
+		} catch (EnderecoException enderecoEx) {
+			return ResponseEntity.unprocessableEntity().body(enderecoEx.getMessage());
+		}
+	}
+*/
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public EnderecoDTO inserir(@RequestBody Endereco endereco) {

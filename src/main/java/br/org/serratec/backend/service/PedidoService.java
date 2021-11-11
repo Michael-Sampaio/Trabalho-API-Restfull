@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarPedidoDTO;
+import br.org.serratec.backend.dto.InserirPedidoDTO;
 import br.org.serratec.backend.dto.PedidoDTO;
 import br.org.serratec.backend.exception.PedidoException;
 import br.org.serratec.backend.model.Pedido;
@@ -20,14 +21,40 @@ public class PedidoService {
 	PedidoRepository pedidoRepository;
 
 	/**
+	 * METODO PARA LISTAR PEDIDOS
+	 * 
+	 * @return LISTA DE PEDIDOS
+	 */
+	public List<PedidoDTO> listar() {
+		List<Pedido> pedidos = pedidoRepository.findAll();
+		return pedidos.stream().map(pedidoItem -> new PedidoDTO(pedidoItem)).collect(Collectors.toList());
+	}
+
+	/**
+	 * METODO PARA LISTAR PEDIDO POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM PEDIDO COM O TOTAL GERAL
+	 */
+	public PedidoDTO buscar(Long id) {
+		Optional<Pedido> pedido = pedidoRepository.findById(id);
+		// return pedidoRepository.findBytotalGeral(totalGeral);
+		return new PedidoDTO(pedido.get());
+	}
+
+	/**
 	 * METODO PARA INSERIR UM PEDIDO
 	 * 
 	 * @param pedido
 	 * @return UM NOVO PEDIDO
+	 * @throws PedidoExceptiom
 	 */
-	public PedidoDTO inserir(Pedido pedido) {
-		pedido = pedidoRepository.save(pedido);
-		return new PedidoDTO();
+	public PedidoDTO inserir(InserirPedidoDTO inserirPDTO) throws PedidoException {
+
+		Pedido pedido = new Pedido();
+		pedido.setId(inserirPDTO.getId());
+		pedidoRepository.save(pedido);
+		return new PedidoDTO(pedido);
 	}
 
 	/**
@@ -48,28 +75,6 @@ public class PedidoService {
 		} else {
 			throw new PedidoException();
 		}
-	}
-
-	/**
-	 * METODO PARA LISTAR PEDIDO POR NUMERO COM TOTAL GERAL
-	 * 
-	 * @param id
-	 * @return UM PEDIDO COM O TOTAL GERAL
-	 */
-	public PedidoDTO buscar(Long id) {
-		Optional<Pedido> pedido = pedidoRepository.findById(id);
-		// return pedidoRepository.findBytotalGeral(totalGeral);
-		return new PedidoDTO(pedido.get());
-	}
-
-	/**
-	 * METODO PARA LISTAR PEDIDOS
-	 * 
-	 * @return LISTA DE PEDIDOS
-	 */
-	public List<PedidoDTO> listar() {
-		List<Pedido> pedidos = pedidoRepository.findAll();
-		return pedidos.stream().map(pedidoItem -> new PedidoDTO(pedidoItem)).collect(Collectors.toList());
 	}
 
 	/**

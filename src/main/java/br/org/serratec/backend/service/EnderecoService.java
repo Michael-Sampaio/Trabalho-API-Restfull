@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
+import br.org.serratec.backend.dto.InserirEnderecoDTO;
+import br.org.serratec.backend.exception.EnderecoException;
 import br.org.serratec.backend.model.Endereco;
 import br.org.serratec.backend.repository.EnderecoRepository;
 
@@ -72,6 +74,24 @@ public class EnderecoService {
 	 */
 	public EnderecoDTO inserir(Endereco endereco) {
 		endereco = enderecoRepository.save(endereco);
+		return new EnderecoDTO(endereco);
+	}
+
+	/**
+	 * METODO PARA INSERIR UM NOVO ENDEREÇO
+	 * 
+	 * @param endereco
+	 * @return UM NOVO ENDEREÇO
+	 */
+	public EnderecoDTO inserirViaCep(InserirEnderecoDTO inserirEnderecoDTO) throws EnderecoException {
+		
+		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
+			throw new EnderecoException();
+		}
+		
+		Endereco endereco = new Endereco();
+		endereco.setCep(inserirEnderecoDTO.getCep());
+		enderecoRepository.save(endereco);
 		return new EnderecoDTO(endereco);
 	}
 
