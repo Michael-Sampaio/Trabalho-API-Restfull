@@ -40,7 +40,7 @@ public class PedidoDTO {
 	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
@@ -87,7 +87,6 @@ public class PedidoDTO {
 		this.cliente = cliente;
 	}
 
-
 	public List<PedidoItemDTO> getPedidosItemDTO() {
 		return pedidosItemDTO;
 	}
@@ -103,5 +102,5 @@ public class PedidoDTO {
 	public void setTotalGeral(Double totalGeral) {
 		this.totalGeral = totalGeral;
 	}
-
+  
 }
