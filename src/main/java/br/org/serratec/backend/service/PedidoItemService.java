@@ -15,17 +15,24 @@ import br.org.serratec.backend.repository.PedidoItemRepository;
 
 @Service
 public class PedidoItemService {
-	
+
 	@Autowired
 	PedidoItemRepository pedidoItemRepository;
-	
-	//METODO PARA INSERIR UM PEDIDO
+
+	/*
+	 * METODO PARA INSERIR UM PEDIDO
+	 */
 	public PedidoItemDTO inserir(PedidoItem pedidoItem) {
 		pedidoItem = pedidoItemRepository.save(pedidoItem);
 		return new PedidoItemDTO();
 	}
 
-	// METODO PARA ALTERAR UM PEDIDO
+	/**
+	 * METODO PARA ALTERAR UM PEDIDO
+	 * 
+	 * @param alterarPedidoItemDTO
+	 * @return UM PEDIDO COM REGISTRO ALTERADO
+	 */
 	public PedidoItemDTO alterar(AlterarPedidoItemDTO alterarPedidoItemDTO) {
 
 		if (pedidoItemRepository.findById(alterarPedidoItemDTO.getId()) != null) {
@@ -38,19 +45,33 @@ public class PedidoItemService {
 			throw new PedidoItemException();
 		}
 	}
-	//METODO PARA LISTAR PEDIDO POR NUMERO
+
+	/**
+	 * METODO PARA BUSCAR PEDIDO ITEM POR ID
+	 * 
+	 * @param id
+	 * @return UM PEDIDO ITEM POR ID
+	 */
 	public PedidoItemDTO buscar(Long id) {
 		Optional<PedidoItem> pedidoItem = pedidoItemRepository.findById(id);
-		//return pedidoItemRepository.findBytotalGeral(totalGeral);
 		return new PedidoItemDTO(pedidoItem.get());
 	}
-	
-	public List<PedidoItemDTO> listar(){
+
+	/**
+	 * METODO PARA LISTAR PEDIDO ITEM
+	 * 
+	 * @return UMA LISTA DE PEDIDO ITEM
+	 */
+	public List<PedidoItemDTO> listar() {
 		List<PedidoItem> pedidoItems = pedidoItemRepository.findAll();
 		return pedidoItems.stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
 	}
-	
-	//METODO PARA DELETAR PEDIDO
+
+	/**
+	 * METODO PARA DELETAR PEDIDO ITEM
+	 * 
+	 * @param id
+	 */
 	public void deletar(Long id) {
 		if (pedidoItemRepository.existsById(id)) {
 			pedidoItemRepository.deleteById(id);

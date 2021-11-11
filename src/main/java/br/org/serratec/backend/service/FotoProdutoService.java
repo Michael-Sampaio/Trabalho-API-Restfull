@@ -17,6 +17,14 @@ public class FotoProdutoService {
 	@Autowired
 	FotoProdutoRepository fotoProdutoRepository;
 
+	/**
+	 * METODO PARA INSERIR UMA FOTO REFERENTE A UM PRODUTO
+	 * 
+	 * @param produto
+	 * @param file
+	 * @return UMA FOTO DO PRODUTO
+	 * @throws IOException
+	 */
 	public FotoProduto inserir(Produto produto, MultipartFile file) throws IOException {
 		FotoProduto fotoProduto = new FotoProduto();
 		fotoProduto.setNome(file.getName());
@@ -26,6 +34,9 @@ public class FotoProdutoService {
 		return fotoProdutoRepository.save(fotoProduto);
 	}
 
+	/*
+	 * METODO PARA BUSCAR FOTO DO PRODUTO POR ID DO PRODUTO
+	 */
 	public FotoProduto buscar(Long id) {
 		Optional<FotoProduto> fotoProduto = fotoProdutoRepository.findById(id);
 

@@ -18,19 +18,24 @@ public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepository;
-	
-	//METODO PARA INSERIR UM PEDIDO
+
+	/**
+	 * METODO PARA INSERIR UM PEDIDO
+	 * 
+	 * @param pedido
+	 * @return UM NOVO PEDIDO
+	 */
 	public PedidoDTO inserir(Pedido pedido) {
 		pedido = pedidoRepository.save(pedido);
 		return new PedidoDTO();
-
-	// Metodo para inserir pedido
-	public PedidoDTO inserir(Pedido pedido) {
-		pedido = pedidoRepository.save(pedido);
-		return new PedidoDTO(pedido);
 	}
 
-	// METODO PARA ALTERAR UM PEDIDO
+	/**
+	 * METODO PARA ALTERAR UM PEDIDO
+	 * 
+	 * @param alterarPedidoDTO
+	 * @return UM NOVO REGISTRO DE PEDIDO
+	 */
 	public PedidoDTO alterar(AlterarPedidoDTO alterarPedidoDTO) {
 
 		if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
@@ -39,27 +44,38 @@ public class PedidoService {
 			pedido.setId(alterarPedidoDTO.getId());
 
 			return new PedidoDTO();
-
-			return new PedidoDTO(pedido);
-
 		} else {
 			throw new PedidoException();
 		}
 	}
 
-	//METODO PARA LISTAR PEDIDO POR NUMERO
+	/**
+	 * METODO PARA LISTAR PEDIDO POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM PEDIDO COM O TOTAL GERAL
+	 */
 	public PedidoDTO buscar(Long id) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
-		//return pedidoRepository.findBytotalGeral(totalGeral);
+		// return pedidoRepository.findBytotalGeral(totalGeral);
 		return new PedidoDTO(pedido.get());
 	}
-	
-	public List<PedidoDTO> listar(){
+
+	/**
+	 * METODO PARA LISTAR PEDIDOS
+	 * 
+	 * @return LISTA DE PEDIDOS
+	 */
+	public List<PedidoDTO> listar() {
 		List<Pedido> pedidos = pedidoRepository.findAll();
 		return pedidos.stream().map(pedidoItem -> new PedidoDTO(pedidoItem)).collect(Collectors.toList());
 	}
-	
-	//METODO PARA DELETAR PEDIDO
+
+	/**
+	 * METODO PARA DELETAR PEDIDO
+	 * 
+	 * @param id
+	 */
 	public void deletar(Long id) {
 		if (pedidoRepository.existsById(id)) {
 			pedidoRepository.deleteById(id);

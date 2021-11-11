@@ -17,6 +17,14 @@ public class FotoClienteService {
 	@Autowired
 	FotoClienteRepository fotoClienteRepository;
 
+	/**
+	 * METODO PARA INSERIR UMA FOTO A UM CLIENTE
+	 * 
+	 * @param cliente
+	 * @param file
+	 * @return UMA FOTO REFERENTE A UM CLIENTE
+	 * @throws IOException
+	 */
 	public FotoCliente inserir(Cliente cliente, MultipartFile file) throws IOException {
 		FotoCliente fotoCliente = new FotoCliente();
 		fotoCliente.setNome(file.getName());
@@ -26,6 +34,12 @@ public class FotoClienteService {
 		return fotoClienteRepository.save(fotoCliente);
 	}
 
+	/**
+	 * METODO PARA BUSCAR FOTO DO CLIENTE POR ID DO CLIENTE
+	 * 
+	 * @param id
+	 * @return FOTO DO CLIENTE POR ID DO CLIENTE
+	 */
 	public FotoCliente buscar(Long id) {
 		Optional<FotoCliente> fotoCliente = fotoClienteRepository.findById(id);
 

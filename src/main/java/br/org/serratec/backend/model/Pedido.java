@@ -102,42 +102,6 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public void setDataPedido(LocalDate dataPedido) {
-		this.dataPedido = dataPedido;
-	}
-
-	public LocalDate getDataEntrega() {
-		return this.dataEntrega;
-	}
-
-	public void setDataEntrega(LocalDate dataEntrega) {
-		this.dataEntrega = dataEntrega;
-	}
-
-	public LocalDate getDataEnvio() {
-		return this.dataEnvio;
-	}
-
-	public void setDataEnvio(LocalDate dataEnvio) {
-		this.dataEnvio = dataEnvio;
-	}
-
-	public Status getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public Cliente getCliente() {
-		return this.cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
