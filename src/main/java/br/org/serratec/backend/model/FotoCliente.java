@@ -19,6 +19,7 @@ public class FotoCliente {
 
     @Lob
     private byte[] dados;
+
     private String tipo;
     private String nome;
 
@@ -65,5 +66,5 @@ public class FotoCliente {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
+
 }

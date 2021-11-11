@@ -1,12 +1,10 @@
 package br.org.serratec.backend.exception;
 
-public class PedidoException extends Exception {
+public class PedidoException extends RecursoBadRequestException {
 
-	public PedidoException(String message) {
-		super(message);
-		
-	}
-	
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 }

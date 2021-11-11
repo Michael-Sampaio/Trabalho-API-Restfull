@@ -19,6 +19,7 @@ public class FotoProduto {
 
     @Lob
     private byte[] dados;
+
     private String tipo;
     private String nome;
 
@@ -65,6 +66,5 @@ public class FotoProduto {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-    
-}
 
+}

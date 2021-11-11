@@ -1,26 +1,27 @@
-package br.org.serratec.backend.model;
+package br.org.serratec.backend.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 
-@Entity
-public class Categoria {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Embeddable
+public class InserirCategoriaDTO {
+
 	private Integer id;
 	private String nome;
 	private String descricao;
 
-	private Categoria(Integer id, String nome, String descricao) {
+	public InserirCategoriaDTO() {
+		super();
+	}
+
+	public InserirCategoriaDTO(Integer id, String nome, String descricao) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -28,7 +29,7 @@ public class Categoria {
 	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
@@ -36,7 +37,7 @@ public class Categoria {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {

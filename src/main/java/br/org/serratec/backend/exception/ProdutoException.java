@@ -1,6 +1,6 @@
 package br.org.serratec.backend.exception;
 
-public class EnumValidationException extends RecursoBadRequestException {
+public class ProdutoException extends RecursoBadRequestException {
 
 	/**
 	 * 

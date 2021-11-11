@@ -1,11 +1,17 @@
 package br.org.serratec.backend.model;
 
-
-
 public enum Status {
-	
-	FINALIZADO, NAO_FINALIZADO;
-	
-//	CRIAR controller(Osiris) / Service(Matheus) / repository e exception(Michael) / dto(Camilla)
+
+	FINALIZADO("Finalizado"), NAO_FINALIZADO("Nao finalizado");
+
+	private String nome;
+
+	private Status(String nome) {
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
 
 }
