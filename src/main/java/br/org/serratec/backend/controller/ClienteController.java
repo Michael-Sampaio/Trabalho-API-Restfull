@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.dto.InserirClienteDTO;
 import br.org.serratec.backend.exception.EmailException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
@@ -77,8 +78,8 @@ public class ClienteController {
 			@ApiResponse(code = 500, message = "Erro de servidor")
 	})
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteDTO inserir(@Valid @RequestBody Cliente cliente) throws EmailException {
-		return clienteService.inserir(cliente);
+	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO) throws EmailException {
+		return clienteService.inserir(inserirClienteDTO);
 	}
 
 	@DeleteMapping("/{id}")

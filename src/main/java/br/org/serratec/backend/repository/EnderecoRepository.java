@@ -9,16 +9,16 @@ import br.org.serratec.backend.model.Endereco;
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
     public Endereco findByCep(String cep);
 
-    public Endereco findByRua(String rua);
+    public Endereco findByLogradouro(String logradouro);
 
     public Endereco findByBairro(String bairro);
 
-    public Endereco findByCidade(String cidade);
+    public Endereco findByLocalidade(String cidade);
 
-    public Endereco findByNumero(String numero);
+    public Endereco findByNumero(Integer numero);
 
     public Endereco findByComplemento(String complemento);
 
-    public Endereco findByEstado(String estado);
+    public Endereco findByUf(String estado);
 
 }

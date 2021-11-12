@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -19,40 +18,32 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Long id;
 	
-	@NotBlank
 	@Column
 	@Size(max = 9)
 	private String cep;
 	
-	@NotBlank
-	@Column
+	@Column(name = "rua")
 	@Size(max = 30)
-	private String rua;
+	private String logradouro;
 	
-	@NotBlank
 	@Column
 	@Size(max = 30)
 	private String bairro;
 	
-	@NotBlank
-	@Column
+	@Column(name = "cidade")
 	@Size(max = 15)
-	private String cidade;
+	private String localidade;
 	
-	@NotBlank
 	@Column
-	@Size(max = 5)
-	private String numero;
+	private Integer numero;
 	
-	@NotBlank
 	@Column
 	@Size(max = 30)
 	private String complemento;
 	
-	@NotBlank
-	@Column
+	@Column(name = "estado")
 	@Size(max = 15)
-	private String estado;
+	private String uf;
 
 	@OneToMany(mappedBy = "endereco")
 	private List<Cliente> cliente;
@@ -60,17 +51,17 @@ public class Endereco {
 	public Endereco() {
 	}
 
-	public Endereco(Long id, String cep, String rua, String bairro, String cidade, String numero, String complemento,
-			String estado) {
+	public Endereco(Long id, String cep, String logradouro, String bairro, String localidade, Integer numero, String complemento,
+			String uf) {
 		super();
 		this.id = id;
 		this.cep = cep;
-		this.rua = rua;
+		this.logradouro = logradouro;
 		this.bairro = bairro;
-		this.cidade = cidade;
+		this.localidade = localidade;
 		this.numero = numero;
 		this.complemento = complemento;
-		this.estado = estado;
+		this.uf = uf;
 	}
 
 	public Long getId() {
@@ -89,12 +80,12 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getBairro() {
@@ -105,19 +96,19 @@ public class Endereco {
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -129,12 +120,12 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	@Override

@@ -17,16 +17,19 @@ public class InserirClienteDTO {
     private Endereco endereco;
     private String senha;
 
+    public InserirClienteDTO() {
+    }
+
     public InserirClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.email = cliente.getEmail();
         this.nomeUsuario = cliente.getNomeUsuario();
         this.nomeCompleto = cliente.getNomeCompleto();
+        this.senha = cliente.getSenha();
         this.cpf = cliente.getCpf();
         this.telefone = cliente.getTelefone();
         this.dataNascimento = cliente.getDataNascimento();
         this.endereco = cliente.getEndereco();
-        this.senha = cliente.getSenha();
     }
 
     public Long getId() {

@@ -26,24 +26,30 @@ public class EnderecoService {
 	 * @return O CEP DO CLIENTE
 	 * @throws HttpClientErrorException
 	 */
-	public EnderecoDTO buscar(String cep) throws HttpClientErrorException {
-		Optional<Endereco> endereco = Optional.ofNullable(enderecoRepository.findByCep(cep));
-		if (endereco.isPresent()) {
-			return new EnderecoDTO(endereco.get());
+	public EnderecoDTO buscar(Endereco endereco) throws HttpClientErrorException {
+		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(endereco.getCep()));
+		if (end.isPresent()) {
+			return new EnderecoDTO(end.get());
 		} else {
 			RestTemplate restTemplate = new RestTemplate();
 
-			String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
+			String uriViaCep = "https://viacep.com.br/ws/" + endereco.getCep() + "/json/";
 
 			Optional<Endereco> enderecoViaCep = Optional
 					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
 			if (enderecoViaCep.get().getCep() != null) {
 				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
 				enderecoViaCep.get().setCep(cepSemTraco);
-				return inserir(enderecoViaCep.get());
-			} else {
+				
+				Endereco e = enderecoViaCep.get();
+				e.setNumero(endereco.getNumero());
+				e.setComplemento(endereco.getComplemento());
+				EnderecoDTO eDTO = new EnderecoDTO(e);
+				e = enderecoRepository.save(e);
+				return eDTO;
+			}else {
 				return null;
-			}
+			} 
 		}
 	}
 

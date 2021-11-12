@@ -39,8 +39,8 @@ public class EnderecoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor")
 	})
-	public ResponseEntity<EnderecoDTO> buscar(@PathVariable String cep) {
-		EnderecoDTO enderecoDTO = enderecoService.buscar(cep);
+	public ResponseEntity<EnderecoDTO> buscar(@PathVariable Endereco endereco) {
+		EnderecoDTO enderecoDTO = enderecoService.buscar(endereco);
 
 		if (enderecoDTO == null) {
 			return ResponseEntity.notFound().build();
@@ -73,7 +73,7 @@ public class EnderecoController {
 	})
 	@ResponseStatus(HttpStatus.CREATED)
 	public EnderecoDTO inserir(@Valid @RequestBody Endereco endereco) {
-		return enderecoService.inserir(endereco);
+		return enderecoService.buscar(endereco);
 	}
 
 	@DeleteMapping("/{id}")
