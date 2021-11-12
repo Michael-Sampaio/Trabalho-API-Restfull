@@ -7,7 +7,7 @@ import br.org.serratec.backend.model.Categoria;
 @Embeddable
 public class CategoriaDTO {
 
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String descricao;
 
@@ -22,7 +22,7 @@ public class CategoriaDTO {
 		this.descricao = categoria.getDescricao();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

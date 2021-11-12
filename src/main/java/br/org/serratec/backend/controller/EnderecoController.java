@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
-import br.org.serratec.backend.model.Endereco;
+import br.org.serratec.backend.dto.InserirEnderecoDTO;
 import br.org.serratec.backend.service.EnderecoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,9 +38,9 @@ public class EnderecoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
-	public ResponseEntity<EnderecoDTO> buscar(@PathVariable Endereco endereco) {
-		EnderecoDTO enderecoDTO = enderecoService.buscar(endereco);
-	
+	public ResponseEntity<EnderecoDTO> buscar(@PathVariable String cep) {
+		EnderecoDTO enderecoDTO = enderecoService.buscar(cep);
+
 		if (enderecoDTO == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -55,7 +55,7 @@ public class EnderecoController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-  
+
 	public ResponseEntity<List<EnderecoDTO>> listar() {
 		return ResponseEntity.ok(enderecoService.listar());
 	}
@@ -68,9 +68,9 @@ public class EnderecoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
-  @ResponseStatus(HttpStatus.CREATED)
-	public EnderecoDTO inserir(@Valid @RequestBody Endereco endereco) {
-		return enderecoService.buscar(endereco);
+	@ResponseStatus(HttpStatus.CREATED)
+	public EnderecoDTO inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO) {
+		return enderecoService.inserir(inserirEnderecoDTO);
 	}
 
 	@DeleteMapping("/{id}")
@@ -82,7 +82,7 @@ public class EnderecoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
-  public ResponseEntity<Void> excluir(@PathVariable Long id) {
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		enderecoService.deletar(id);
 		return ResponseEntity.ok().build();
 	}

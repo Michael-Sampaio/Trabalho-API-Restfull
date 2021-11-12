@@ -30,6 +30,7 @@ public class ClienteService {
 
 	/**
 	 * METODO PARA INSERIR UM CLIENTE
+	 * 
 	 * @param cliente
 	 * @return UM NOVO CLIENTE
 	 * @throws EmailException
@@ -37,7 +38,7 @@ public class ClienteService {
 
 	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws EmailException {
 
-		if (clienteRepository.findByEmail(inserirClienteDTO.getEmail()) != null) {
+		if (clienteRepository.findById(inserirClienteDTO.getId()) != null) {
 			throw new EmailException("Email já existe ! Insira outro");
 		}
 
@@ -55,6 +56,7 @@ public class ClienteService {
 		return new ClienteDTO(cliente);
 
 	}
+
 	/**
 	 * METODO PARA LISTAR OS CLIENTES
 	 * 
@@ -81,7 +83,7 @@ public class ClienteService {
 	 */
 	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) throws EmailException {
 
-		if (clienteRepository.findById(alterarClienteDTO.getId()) != null) {
+		if (clienteRepository.findByEmail(alterarClienteDTO.getEmail()) != null) {
 			throw new EmailException("Email já existe ! Insira outro");
 		}
 		Cliente cliente = new Cliente();
@@ -102,17 +104,6 @@ public class ClienteService {
 		if (clienteRepository.existsById(id)) {
 			clienteRepository.deleteById(id);
 		}
-	}
-	
-	/**
-	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
-	 * 
-	 * @param id
-	 * @return UM CLIENTE
-	 */
-	public ClienteDTO buscar(Long id) {
-		Optional<Cliente> cliente = clienteRepository.findById(id);
-		return new ClienteDTO(cliente.get());
 	}
 
 	/**

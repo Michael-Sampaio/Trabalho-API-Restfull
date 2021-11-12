@@ -1,6 +1,8 @@
 package br.org.serratec.backend.dto;
 
-public class InserirPedidoItem {
+import br.org.serratec.backend.model.PedidoItem;
+
+public class InserirPedidoItemDTO {
 
 	private Long id;
 	private Long id_pedido;
@@ -9,19 +11,18 @@ public class InserirPedidoItem {
 	private Double vlrUnit;
 	private Double subTotal;
 
-	public InserirPedidoItem() {
+	public InserirPedidoItemDTO() {
 		super();
 	}
 
-	public InserirPedidoItem(Long id, Long id_pedido, Long id_produto, Integer qntProduto, Double vlrUnit,
-			Double subTotal) {
+	public InserirPedidoItemDTO(PedidoItem pedidoItem) {
 		super();
-		this.id = id;
-		this.id_pedido = id_pedido;
-		this.id_produto = id_produto;
-		this.qntProduto = qntProduto;
-		this.vlrUnit = vlrUnit;
-		this.subTotal = subTotal;
+		this.id = pedidoItem.getId();
+		this.id_pedido = pedidoItem.getPedido().getId();
+		this.id_produto = pedidoItem.getProduto().getId();
+		this.qntProduto = pedidoItem.getQntProduto();
+		this.vlrUnit = pedidoItem.getVlrUnit();
+		this.subTotal = pedidoItem.getSubTotal();
 	}
 
 	public Long getId() {

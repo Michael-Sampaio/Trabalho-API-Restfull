@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.CategoriaDTO;
-import br.org.serratec.backend.dto.ClienteDTO;
 import br.org.serratec.backend.dto.InserirCategoriaDTO;
 import br.org.serratec.backend.exception.CategoriaException;
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.repository.CategoriaRepository;
+import br.org.serratec.backend.service.CategoriaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -47,10 +47,6 @@ public class CategoriaController {
 
     public ResponseEntity<List<CategoriaDTO>> listar() {
         return ResponseEntity.ok(categoriaService.listar());
-    }
-
-    public ResponseEntity<List<ClienteDTO>> listar() {
-        return ResponseEntity.ok(clienteService.listar());
     }
 
     @GetMapping("/id")

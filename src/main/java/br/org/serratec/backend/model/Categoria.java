@@ -12,7 +12,7 @@ public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@NotBlank
 	@Size(max = 30)
@@ -21,17 +21,20 @@ public class Categoria {
 	@Size(max = 150)
 	private String descricao;
 
-	private Categoria(Integer id, String nome, String descricao) {
+	public Categoria() {
+	}
+
+	public Categoria(Long id, String nome, String descricao) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,5 +78,5 @@ public class Categoria {
 			return false;
 		return true;
 	}
-  
+
 }

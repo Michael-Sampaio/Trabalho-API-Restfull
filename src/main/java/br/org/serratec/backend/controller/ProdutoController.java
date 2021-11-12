@@ -41,7 +41,7 @@ public class ProdutoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-  
+
     public List<Produto> listar() {
         return ProdutoRepository.findAll();
     }
@@ -69,8 +69,8 @@ public class ProdutoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    
-  @ResponseStatus(HttpStatus.CREATED)
+
+    @ResponseStatus(HttpStatus.CREATED)
     public Produto inserir(@Valid @RequestBody Produto Produto) {
         return ProdutoRepository.save(Produto);
     }
@@ -84,7 +84,7 @@ public class ProdutoController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
 
-  public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
         produtoService.deletar(id);
         return ResponseEntity.ok().build();
     }

@@ -17,7 +17,7 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Long id;
-	
+
 	@Column
 	@Size(max = 9)
 	private String cep;
@@ -40,7 +40,7 @@ public class Endereco {
 	@Column
 	@Size(max = 30)
 	private String complemento;
-	
+
 	@Column(name = "estado")
 	@Size(max = 15)
 	private String uf;
@@ -152,5 +152,5 @@ public class Endereco {
 			return false;
 		return true;
 	}
-  
+
 }

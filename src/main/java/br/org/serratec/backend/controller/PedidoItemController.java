@@ -42,8 +42,8 @@ public class PedidoItemController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	
-  public ResponseEntity<List<PedidoItemDTO>> listar() {
+
+	public ResponseEntity<List<PedidoItemDTO>> listar() {
 		return ResponseEntity.ok(pedidoItemService.listar());
 	}
 
@@ -54,8 +54,8 @@ public class PedidoItemController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	
-  public ResponseEntity<PedidoItemDTO> buscar(@PathVariable Long id) {
+
+	public ResponseEntity<PedidoItemDTO> buscar(@PathVariable Long id) {
 		Optional<PedidoItem> PedidoItemDTO = pedidoItemRepository.findById(id);
 		if (!PedidoItemDTO.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -70,8 +70,8 @@ public class PedidoItemController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	
-  @ResponseStatus(HttpStatus.CREATED)
+
+	@ResponseStatus(HttpStatus.CREATED)
 	public PedidoItem inserir(@Valid @RequestBody PedidoItem PedidoItem) {
 		return pedidoItemRepository.save(PedidoItem);
 	}
@@ -85,9 +85,9 @@ public class PedidoItemController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
-  public ResponseEntity<Void> excluir(@PathVariable Long id) {
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		pedidoItemService.deletar(id);
 		return ResponseEntity.ok().build();
 	}
-  
+
 }
