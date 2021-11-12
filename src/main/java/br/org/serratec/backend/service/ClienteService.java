@@ -2,6 +2,7 @@ package br.org.serratec.backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.config.MailConfig;
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.dto.InserirClienteDTO;
 import br.org.serratec.backend.exception.EmailException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
@@ -33,22 +35,10 @@ public class ClienteService {
 	 * @return UM NOVO CLIENTE
 	 * @throws EmailException
 	 */
-//	public ClienteDTO inserir(Cliente cliente) {
-//		cliente = clienteRepository.save(cliente);
-//		cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
-//		clienteRepository.save(cliente);
-//		return new ClienteDTO(cliente);
-//	}
-	/**
-	 * METODO PARA INSERIR UM CLIENTE
-	 * 
-	 * @param cliente
-	 * @return UM NOVO CLIENTE
-	 * @throws EmailException
-	 */
-	public ClienteDTO inserir(Cliente c) throws EmailException {
 
-		if (clienteRepository.findByEmail(c.getEmail()) != null) {
+	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws EmailException {
+
+		if (clienteRepository.findByEmail(inserirClienteDTO.getEmail()) != null) {
 			throw new EmailException("Email já existe ! Insira outro");
 		}
 
@@ -110,6 +100,17 @@ public class ClienteService {
 		if (clienteRepository.existsById(id)) {
 			clienteRepository.deleteById(id);
 		}
+	}
+
+	/**
+	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM CLIENTE
+	 */
+	public ClienteDTO buscar(Long id) {
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		return new ClienteDTO(cliente.get());
 	}
 
 }

@@ -17,71 +17,79 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.backend.model.Produto;
-import br.org.serratec.backend.service.ProdutoService;
+import br.org.serratec.backend.dto.CategoriaDTO;
+import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.dto.InserirCategoriaDTO;
+import br.org.serratec.backend.exception.CategoriaException;
+import br.org.serratec.backend.model.Categoria;
+import br.org.serratec.backend.repository.CategoriaRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/produtos")
-
-public class ProdutoController {
-
-    @Autowired
-    private br.org.serratec.backend.repository.ProdutoRepository ProdutoRepository;
+@RequestMapping("/categorias")
+public class CategoriaController {
 
     @Autowired
-    ProdutoService produtoService;
+    CategoriaRepository categoriaRepository;
+
+    @Autowired
+    CategoriaService categoriaService;
 
     @GetMapping
-    @ApiOperation(value = "Listar produtos", notes = "Listagem de produtos")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os produtos"),
+    @ApiOperation(value = "Listar Categorias", notes = "Listagem de categorias")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todas as categorias"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public List<Produto> listar() {
-        return ProdutoRepository.findAll();
+
+    public ResponseEntity<List<CategoriaDTO>> listar() {
+        return ResponseEntity.ok(categoriaService.listar());
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Buscar um produto por id", notes = "Busca um produto")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um produto"),
+    public ResponseEntity<List<ClienteDTO>> listar() {
+        return ResponseEntity.ok(clienteService.listar());
+    }
+
+    @GetMapping("/id")
+    @ApiOperation(value = "Buscar uma categoria por id", notes = "Busca uma categoria")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma categoria"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public ResponseEntity<Produto> buscar(@PathVariable Long id) {
-        Optional<Produto> Produto = ProdutoRepository.findById(id);
-        if (!Produto.isPresent()) {
+    public ResponseEntity<CategoriaDTO> buscar(@PathVariable Long id) {
+        Optional<Categoria> CategoriaDTO = categoriaRepository.findById(id);
+        if (!CategoriaDTO.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(Produto.get());
+        return ResponseEntity.ok(categoriaService.buscar(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "Cadastrar um produto", notes = "Cadastro de produto")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um produto"),
+    @ApiOperation(value = "Cadastrar uma categoria", notes = "Cadastro de categoria")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra uma categoria"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto inserir(@Valid @RequestBody Produto Produto) {
-        return ProdutoRepository.save(Produto);
+    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO) throws CategoriaException {
+        return categoriaService.inserir(inserirCategoriaDTO);
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Deletar um produto", notes = "Deleta produto")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um produto"),
-            @ApiResponse(code = 204, message = "Exclui um produto e retorna vazio"),
+    @ApiOperation(value = "Deletar uma categoria", notes = "Deleta categoria")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui uma categoria"),
+            @ApiResponse(code = 204, message = "Exclui uma categoria e retorna vazio"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        produtoService.deletar(id);
+        categoriaService.deletar(id);
         return ResponseEntity.ok().build();
     }
 
