@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Cliente {
@@ -17,30 +21,45 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
 	private Long id;
-
+	
+	@NotBlank
 	@Column(name = "email")
+	@Size(max = 80)
 	private String email;
-
+	
+	@NotBlank
 	@Column(name = "nome_usuario")
+	@Size(max = 40)
 	private String nomeUsuario;
-
+	
+	@NotBlank
 	@Column(name = "nome_completo")
+	@Size(max = 60)
 	private String nomeCompleto;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 7)
 	private String senha;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 11)
 	private String cpf;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 13)
 	private String telefone;
-
+	
 	@Column(name = "data_nasc")
+	@DateTimeFormat
 	private LocalDate dataNascimento;
-
+	
+	@NotBlank
 	@ManyToOne
 	@JoinColumn(name = "id_endereco")
+	@Size(max = 100)
 	private Endereco endereco;
 
 	public Cliente() {

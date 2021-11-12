@@ -2,6 +2,7 @@ package br.org.serratec.backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -110,6 +111,17 @@ public class ClienteService {
 		if (clienteRepository.existsById(id)) {
 			clienteRepository.deleteById(id);
 		}
+	}
+	
+	/**
+	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM CLIENTE
+	 */
+	public ClienteDTO buscar(Long id) {
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		return new ClienteDTO(cliente.get());
 	}
 
 }

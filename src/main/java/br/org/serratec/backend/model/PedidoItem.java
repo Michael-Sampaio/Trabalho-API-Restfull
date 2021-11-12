@@ -103,6 +103,7 @@ public class PedidoItem {
 		this.vlrUnit = vlrUnit;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -127,5 +128,6 @@ public class PedidoItem {
 			return false;
 		return true;
 	}
-
+	
+	
 }

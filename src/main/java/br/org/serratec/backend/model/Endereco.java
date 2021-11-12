@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Endereco {
@@ -16,26 +18,40 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Long id;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 9)
 	private String cep;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 30)
 	private String rua;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 30)
 	private String bairro;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 15)
 	private String cidade;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 5)
 	private String numero;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 30)
 	private String complemento;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 15)
 	private String estado;
 
 	@OneToMany(mappedBy = "endereco")
@@ -145,5 +161,5 @@ public class Endereco {
 			return false;
 		return true;
 	}
-
+	
 }

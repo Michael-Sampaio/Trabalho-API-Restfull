@@ -3,7 +3,6 @@ package br.org.serratec.backend.model;
 public enum Status {
 
 	FINALIZADO("Finalizado"), NAO_FINALIZADO("Nao finalizado");
-
 	private String nome;
 
 	private Status(String nome) {

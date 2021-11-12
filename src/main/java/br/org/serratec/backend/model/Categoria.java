@@ -4,26 +4,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Categoria {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
+	
+	@NotBlank
+	@Size(max = 30)
 	private String nome;
+	
+	@Size(max = 150)
 	private String descricao;
 
-	private Categoria(Long id, String nome, String descricao) {
+	private Categoria(Integer id, String nome, String descricao) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -67,5 +75,5 @@ public class Categoria {
 			return false;
 		return true;
 	}
-
+	
 }
