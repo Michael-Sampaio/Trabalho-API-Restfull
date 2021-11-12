@@ -2,6 +2,8 @@ package br.org.serratec.backend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +55,7 @@ public class EnderecoController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
+  
 	public ResponseEntity<List<EnderecoDTO>> listar() {
 		return ResponseEntity.ok(enderecoService.listar());
 	}
@@ -64,9 +67,10 @@ public class EnderecoController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	@ResponseStatus(HttpStatus.CREATED)
-	public EnderecoDTO inserir(@RequestBody Endereco endereco) {
-		return enderecoService.inserir(endereco);
+
+  @ResponseStatus(HttpStatus.CREATED)
+	public EnderecoDTO inserir(@Valid @RequestBody Endereco endereco) {
+		return enderecoService.buscar(endereco);
 	}
 
 	@DeleteMapping("/{id}")
@@ -77,7 +81,8 @@ public class EnderecoController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+
+  public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		enderecoService.deletar(id);
 		return ResponseEntity.ok().build();
 	}

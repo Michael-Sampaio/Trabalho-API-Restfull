@@ -58,10 +58,6 @@ public class ClienteController {
 	public ResponseEntity<ClienteDTO> buscar(@PathVariable Long id) {
 		Optional<Cliente> ClienteDTO = clienteRepository.findById(id);
 		if (!ClienteDTO.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(clienteService.buscar(id));
-	}
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar um cliente", notes = "Cadastro de cliente")
@@ -70,7 +66,8 @@ public class ClienteController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	@ResponseStatus(HttpStatus.CREATED)
+
+  @ResponseStatus(HttpStatus.CREATED)
 	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO) throws EmailException {
 		return clienteService.inserir(inserirClienteDTO);
 	}

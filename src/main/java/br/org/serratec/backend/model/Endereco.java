@@ -17,8 +17,9 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Long id;
-
+	
 	@Column
+	@Size(max = 9)
 	private String cep;
 
 	@Column(name = "logradouro")
@@ -26,9 +27,10 @@ public class Endereco {
 	private String logradouro;
 
 	@Column
+	@Size(max = 30)
 	private String bairro;
 
-	@Column(name = "localidade")
+	@Column(name = "cidade")
 	@Size(max = 15)
 	private String localidade;
 
@@ -36,11 +38,12 @@ public class Endereco {
 	private Integer numero;
 
 	@Column
+	@Size(max = 30)
 	private String complemento;
-
-	@Column(name = "uf")
+	
+	@Column(name = "estado")
 	@Size(max = 15)
-	private String estado;
+	private String uf;
 
 	@OneToMany(mappedBy = "endereco")
 	private List<Cliente> cliente;
@@ -49,7 +52,7 @@ public class Endereco {
 	}
 
 	public Endereco(Long id, String cep, String logradouro, String bairro, String localidade, Integer numero,
-			String complemento, String estado) {
+			String complemento, String uf) {
 		super();
 		this.id = id;
 		this.cep = cep;
@@ -58,7 +61,7 @@ public class Endereco {
 		this.localidade = localidade;
 		this.numero = numero;
 		this.complemento = complemento;
-		this.estado = estado;
+		this.uf = uf;
 	}
 
 	public Long getId() {
@@ -93,11 +96,11 @@ public class Endereco {
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
+	public String getLocalidade() {
 		return localidade;
 	}
 
-	public void setCidade(String localidade) {
+	public void setLocalidade(String localidade) {
 		this.localidade = localidade;
 	}
 
@@ -117,12 +120,12 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	@Override
@@ -149,5 +152,5 @@ public class Endereco {
 			return false;
 		return true;
 	}
-
+  
 }

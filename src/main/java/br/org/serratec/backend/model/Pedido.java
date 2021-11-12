@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -28,12 +30,15 @@ public class Pedido {
 	private Long id;
 
 	@Column(name = "data_pedido")
+	@DateTimeFormat
 	private LocalDate dataPedido;
 
 	@Column(name = "data_entrega")
+	@DateTimeFormat
 	private LocalDate dataEntrega;
 
 	@Column(name = "data_envio")
+	@DateTimeFormat
 	private LocalDate dataEnvio;
 
 	@Enumerated(EnumType.STRING)

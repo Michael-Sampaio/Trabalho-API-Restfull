@@ -40,16 +40,17 @@ public class EnderecoService {
 			if (enderecoViaCep.get().getCep() != null) {
 				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
 				enderecoViaCep.get().setCep(cepSemTraco);
-
+        
 				Endereco e = enderecoViaCep.get();
 				e.setNumero(endereco.getNumero());
 				e.setComplemento(endereco.getComplemento());
 				EnderecoDTO eDTO = new EnderecoDTO(e);
 				e = enderecoRepository.save(e);
 				return eDTO;
+        
 			} else {
-				return null;
-			}
+	  			return null;
+			} 
 		}
 	}
 

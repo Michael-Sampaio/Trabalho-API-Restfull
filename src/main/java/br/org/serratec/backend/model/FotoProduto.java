@@ -18,7 +18,7 @@ public class FotoProduto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-
+    
     @Lob
     private byte[] dados;
 

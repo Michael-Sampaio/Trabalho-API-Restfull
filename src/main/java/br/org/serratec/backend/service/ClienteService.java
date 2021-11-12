@@ -30,7 +30,6 @@ public class ClienteService {
 
 	/**
 	 * METODO PARA INSERIR UM CLIENTE
-	 * 
 	 * @param cliente
 	 * @return UM NOVO CLIENTE
 	 * @throws EmailException
@@ -43,16 +42,19 @@ public class ClienteService {
 		}
 
 		Cliente cliente = new Cliente();
-		cliente.setNomeUsuario(cliente.getNomeUsuario());
-		cliente.setEmail(cliente.getEmail());
-
-		cliente.setSenha(bCryptPasswordEncoder.encode(cliente.getSenha()));
+		cliente.setCpf(inserirClienteDTO.getCpf());
+		cliente.setDataNascimento(inserirClienteDTO.getDataNascimento());
+		cliente.setNomeCompleto(inserirClienteDTO.getNomeCompleto());
+		cliente.setTelefone(inserirClienteDTO.getTelefone());
+		cliente.setNomeUsuario(inserirClienteDTO.getNomeUsuario());
+		cliente.setEmail(inserirClienteDTO.getEmail());
+		cliente.setEndereco(inserirClienteDTO.getEndereco());
+		cliente.setSenha(bCryptPasswordEncoder.encode(inserirClienteDTO.getSenha()));
 		clienteRepository.save(cliente);
-		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro De Usuário Confirmado", cliente.toString());
+
 		return new ClienteDTO(cliente);
 
 	}
-
 	/**
 	 * METODO PARA LISTAR OS CLIENTES
 	 * 
@@ -100,6 +102,17 @@ public class ClienteService {
 		if (clienteRepository.existsById(id)) {
 			clienteRepository.deleteById(id);
 		}
+	}
+	
+	/**
+	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM CLIENTE
+	 */
+	public ClienteDTO buscar(Long id) {
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		return new ClienteDTO(cliente.get());
 	}
 
 	/**
