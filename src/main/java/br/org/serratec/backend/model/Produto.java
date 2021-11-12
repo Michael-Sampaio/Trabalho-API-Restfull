@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Produto {
@@ -18,16 +22,21 @@ public class Produto {
 	@Column(name = "id_produto")
 	private Long id;
 
+	@NotBlank
 	@Column
+	@Size(max = 30)
 	private String nome;
 
+	@NotBlank
 	@Column
+	@Size(max = 150)
 	private String descricao;
 
 	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
 
 	@Column(name = "data_cadastro")
+	@DateTimeFormat
 	private LocalDate dataCadastro;
 
 	@Column(name = "valor_unitario")

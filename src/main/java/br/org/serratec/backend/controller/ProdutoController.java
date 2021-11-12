@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.model.Produto;
 import br.org.serratec.backend.service.ProdutoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/produtos")
@@ -32,11 +35,25 @@ public class ProdutoController {
     ProdutoService produtoService;
 
     @GetMapping
+    @ApiOperation(value = "Listar produtos", notes = "Listagem de produtos")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os produtos"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+
     public List<Produto> listar() {
         return ProdutoRepository.findAll();
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Buscar um produto por id", notes = "Busca um produto")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um produto"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+
     public ResponseEntity<Produto> buscar(@PathVariable Long id) {
         Optional<Produto> Produto = ProdutoRepository.findById(id);
         if (!Produto.isPresent()) {
@@ -46,12 +63,27 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Cadastrar um produto", notes = "Cadastro de produto")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um produto"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+
     @ResponseStatus(HttpStatus.CREATED)
     public Produto inserir(@Valid @RequestBody Produto Produto) {
         return ProdutoRepository.save(Produto);
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Deletar um produto", notes = "Deleta produto")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um produto"),
+            @ApiResponse(code = 204, message = "Exclui um produto e retorna vazio"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         produtoService.deletar(id);
         return ResponseEntity.ok().build();

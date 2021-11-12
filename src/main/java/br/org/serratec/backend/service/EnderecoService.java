@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
+import br.org.serratec.backend.dto.InserirEnderecoDTO;
+import br.org.serratec.backend.exception.EnderecoException;
 import br.org.serratec.backend.model.Endereco;
 import br.org.serratec.backend.repository.EnderecoRepository;
 
@@ -40,7 +42,7 @@ public class EnderecoService {
 			if (enderecoViaCep.get().getCep() != null) {
 				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
 				enderecoViaCep.get().setCep(cepSemTraco);
-				return inserir(enderecoViaCep.get());
+				return new EnderecoDTO(enderecoViaCep.get());
 			} else {
 				return null;
 			}
@@ -70,9 +72,35 @@ public class EnderecoService {
 	 * @param endereco
 	 * @return UM NOVO ENDEREÇO
 	 */
-	public EnderecoDTO inserir(Endereco endereco) {
-		endereco = enderecoRepository.save(endereco);
-		return new EnderecoDTO(endereco);
+	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) {
+		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
+			throw new EnderecoException();
+		}
+		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
+		if (end.isPresent()) {
+			return new EnderecoDTO(end.get());
+		} else {
+			RestTemplate restTemplate = new RestTemplate();
+
+			String uriViaCep = "https://viacep.com.br/ws/" + inserirEnderecoDTO.getCep() + "/json/";
+
+			Optional<Endereco> enderecoViaCep = Optional
+					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
+			if (enderecoViaCep.get().getCep() != null) {
+				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
+				enderecoViaCep.get().setCep(cepSemTraco);
+
+				Endereco e = enderecoViaCep.get();
+				e.setNumero(inserirEnderecoDTO.getNumero());
+				e.setComplemento(inserirEnderecoDTO.getComplemento());
+				EnderecoDTO eDTO = new EnderecoDTO(e);
+				e = enderecoRepository.save(e);
+				return eDTO;
+
+			} else {
+				return null;
+			}
+		}
 	}
 
 	/**

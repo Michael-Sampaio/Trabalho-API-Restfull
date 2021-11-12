@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarPedidoItemDTO;
+import br.org.serratec.backend.dto.InserirPedidoItemDTO;
 import br.org.serratec.backend.dto.PedidoItemDTO;
+import br.org.serratec.backend.exception.CategoriaException;
 import br.org.serratec.backend.exception.PedidoItemException;
 import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.repository.PedidoItemRepository;
@@ -22,9 +24,17 @@ public class PedidoItemService {
 	/*
 	 * METODO PARA INSERIR UM PEDIDO
 	 */
-	public PedidoItemDTO inserir(PedidoItem pedidoItem) {
-		pedidoItem = pedidoItemRepository.save(pedidoItem);
-		return new PedidoItemDTO();
+	public PedidoItemDTO inserir(InserirPedidoItemDTO inserirPedidoItemDTO) {
+
+		if (pedidoItemRepository.findById(inserirPedidoItemDTO.getId()) != null) {
+
+			PedidoItem pedidoItem = new PedidoItem();
+			pedidoItem.setId(pedidoItem.getId());
+
+			return new PedidoItemDTO(pedidoItem);
+		} else {
+			throw new CategoriaException();
+		}
 	}
 
 	/**

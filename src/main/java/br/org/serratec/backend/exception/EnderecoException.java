@@ -1,6 +1,6 @@
 package br.org.serratec.backend.exception;
 
-public class PedidoItemException extends RecursoBadRequestException {
+public class EnderecoException extends RecursoBadRequestException {
 
 	/**
 	 * 

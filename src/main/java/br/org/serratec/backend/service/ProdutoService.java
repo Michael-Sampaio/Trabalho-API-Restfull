@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarProdutoDTO;
+import br.org.serratec.backend.dto.InserirProdutoDTO;
 import br.org.serratec.backend.dto.ProdutoDTO;
 import br.org.serratec.backend.exception.ProdutoException;
 import br.org.serratec.backend.model.Produto;
@@ -24,9 +25,17 @@ public class ProdutoService {
 	 * @param produto
 	 * @return UM NOVO PRODUTO
 	 */
-	public ProdutoDTO inserir(Produto produto) {
-		produto = produtoRepository.save(produto);
-		return new ProdutoDTO(produto);
+	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) {
+
+		if (produtoRepository.findById(inserirProdutoDTO.getId()) != null) {
+
+			Produto produto = new Produto();
+			produto.setNome(inserirProdutoDTO.getNome());
+
+			return new ProdutoDTO(produto);
+		} else {
+			throw new ProdutoException();
+		}
 	}
 
 	/**

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarPedidoDTO;
+import br.org.serratec.backend.dto.InserirPedidoDTO;
 import br.org.serratec.backend.dto.PedidoDTO;
 import br.org.serratec.backend.exception.PedidoException;
 import br.org.serratec.backend.model.Pedido;
@@ -25,9 +26,17 @@ public class PedidoService {
 	 * @param pedido
 	 * @return UM NOVO PEDIDO
 	 */
-	public PedidoDTO inserir(Pedido pedido) {
-		pedido = pedidoRepository.save(pedido);
-		return new PedidoDTO();
+	public PedidoDTO inserir(InserirPedidoDTO inserirPedidoDTO) {
+
+		if (pedidoRepository.findById(inserirPedidoDTO.getId()) != null) {
+
+			Pedido pedido = new Pedido();
+			pedido.setId(inserirPedidoDTO.getId());
+
+			return new PedidoDTO(pedido);
+		} else {
+			throw new PedidoException();
+		}
 	}
 
 	/**

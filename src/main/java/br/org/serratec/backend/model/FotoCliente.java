@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class FotoCliente {
@@ -20,7 +22,12 @@ public class FotoCliente {
     @Lob
     private byte[] dados;
 
+    @NotBlank
+    @Size(max = 10)
     private String tipo;
+
+    @NotBlank
+    @Size(max = 15)
     private String nome;
 
     @OneToOne

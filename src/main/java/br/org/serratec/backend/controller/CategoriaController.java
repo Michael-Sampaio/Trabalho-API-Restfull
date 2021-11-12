@@ -17,76 +17,75 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.backend.dto.PedidoDTO;
-import br.org.serratec.backend.model.Pedido;
-import br.org.serratec.backend.repository.PedidoRepository;
-import br.org.serratec.backend.service.PedidoService;
+import br.org.serratec.backend.dto.CategoriaDTO;
+import br.org.serratec.backend.dto.InserirCategoriaDTO;
+import br.org.serratec.backend.exception.CategoriaException;
+import br.org.serratec.backend.model.Categoria;
+import br.org.serratec.backend.repository.CategoriaRepository;
+import br.org.serratec.backend.service.CategoriaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/pedidos")
-public class PedidoController {
+@RequestMapping("/categorias")
+public class CategoriaController {
 
     @Autowired
-    PedidoRepository pedidoRepository;
+    CategoriaRepository categoriaRepository;
 
     @Autowired
-    PedidoService pedidoService;
+    CategoriaService categoriaService;
 
     @GetMapping
-    @ApiOperation(value = "Listar Pedidos", notes = "Listagem de pedidos")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os pedidos"),
+    @ApiOperation(value = "Listar Categorias", notes = "Listagem de categorias")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todas as categorias"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
 
-    public ResponseEntity<List<PedidoDTO>> listar() {
-        return ResponseEntity.ok(pedidoService.listar());
+    public ResponseEntity<List<CategoriaDTO>> listar() {
+        return ResponseEntity.ok(categoriaService.listar());
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Buscar um pedido por id", notes = "Busca um pedido")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um pedido"),
+    @GetMapping("/id")
+    @ApiOperation(value = "Buscar uma categoria por id", notes = "Busca uma categoria")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma categoria"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-
-    public ResponseEntity<PedidoDTO> buscar(@PathVariable Long id) {
-        Optional<Pedido> PedidoDTO = pedidoRepository.findById(id);
-        if (!PedidoDTO.isPresent()) {
+    public ResponseEntity<CategoriaDTO> buscar(@PathVariable Long id) {
+        Optional<Categoria> CategoriaDTO = categoriaRepository.findById(id);
+        if (!CategoriaDTO.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(pedidoService.buscar(id));
+        return ResponseEntity.ok(categoriaService.buscar(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "Cadastrar um pedido", notes = "Cadastro de pedido")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um pedido"),
+    @ApiOperation(value = "Cadastrar uma categoria", notes = "Cadastro de categoria")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra uma categoria"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-
     @ResponseStatus(HttpStatus.CREATED)
-    public Pedido inserir(@Valid @RequestBody Pedido Pedido) {
-        return pedidoRepository.save(Pedido);
+    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO) throws CategoriaException {
+        return categoriaService.inserir(inserirCategoriaDTO);
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Deletar um pedido", notes = "Deleta pedido")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um pedido"),
-            @ApiResponse(code = 204, message = "Exclui um pedido e retorna vazio"),
+    @ApiOperation(value = "Deletar uma categoria", notes = "Deleta categoria")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui uma categoria"),
+            @ApiResponse(code = 204, message = "Exclui uma categoria e retorna vazio"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        pedidoService.deletar(id);
+        categoriaService.deletar(id);
         return ResponseEntity.ok().build();
     }
 
