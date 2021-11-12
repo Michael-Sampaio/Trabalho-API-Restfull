@@ -34,7 +34,6 @@ public class ClienteService {
 	 * @return UM NOVO CLIENTE
 	 * @throws EmailException
 	 */
-	
 
 	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws EmailException {
 
@@ -105,6 +104,17 @@ public class ClienteService {
 		}
 	}
 	
+	/**
+	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM CLIENTE
+	 */
+	public ClienteDTO buscar(Long id) {
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		return new ClienteDTO(cliente.get());
+	}
+
 	/**
 	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
 	 * 

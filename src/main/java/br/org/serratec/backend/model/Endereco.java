@@ -21,22 +21,22 @@ public class Endereco {
 	@Column
 	@Size(max = 9)
 	private String cep;
-	
-	@Column(name = "rua")
+
+	@Column(name = "logradouro")
 	@Size(max = 30)
 	private String logradouro;
-	
+
 	@Column
 	@Size(max = 30)
 	private String bairro;
-	
+
 	@Column(name = "cidade")
 	@Size(max = 15)
 	private String localidade;
-	
+
 	@Column
 	private Integer numero;
-	
+
 	@Column
 	@Size(max = 30)
 	private String complemento;
@@ -51,8 +51,8 @@ public class Endereco {
 	public Endereco() {
 	}
 
-	public Endereco(Long id, String cep, String logradouro, String bairro, String localidade, Integer numero, String complemento,
-			String uf) {
+	public Endereco(Long id, String cep, String logradouro, String bairro, String localidade, Integer numero,
+			String complemento, String uf) {
 		super();
 		this.id = id;
 		this.cep = cep;
@@ -152,5 +152,5 @@ public class Endereco {
 			return false;
 		return true;
 	}
-	
+  
 }

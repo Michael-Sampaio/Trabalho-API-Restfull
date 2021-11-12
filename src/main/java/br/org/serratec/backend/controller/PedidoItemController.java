@@ -28,69 +28,66 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/pedidositem")
 public class PedidoItemController {
-	
+
 	@Autowired
-    PedidoItemRepository pedidoItemRepository;
+	PedidoItemRepository pedidoItemRepository;
 
-    @Autowired
-    PedidoItemService pedidoItemService;
+	@Autowired
+	PedidoItemService pedidoItemService;
 
-    @GetMapping
-    @ApiOperation(value = "Listar Itens de pedido", notes = "Listagem de Itens de pedido")
-   	@ApiResponses(value = {
-   			@ApiResponse(code = 200, message = "Retorna todos os Itens de pedido"),
-   			@ApiResponse(code = 401, message = "Erro de autenticação"),
-   			@ApiResponse(code = 403, message = "Recurso proibido"),
-   			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-   			@ApiResponse(code = 500, message = "Erro de servidor")
-   	})
-    public ResponseEntity <List<PedidoItemDTO>> listar() {
-        return ResponseEntity.ok(pedidoItemService.listar());
-    }
-
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Buscar um Item de pedido por id", notes = "Busca um Item de pedido")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Retorna um Item de pedido"),
+	@GetMapping
+	@ApiOperation(value = "Listar Itens de pedido", notes = "Listagem de Itens de pedido")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os Itens de pedido"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor")
-	})
-    public ResponseEntity<PedidoItemDTO> buscar(@PathVariable Long id) {
-        Optional<PedidoItem> PedidoItemDTO = pedidoItemRepository.findById(id);
-        if (!PedidoItemDTO.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(pedidoItemService.buscar(id));
-    }
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+	
+  public ResponseEntity<List<PedidoItemDTO>> listar() {
+		return ResponseEntity.ok(pedidoItemService.listar());
+	}
 
-    @PostMapping
-    @ApiOperation(value = "Cadastrar um Item de pedido", notes = "Cadastro de Item de pedido")
-	@ApiResponses(value = {
-			@ApiResponse(code = 201, message = "Cadastra um item de pedido"),
+	@GetMapping("/{id}")
+	@ApiOperation(value = "Buscar um Item de pedido por id", notes = "Busca um Item de pedido")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um Item de pedido"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor")
-	})
-    @ResponseStatus(HttpStatus.CREATED)
-    public PedidoItem inserir(@Valid @RequestBody PedidoItem PedidoItem) {
-        return pedidoItemRepository.save(PedidoItem);
-    }
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+	
+  public ResponseEntity<PedidoItemDTO> buscar(@PathVariable Long id) {
+		Optional<PedidoItem> PedidoItemDTO = pedidoItemRepository.findById(id);
+		if (!PedidoItemDTO.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(pedidoItemService.buscar(id));
+	}
 
-    @DeleteMapping("/{id}")
-    @ApiOperation(value = "Deletar um item de pedido", notes = "Deleta item de pedido")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Exclui um item de pedido"),
+	@PostMapping
+	@ApiOperation(value = "Cadastrar um Item de pedido", notes = "Cadastro de Item de pedido")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um item de pedido"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Recurso proibido"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+	
+  @ResponseStatus(HttpStatus.CREATED)
+	public PedidoItem inserir(@Valid @RequestBody PedidoItem PedidoItem) {
+		return pedidoItemRepository.save(PedidoItem);
+	}
+
+	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Deletar um item de pedido", notes = "Deleta item de pedido")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um item de pedido"),
 			@ApiResponse(code = 204, message = "Exclui um item de pedido e retorna vazio"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor")
-	})
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        pedidoItemService.deletar(id);
-        return ResponseEntity.ok().build();
-    }
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+
+  public ResponseEntity<Void> excluir(@PathVariable Long id) {
+		pedidoItemService.deletar(id);
+		return ResponseEntity.ok().build();
+	}
+  
 }

@@ -43,7 +43,7 @@ public class Pedido {
 
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
@@ -51,11 +51,11 @@ public class Pedido {
 	@ManyToMany
 	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "id_pedido"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
 	private List<Produto> produtos;
-	
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<PedidoItem> pedidosItem;
-	
+
 	@Transient
 	private Double totalGeral;
 
@@ -124,12 +124,12 @@ public class Pedido {
 	}
 
 	public Double getTotalGeral() {
-        totalGeral = 0.0;
-        for (PedidoItem pedidoItem : pedidosItem) {
-            totalGeral = pedidoItem.getSubTotal();
-        } 
-        return totalGeral;
-    }
+		totalGeral = 0.0;
+		for (PedidoItem pedidoItem : pedidosItem) {
+			totalGeral = pedidoItem.getSubTotal();
+		}
+		return totalGeral;
+	}
 
 	@Override
 	public int hashCode() {
@@ -155,5 +155,5 @@ public class Pedido {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -9,15 +9,15 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class Categoria {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotBlank
 	@Size(max = 30)
 	private String nome;
-	
+
 	@Size(max = 150)
 	private String descricao;
 
@@ -75,5 +75,5 @@ public class Categoria {
 			return false;
 		return true;
 	}
-	
+  
 }

@@ -21,13 +21,13 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Long id;
-	
-	@NotBlank
+
+  @NotBlank
 	@Column
 	@Size(max = 30)
 	private String nome;
-	
-	@NotBlank
+
+  @NotBlank
 	@Column
 	@Size(max = 150)
 	private String descricao;

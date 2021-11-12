@@ -35,7 +35,8 @@ public class PedidoDTO {
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
-		this.pedidosItemDTO = pedido.getPedidosItem().stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
+		this.pedidosItemDTO = pedido.getPedidosItem().stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem))
+				.collect(Collectors.toList());
 		this.totalGeral = pedido.getTotalGeral();
 	}
 
@@ -86,7 +87,6 @@ public class PedidoDTO {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
 
 	public List<PedidoItemDTO> getPedidosItemDTO() {
 		return pedidosItemDTO;
