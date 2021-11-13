@@ -1,12 +1,14 @@
 package br.org.serratec.backend.dto;
 
+import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.PedidoItem;
+import br.org.serratec.backend.model.Produto;
 
 public class InserirPedidoItemDTO {
 
 	private Long id;
-	private Long id_pedido;
-	private Long id_produto;
+	private Pedido pedido;
+	private Produto produto;
 	private Integer qntProduto;
 	private Double vlrUnit;
 	private Double subTotal;
@@ -18,8 +20,8 @@ public class InserirPedidoItemDTO {
 	public InserirPedidoItemDTO(PedidoItem pedidoItem) {
 		super();
 		this.id = pedidoItem.getId();
-		this.id_pedido = pedidoItem.getPedido().getId();
-		this.id_produto = pedidoItem.getProduto().getId();
+		this.pedido = pedidoItem.getPedido();
+		this.produto = pedidoItem.getProduto();
 		this.qntProduto = pedidoItem.getQntProduto();
 		this.vlrUnit = pedidoItem.getVlrUnit();
 		this.subTotal = pedidoItem.getSubTotal();
@@ -33,20 +35,20 @@ public class InserirPedidoItemDTO {
 		this.id = id;
 	}
 
-	public Long getId_pedido() {
-		return id_pedido;
+	public Pedido getId_pedido() {
+		return pedido;
 	}
 
-	public void setId_pedido(Long id_pedido) {
-		this.id_pedido = id_pedido;
+	public void setId_pedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
-	public Long getId_produto() {
-		return id_produto;
+	public Produto getId_produto() {
+		return produto;
 	}
 
-	public void setId_produto(Long id_produto) {
-		this.id_produto = id_produto;
+	public void setId_produto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Integer getQntProduto() {
