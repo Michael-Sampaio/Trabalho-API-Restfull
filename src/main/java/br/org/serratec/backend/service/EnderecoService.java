@@ -33,19 +33,20 @@ public class EnderecoService {
 		if (endereco.isPresent()) {
 			return new EnderecoDTO(endereco.get());
 		} else {
-			RestTemplate restTemplate = new RestTemplate();
-
-			String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
-
-			Optional<Endereco> enderecoViaCep = Optional
-					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
-			if (enderecoViaCep.get().getCep() != null) {
-				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
-				enderecoViaCep.get().setCep(cepSemTraco);
-				return new EnderecoDTO(enderecoViaCep.get());
-			} else {
-				throw new RecursoBadRequestException("CEP informado não existe");
-			}
+			/*
+			 * RestTemplate restTemplate = new RestTemplate();
+			 * 
+			 * String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
+			 * 
+			 * Optional<Endereco> enderecoViaCep = Optional
+			 * .ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class)); if
+			 * (enderecoViaCep.get().getCep() != null) { String cepSemTraco =
+			 * enderecoViaCep.get().getCep().replaceAll("-", "");
+			 * enderecoViaCep.get().setCep(cepSemTraco);
+			 * 
+			 */ InserirEnderecoDTO inserirEnderecoDTO = new InserirEnderecoDTO();
+			inserirEnderecoDTO.setCep(cep);
+			return inserir(inserirEnderecoDTO);
 		}
 	}
 
@@ -91,8 +92,6 @@ public class EnderecoService {
 				enderecoViaCep.get().setCep(cepSemTraco);
 
 				Endereco e = enderecoViaCep.get();
-				e.setNumero(inserirEnderecoDTO.getNumero());
-				e.setComplemento(inserirEnderecoDTO.getComplemento());
 				EnderecoDTO eDTO = new EnderecoDTO(e);
 				e = enderecoRepository.save(e);
 				return eDTO;

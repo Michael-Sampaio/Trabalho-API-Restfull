@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.config.MailConfig;
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
+import br.org.serratec.backend.dto.EnderecoDTO;
 import br.org.serratec.backend.dto.InserirClienteDTO;
+import br.org.serratec.backend.dto.InserirEnderecoDTO;
 import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Cliente;
+import br.org.serratec.backend.model.Endereco;
 import br.org.serratec.backend.repository.ClienteRepository;
 
 @Service
@@ -22,6 +25,9 @@ public class ClienteService {
 
 	@Autowired
 	ClienteRepository clienteRepository;
+
+	@Autowired
+	EnderecoService enderecoService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -56,9 +62,14 @@ public class ClienteService {
 		cliente.setTelefone(inserirClienteDTO.getTelefone());
 		cliente.setNomeUsuario(inserirClienteDTO.getNomeUsuario());
 		cliente.setEmail(inserirClienteDTO.getEmail());
-		cliente.setEndereco(inserirClienteDTO.getEndereco());
+		cliente.setNumero(inserirClienteDTO.getNumero());
+		cliente.setComplemento(inserirClienteDTO.getComplemento());
+		InserirEnderecoDTO iedto = new InserirEnderecoDTO(inserirClienteDTO.getEndereco());
+		EnderecoDTO enderecoDTO = enderecoService.inserir(iedto);
+		Endereco endereco = new Endereco(enderecoDTO.getCep(), enderecoDTO.getLogradouro(), 
+		enderecoDTO.getBairro(), enderecoDTO.getLocalidade(), enderecoDTO.getUf());
+		cliente.setEndereco(endereco);
 		cliente.setSenha(bCryptPasswordEncoder.encode(inserirClienteDTO.getSenha()));
-		clienteRepository.save(cliente);
 
 		return new ClienteDTO(cliente);
 
