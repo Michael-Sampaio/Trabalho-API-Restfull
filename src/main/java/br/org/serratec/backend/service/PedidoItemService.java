@@ -29,7 +29,10 @@ public class PedidoItemService {
 		if (pedidoItemRepository.findById(inserirPedidoItemDTO.getId()) != null) {
 
 			PedidoItem pedidoItem = new PedidoItem();
-			pedidoItem.setId(pedidoItem.getId());
+			pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
+			pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
+			pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
+			pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
 
 			return new PedidoItemDTO(pedidoItem);
 		} else {

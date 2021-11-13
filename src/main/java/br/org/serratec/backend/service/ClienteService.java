@@ -38,7 +38,7 @@ public class ClienteService {
 
 	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws EmailException {
 
-		if (clienteRepository.findById(inserirClienteDTO.getId()) != null) {
+		if (clienteRepository.findByEmail(inserirClienteDTO.getEmail()) != null) {
 			throw new EmailException("Email já existe ! Insira outro");
 		}
 

@@ -28,15 +28,16 @@ public class CategoriaService {
 	 */
 	public CategoriaDTO inserir(InserirCategoriaDTO inserirCategoriaDTO) {
 
-		if (categoriaRepository.findById(inserirCategoriaDTO.getId()) != null) {
+		if (categoriaRepository.findByNome(inserirCategoriaDTO.getNome()) != null) {
+			throw new CategoriaException();
+		}
 
 			Categoria categoria = new Categoria();
 			categoria.setNome(inserirCategoriaDTO.getNome());
+			categoria.setDescricao(inserirCategoriaDTO.getDescricao());
+			categoriaRepository.save(categoria);
 
 			return new CategoriaDTO(categoria);
-		} else {
-			throw new CategoriaException();
-		}
 	}
 
 	/**

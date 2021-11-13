@@ -22,7 +22,7 @@ public class Endereco {
 	@Size(max = 9)
 	private String cep;
 
-	@Column(name = "logradouro")
+	@Column(name = "rua")
 	@Size(max = 30)
 	private String logradouro;
 
