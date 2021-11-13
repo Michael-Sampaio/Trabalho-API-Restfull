@@ -22,7 +22,7 @@ public class FotoProdutoService {
 	 * 
 	 * @param produto
 	 * @param file
-	 * @return UMA FOTO DO PRODUTO
+	 * @return UMA FOTO REFERENTE A UM PRODUTO
 	 * @throws IOException
 	 */
 	public FotoProduto inserir(Produto produto, MultipartFile file) throws IOException {
@@ -34,8 +34,11 @@ public class FotoProdutoService {
 		return fotoProdutoRepository.save(fotoProduto);
 	}
 
-	/*
+	/**
 	 * METODO PARA BUSCAR FOTO DO PRODUTO POR ID DO PRODUTO
+	 * 
+	 * @param id
+	 * @return FOTO DO PRODUTO POR ID DO PRODUTO
 	 */
 	public FotoProduto buscar(Long id) {
 		Optional<FotoProduto> fotoProduto = fotoProdutoRepository.findById(id);

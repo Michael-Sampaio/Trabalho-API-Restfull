@@ -15,7 +15,6 @@ public class AlterarCategoriaDTO {
 
 	public AlterarCategoriaDTO(Long id, String nome, String descricao) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}

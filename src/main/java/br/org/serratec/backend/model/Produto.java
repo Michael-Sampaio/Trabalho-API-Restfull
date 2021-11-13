@@ -46,6 +46,19 @@ public class Produto {
 	@JoinColumn(name = "id_categoria")
 	private Categoria categoria;
 
+	public Produto() {
+	}
+
+	public Produto(Long id, String nome, String descricao, Integer qtdEstoque, LocalDate dataCadastro, Double valorUnitario, Categoria categoria) {
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.qtdEstoque = qtdEstoque;
+		this.dataCadastro = dataCadastro;
+		this.valorUnitario = valorUnitario;
+		this.categoria = categoria;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

@@ -12,7 +12,6 @@ public class InserirCategoriaDTO {
 	}
 
 	public InserirCategoriaDTO(Categoria categoria) {
-		this.id = categoria.getId();
 		this.nome = categoria.getNome();
 		this.descricao = categoria.getDescricao();
 	}

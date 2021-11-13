@@ -28,7 +28,6 @@ public class AlterarClienteDTO {
 
 	public AlterarClienteDTO(Cliente cliente) {
 		super();
-		this.id = cliente.getId();
 		this.email = cliente.getEmail();
 		this.nomeUsuario = cliente.getNomeUsuario();
 		this.nomeCompleto = cliente.getNomeCompleto();

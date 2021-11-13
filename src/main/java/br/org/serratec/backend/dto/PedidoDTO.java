@@ -1,8 +1,6 @@
 package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
@@ -15,13 +13,11 @@ import br.org.serratec.backend.model.Status;
 @Embeddable
 public class PedidoDTO {
 
-	private Long id;
 	private LocalDate dataPedido;
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
 	private Status status;
 	private Cliente cliente;
-	private List<PedidoItemDTO> pedidosItemDTO;
 	private Double totalGeral;
 
 	public PedidoDTO() {
@@ -29,23 +25,12 @@ public class PedidoDTO {
 
 	public PedidoDTO(Pedido pedido) {
 		super();
-		this.id = pedido.getId();
 		this.dataPedido = pedido.getDataPedido();
 		this.dataEntrega = pedido.getDataEntrega();
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
-		this.pedidosItemDTO = pedido.getPedidosItem().stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem))
-				.collect(Collectors.toList());
 		this.totalGeral = pedido.getTotalGeral();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public LocalDate getDataPedido() {
@@ -86,14 +71,6 @@ public class PedidoDTO {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-
-	public List<PedidoItemDTO> getPedidosItemDTO() {
-		return pedidosItemDTO;
-	}
-
-	public void setPedidosItemDTO(List<PedidoItemDTO> pedidosItemDTO) {
-		this.pedidosItemDTO = pedidosItemDTO;
 	}
 
 	public Double getTotalGeral() {

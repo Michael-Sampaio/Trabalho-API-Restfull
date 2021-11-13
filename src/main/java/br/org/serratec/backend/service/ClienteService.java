@@ -1,5 +1,7 @@
 package br.org.serratec.backend.service;
 
+//import java.io.IOException;
+//import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +9,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+//import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.config.MailConfig;
 import br.org.serratec.backend.dto.AlterarClienteDTO;
@@ -30,6 +34,9 @@ public class ClienteService {
 	EnderecoService enderecoService;
 
 	@Autowired
+	FotoClienteService fotoClienteService;
+
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
@@ -40,7 +47,7 @@ public class ClienteService {
 	 * 
 	 * @param cliente
 	 * @return UM NOVO CLIENTE
-	 * @throws EmailException
+	 * @throws RecursoBadRequestException
 	 */
 
 	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws RecursoBadRequestException {
@@ -70,7 +77,8 @@ public class ClienteService {
 		enderecoDTO.getBairro(), enderecoDTO.getLocalidade(), enderecoDTO.getUf());
 		cliente.setEndereco(endereco);
 		cliente.setSenha(bCryptPasswordEncoder.encode(inserirClienteDTO.getSenha()));
-
+		//mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
+		clienteRepository.save(cliente);
 		return new ClienteDTO(cliente);
 
 	}
@@ -120,17 +128,6 @@ public class ClienteService {
 	}
 
 	/**
-	 * METODO PARA DELETAR UM CLIENTE
-	 * 
-	 * @param id
-	 */
-	public void deletar(Long id) {
-		if (clienteRepository.existsById(id)) {
-			clienteRepository.deleteById(id);
-		}
-	}
-
-	/**
 	 * METODO PARA LISTAR CLIENTE POR NUMERO COM TOTAL GERAL
 	 * 
 	 * @param id
@@ -142,6 +139,36 @@ public class ClienteService {
 			return new ClienteDTO(cliente.get());
 		} else {
 			throw new RecursoNotFoundException("Cliente não encontrado");
+		}
+	}
+
+	/*public ClienteDTO inserirFoto(Cliente cliente, MultipartFile file) throws IOException {
+		fotoClienteService.inserir(clienteRepository.save(cliente), file);
+		return adicionarUriFoto(cliente);
+	}
+
+	private ClienteDTO adicionarUriFoto(Cliente cliente) {
+		URI uri = ServletUriComponentsBuilder
+				  .fromCurrentContextPath()
+				  .path("/funcionarios/{id}/foto")
+				  .buildAndExpand(cliente.getId())
+				  .toUri();
+		
+		ClienteDTO clienteDTO = new ClienteDTO();
+		clienteDTO.setNomeUsuario(cliente.getNomeUsuario());
+		clienteDTO.setUri(uri.toString());
+		
+		return clienteDTO;
+	}
+*/
+	/**
+	 * METODO PARA DELETAR UM CLIENTE
+	 * 
+	 * @param id
+	 */
+	public void deletar(Long id) {
+		if (clienteRepository.existsById(id)) {
+			clienteRepository.deleteById(id);
 		}
 	}
 

@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.backend.dto.InserirProdutoDTO;
+import br.org.serratec.backend.dto.ProdutoDTO;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Produto;
 import br.org.serratec.backend.service.ProdutoService;
 import io.swagger.annotations.ApiOperation;
@@ -35,15 +39,15 @@ public class ProdutoController {
     ProdutoService produtoService;
 
     @GetMapping
-    @ApiOperation(value = "Listar produtos", notes = "Listagem de produtos")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os produtos"),
+    @ApiOperation(value = "Listar Produtos", notes = "Listagem de produtos")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os Produtos"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
 
-    public List<Produto> listar() {
-        return ProdutoRepository.findAll();
+    public ResponseEntity<List<ProdutoDTO>> listar() {
+        return ResponseEntity.ok(produtoService.listar());
     }
 
     @GetMapping("/{id}")
@@ -54,25 +58,24 @@ public class ProdutoController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
 
-    public ResponseEntity<Produto> buscar(@PathVariable Long id) {
+    public ResponseEntity<Produto> buscar(@PathVariable Long id) throws RecursoNotFoundException {
         Optional<Produto> Produto = ProdutoRepository.findById(id);
         if (!Produto.isPresent()) {
-            return ResponseEntity.notFound().build();
+            throw new RecursoNotFoundException("Produto não encontrado");
         }
         return ResponseEntity.ok(Produto.get());
     }
 
     @PostMapping
-    @ApiOperation(value = "Cadastrar um produto", notes = "Cadastro de produto")
+    @ApiOperation(value = "Cadastrar um produto", notes = "Cadastro de produtos")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um produto"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto inserir(@Valid @RequestBody Produto Produto) {
-        return ProdutoRepository.save(Produto);
+    public ProdutoDTO inserir(@Valid @RequestBody InserirProdutoDTO inserirProdutoDTO) throws RecursoBadRequestException {
+        return produtoService.inserir(inserirProdutoDTO);
     }
 
     @DeleteMapping("/{id}")

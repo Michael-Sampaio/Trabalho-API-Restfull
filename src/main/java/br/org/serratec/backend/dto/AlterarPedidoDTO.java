@@ -20,7 +20,6 @@ public class AlterarPedidoDTO {
 
 	public AlterarPedidoDTO(Pedido pedido) {
 		super();
-		this.id = pedido.getId();
 		this.dataPedido = pedido.getDataPedido();
 		this.dataEntrega = pedido.getDataEntrega();
 		this.dataEnvio = pedido.getDataEnvio();

@@ -19,7 +19,6 @@ public class InserirPedidoItemDTO {
 
 	public InserirPedidoItemDTO(PedidoItem pedidoItem) {
 		super();
-		this.id = pedidoItem.getId();
 		this.pedido = pedidoItem.getPedido();
 		this.produto = pedidoItem.getProduto();
 		this.qntProduto = pedidoItem.getQntProduto();
