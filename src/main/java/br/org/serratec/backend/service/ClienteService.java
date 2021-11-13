@@ -12,7 +12,8 @@ import br.org.serratec.backend.config.MailConfig;
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
 import br.org.serratec.backend.dto.InserirClienteDTO;
-import br.org.serratec.backend.exception.EmailException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
 
@@ -36,10 +37,16 @@ public class ClienteService {
 	 * @throws EmailException
 	 */
 
-	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws EmailException {
+	public ClienteDTO inserir(InserirClienteDTO inserirClienteDTO) throws RecursoBadRequestException {
 
 		if (clienteRepository.findByEmail(inserirClienteDTO.getEmail()) != null) {
-			throw new EmailException("Email já existe ! Insira outro");
+			throw new RecursoBadRequestException("Email já cadastrado!");
+		}
+		if (clienteRepository.findByCpf(inserirClienteDTO.getCpf()) != null) {
+			throw new RecursoBadRequestException("CPF ja cadastrado!");
+		}
+		if (clienteRepository.findByNomeUsuario(inserirClienteDTO.getNomeUsuario()) != null) {
+			throw new RecursoBadRequestException("Nome de Usuário ja cadastrado!");
 		}
 
 		Cliente cliente = new Cliente();
@@ -81,17 +88,23 @@ public class ClienteService {
 	 * @return UM CLIENTE COM REGISTRO ALTERADO
 	 * @throws EmailException
 	 */
-	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) throws EmailException {
+	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) throws RecursoBadRequestException {
 
 		if (clienteRepository.findByEmail(alterarClienteDTO.getEmail()) != null) {
-			throw new EmailException("Email já existe ! Insira outro");
+			throw new RecursoBadRequestException("Email já cadastrado!");
+		}
+		if (clienteRepository.findByCpf(alterarClienteDTO.getCpf()) != null) {
+			throw new RecursoBadRequestException("CPF ja cadastrado!");
+		}
+		if (clienteRepository.findByNomeUsuario(alterarClienteDTO.getNomeUsuario()) != null) {
+			throw new RecursoBadRequestException("Nome de Usuário ja cadastrado!");
 		}
 		Cliente cliente = new Cliente();
 		cliente.setId(alterarClienteDTO.getId());
 
 		cliente.setSenha(bCryptPasswordEncoder.encode(alterarClienteDTO.getSenha()));
 		clienteRepository.save(cliente);
-		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro De Usuário Alterado", cliente.toString());
+		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Alterado", cliente.toString());
 		return new ClienteDTO(cliente);
 	}
 
@@ -114,7 +127,11 @@ public class ClienteService {
 	 */
 	public ClienteDTO buscar(Long id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
-		return new ClienteDTO(cliente.get());
+		if (cliente.isPresent()) {
+			return new ClienteDTO(cliente.get());
+		} else {
+			throw new RecursoNotFoundException("Cliente não encontrado");
+		}
 	}
 
 }

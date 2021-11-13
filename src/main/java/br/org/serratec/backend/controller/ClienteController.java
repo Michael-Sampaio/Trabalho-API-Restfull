@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.ClienteDTO;
 import br.org.serratec.backend.dto.InserirClienteDTO;
-import br.org.serratec.backend.exception.EmailException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.repository.ClienteRepository;
 import br.org.serratec.backend.service.ClienteService;
@@ -71,7 +71,7 @@ public class ClienteController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO) throws EmailException {
+	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO) throws RecursoBadRequestException {
 		return clienteService.inserir(inserirClienteDTO);
 	}
 
