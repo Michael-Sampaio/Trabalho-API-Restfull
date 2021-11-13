@@ -6,7 +6,7 @@ public class RespostaErro {
     private String classe;
     private String dataHora;
 
-    public RespostaErro(String titulo, Integer status, String classe, String dataHora) {
+    public RespostaErro(String titulo, Integer status, String mensagem, String classe, String dataHora) {
         this.titulo = titulo;
         this.classe = classe;
         this.status = status;

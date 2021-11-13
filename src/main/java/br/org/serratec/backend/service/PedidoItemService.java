@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.dto.AlterarPedidoItemDTO;
 import br.org.serratec.backend.dto.InserirPedidoItemDTO;
 import br.org.serratec.backend.dto.PedidoItemDTO;
-import br.org.serratec.backend.exception.CategoriaException;
-import br.org.serratec.backend.exception.PedidoItemException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.repository.PedidoItemRepository;
 
@@ -36,7 +36,7 @@ public class PedidoItemService {
 
 			return new PedidoItemDTO(pedidoItem);
 		} else {
-			throw new CategoriaException();
+			throw new RecursoBadRequestException("Produto ja inserido!");
 		}
 	}
 
@@ -55,7 +55,7 @@ public class PedidoItemService {
 
 			return new PedidoItemDTO();
 		} else {
-			throw new PedidoItemException();
+			throw new RecursoNotFoundException("Produto não encontrado");
 		}
 	}
 
@@ -67,7 +67,11 @@ public class PedidoItemService {
 	 */
 	public PedidoItemDTO buscar(Long id) {
 		Optional<PedidoItem> pedidoItem = pedidoItemRepository.findById(id);
-		return new PedidoItemDTO(pedidoItem.get());
+		if (pedidoItem.isPresent()) {
+			return new PedidoItemDTO(pedidoItem.get());
+		} else {
+			throw new RecursoNotFoundException("Produto não encontrado");
+		}
 	}
 
 	/**

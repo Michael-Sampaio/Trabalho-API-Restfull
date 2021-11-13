@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
 import br.org.serratec.backend.dto.InserirEnderecoDTO;
-import br.org.serratec.backend.exception.EnderecoException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.Endereco;
 import br.org.serratec.backend.repository.EnderecoRepository;
 
@@ -33,19 +33,20 @@ public class EnderecoService {
 		if (endereco.isPresent()) {
 			return new EnderecoDTO(endereco.get());
 		} else {
-			RestTemplate restTemplate = new RestTemplate();
-
-			String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
-
-			Optional<Endereco> enderecoViaCep = Optional
-					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
-			if (enderecoViaCep.get().getCep() != null) {
-				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
-				enderecoViaCep.get().setCep(cepSemTraco);
-				return new EnderecoDTO(enderecoViaCep.get());
-			} else {
-				return null;
-			}
+			/*
+			 * RestTemplate restTemplate = new RestTemplate();
+			 * 
+			 * String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
+			 * 
+			 * Optional<Endereco> enderecoViaCep = Optional
+			 * .ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class)); if
+			 * (enderecoViaCep.get().getCep() != null) { String cepSemTraco =
+			 * enderecoViaCep.get().getCep().replaceAll("-", "");
+			 * enderecoViaCep.get().setCep(cepSemTraco);
+			 * 
+			 */ InserirEnderecoDTO inserirEnderecoDTO = new InserirEnderecoDTO();
+			inserirEnderecoDTO.setCep(cep);
+			return inserir(inserirEnderecoDTO);
 		}
 	}
 
@@ -74,7 +75,7 @@ public class EnderecoService {
 	 */
 	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) {
 		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
-			throw new EnderecoException();
+			throw new RecursoBadRequestException("Endereço ja cadastrado!");
 		}
 		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
 		if (end.isPresent()) {
@@ -91,14 +92,12 @@ public class EnderecoService {
 				enderecoViaCep.get().setCep(cepSemTraco);
 
 				Endereco e = enderecoViaCep.get();
-				e.setNumero(inserirEnderecoDTO.getNumero());
-				e.setComplemento(inserirEnderecoDTO.getComplemento());
 				EnderecoDTO eDTO = new EnderecoDTO(e);
 				e = enderecoRepository.save(e);
 				return eDTO;
 
 			} else {
-				return null;
+				throw new RecursoBadRequestException("CEP informado não existe");
 			}
 		}
 	}

@@ -9,30 +9,17 @@ public class InserirEnderecoDTO {
     private String logradouro;
     private String bairro;
     private String localidade;
-    private Integer numero;
-    private String complemento;
     private String uf;
 
     public InserirEnderecoDTO() {
     }
 
     public InserirEnderecoDTO(Endereco endereco) {
-        this.id = endereco.getId();
         this.cep = endereco.getCep();
         this.logradouro = endereco.getLogradouro();
         this.bairro = endereco.getBairro();
         this.localidade = endereco.getLocalidade();
-        this.numero = endereco.getNumero();
-        this.complemento = endereco.getComplemento();
         this.uf = endereco.getUf();
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCep() {
@@ -65,22 +52,6 @@ public class InserirEnderecoDTO {
 
     public void setLocalidade(String localidade) {
         this.localidade = localidade;
-    }
-
-    public Integer getNumero() {
-        return this.numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return this.complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
     }
 
     public String getUf() {

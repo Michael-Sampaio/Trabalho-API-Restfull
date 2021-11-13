@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.dto.AlterarPedidoDTO;
 import br.org.serratec.backend.dto.InserirPedidoDTO;
 import br.org.serratec.backend.dto.PedidoDTO;
-import br.org.serratec.backend.exception.PedidoException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.repository.PedidoRepository;
 
@@ -35,7 +36,7 @@ public class PedidoService {
 
 			return new PedidoDTO(pedido);
 		} else {
-			throw new PedidoException();
+			throw new RecursoBadRequestException("Pedido já cadastrado!");
 		}
 	}
 
@@ -55,7 +56,7 @@ public class PedidoService {
 			return new PedidoDTO(pedido);
 
 		} else {
-			throw new PedidoException();
+			throw new RecursoNotFoundException("Pedido não encontrado");
 		}
 	}
 
@@ -67,8 +68,11 @@ public class PedidoService {
 	 */
 	public PedidoDTO buscar(Long id) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
-		// return pedidoRepository.findBytotalGeral(totalGeral);
-		return new PedidoDTO(pedido.get());
+		if (pedido.isPresent()) {
+			return new PedidoDTO(pedido.get());
+		} else {
+			throw new RecursoBadRequestException("Pedido não encontrado");
+		}
 	}
 
 	/**

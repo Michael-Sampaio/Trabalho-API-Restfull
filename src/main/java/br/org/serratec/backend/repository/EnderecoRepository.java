@@ -19,10 +19,6 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
     public Endereco findByLocalidade(String cidade);
 
-    public Endereco findByNumero(Integer numero);
-
-    public Endereco findByComplemento(String complemento);
-
     public Endereco findByUf(String estado);
 
 }

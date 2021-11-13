@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.CategoriaDTO;
 import br.org.serratec.backend.dto.InserirCategoriaDTO;
-import br.org.serratec.backend.exception.CategoriaException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.repository.CategoriaRepository;
 import br.org.serratec.backend.service.CategoriaService;
@@ -72,7 +72,7 @@ public class CategoriaController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO) throws CategoriaException {
+    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO) throws RecursoBadRequestException {
         return categoriaService.inserir(inserirCategoriaDTO);
     }
 

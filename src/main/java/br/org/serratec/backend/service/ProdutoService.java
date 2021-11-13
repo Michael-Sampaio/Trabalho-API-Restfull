@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.dto.AlterarProdutoDTO;
 import br.org.serratec.backend.dto.InserirProdutoDTO;
 import br.org.serratec.backend.dto.ProdutoDTO;
-import br.org.serratec.backend.exception.ProdutoException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Produto;
 import br.org.serratec.backend.repository.ProdutoRepository;
 
@@ -34,7 +35,7 @@ public class ProdutoService {
 
 			return new ProdutoDTO(produto);
 		} else {
-			throw new ProdutoException();
+			throw new RecursoBadRequestException("Produto ja cadastrado! Insira outro");
 		}
 	}
 
@@ -69,7 +70,7 @@ public class ProdutoService {
 
 			return new ProdutoDTO(produto);
 		} else {
-			throw new ProdutoException();
+			throw new RecursoNotFoundException("Produto não encontrado");
 		}
 	}
 

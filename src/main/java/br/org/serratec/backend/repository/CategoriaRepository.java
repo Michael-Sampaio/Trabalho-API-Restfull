@@ -8,6 +8,8 @@ import br.org.serratec.backend.model.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
+    boolean existsById = false;
+
     Optional<Categoria> findById(Long id);
 
     Categoria findByDescricao(String descricao);

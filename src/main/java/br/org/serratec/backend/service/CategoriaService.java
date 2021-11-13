@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.backend.dto.AlterarCategoriaDTO;
 import br.org.serratec.backend.dto.CategoriaDTO;
 import br.org.serratec.backend.dto.InserirCategoriaDTO;
-import br.org.serratec.backend.exception.CategoriaException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.repository.CategoriaRepository;
 
@@ -29,15 +30,15 @@ public class CategoriaService {
 	public CategoriaDTO inserir(InserirCategoriaDTO inserirCategoriaDTO) {
 
 		if (categoriaRepository.findByNome(inserirCategoriaDTO.getNome()) != null) {
-			throw new CategoriaException();
+			throw new RecursoBadRequestException("Categoria ja cadastrada!");
 		}
 
-			Categoria categoria = new Categoria();
-			categoria.setNome(inserirCategoriaDTO.getNome());
-			categoria.setDescricao(inserirCategoriaDTO.getDescricao());
-			categoriaRepository.save(categoria);
+		Categoria categoria = new Categoria();
+		categoria.setNome(inserirCategoriaDTO.getNome());
+		categoria.setDescricao(inserirCategoriaDTO.getDescricao());
+		categoriaRepository.save(categoria);
 
-			return new CategoriaDTO(categoria);
+		return new CategoriaDTO(categoria);
 	}
 
 	/**
@@ -55,7 +56,7 @@ public class CategoriaService {
 
 			return new CategoriaDTO(categoria);
 		} else {
-			throw new CategoriaException();
+			throw new RecursoNotFoundException("Categoria não encontrada");
 		}
 	}
 
@@ -84,7 +85,11 @@ public class CategoriaService {
 	 */
 	public CategoriaDTO buscar(Long id) {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
-		return new CategoriaDTO(categoria.get());
+		if (categoria.isPresent()) {
+			return new CategoriaDTO(categoria.get());
+		} else {
+			throw new RecursoNotFoundException("Categoria não encontrada");
+		}
 	}
 
 	/**

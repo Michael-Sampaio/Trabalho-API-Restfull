@@ -2,8 +2,10 @@ package br.org.serratec.backend.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,10 +38,16 @@ public class Cliente {
 	@Column
 	private String telefone;
 
+	@Column
+	private Integer numero;
+
+	@Column
+	private String complemento;
+
 	@Column(name = "data_nasc")
 	private LocalDate dataNascimento;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 
@@ -48,7 +56,7 @@ public class Cliente {
 	}
 
 	public Cliente(Long id, String email, String nomeUsuario, String nomeCompleto, String senha, String cpf,
-			String telefone, LocalDate dataNascimento, Endereco endereco) {
+			String telefone, Integer numero, String complemento, LocalDate dataNascimento, Endereco endereco) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -57,6 +65,8 @@ public class Cliente {
 		this.senha = senha;
 		this.cpf = cpf;
 		this.telefone = telefone;
+		this.numero = numero;
+		this.complemento = complemento;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
 	}
@@ -115,6 +125,22 @@ public class Cliente {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public Integer getNumero() {
+		return this.numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return this.complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public LocalDate getDataNascimento() {
