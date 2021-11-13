@@ -48,7 +48,7 @@ public class ClienteController {
 		return ResponseEntity.ok(clienteService.listar());
 	}
 
-	@GetMapping("/id")
+	@GetMapping("/{id}")
 	@ApiOperation(value = "Buscar um cliente por id", notes = "Busca um cliente")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um cliente"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),

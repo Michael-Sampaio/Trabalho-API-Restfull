@@ -1,8 +1,7 @@
 package br.org.serratec.backend.dto;
 
-import javax.persistence.Embeddable;
+import br.org.serratec.backend.model.Categoria;
 
-@Embeddable
 public class InserirCategoriaDTO {
 
 	private Long id;
@@ -10,14 +9,12 @@ public class InserirCategoriaDTO {
 	private String descricao;
 
 	public InserirCategoriaDTO() {
-		super();
 	}
 
-	public InserirCategoriaDTO(Long id, String nome, String descricao) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.descricao = descricao;
+	public InserirCategoriaDTO(Categoria categoria) {
+		this.id = categoria.getId();
+		this.nome = categoria.getNome();
+		this.descricao = categoria.getDescricao();
 	}
 
 	public Long getId() {

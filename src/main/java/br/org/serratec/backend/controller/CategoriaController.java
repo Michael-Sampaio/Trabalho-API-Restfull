@@ -49,7 +49,7 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.listar());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Buscar uma categoria por id", notes = "Busca uma categoria")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma categoria"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),

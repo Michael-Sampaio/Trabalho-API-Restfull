@@ -1,8 +1,8 @@
 package br.org.serratec.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,7 +78,13 @@ public class PedidoService {
 	 */
 	public List<PedidoDTO> listar() {
 		List<Pedido> pedidos = pedidoRepository.findAll();
-		return pedidos.stream().map(pedidoItem -> new PedidoDTO(pedidoItem)).collect(Collectors.toList());
+		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
+
+		for (Pedido pedido : pedidos) {
+			PedidoDTO pedidoDTO = new PedidoDTO(pedido);
+			pedidosDTO.add(pedidoDTO);
+		}
+		return pedidosDTO;
 	}
 
 	/**
