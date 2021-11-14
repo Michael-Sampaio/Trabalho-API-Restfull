@@ -101,30 +101,32 @@ public class ClienteService {
 	}
 
 	/**
-	 * METODO PARA EDITAR UM REGISTRO DE CLIENTE
+	 * METODO PARA ALTERAR UMA CATEGORIA
 	 * 
-	 * @param alterarClienteDTO
-	 * @return UM CLIENTE COM REGISTRO ALTERADO
-	 * @throws EmailException
+	 * @param alterarCategoriaDTO
+	 * @return UMA CATEGORIA ALTERADA
 	 */
-	public ClienteDTO alterar(AlterarClienteDTO alterarClienteDTO) throws RecursoBadRequestException {
+	public ClienteDTO alterar(Long id, AlterarClienteDTO alterarClienteDTO) throws RecursoNotFoundException {
 
-		if (clienteRepository.findByEmail(alterarClienteDTO.getEmail()) != null) {
-			throw new RecursoBadRequestException("Email já cadastrado!");
-		}
-		if (clienteRepository.findByCpf(alterarClienteDTO.getCpf()) != null) {
-			throw new RecursoBadRequestException("CPF ja cadastrado!");
-		}
-		if (clienteRepository.findByNomeUsuario(alterarClienteDTO.getNomeUsuario()) != null) {
-			throw new RecursoBadRequestException("Nome de Usuário ja cadastrado!");
-		}
-		Cliente cliente = new Cliente();
-		cliente.setId(alterarClienteDTO.getId());
+		if (clienteRepository.existsById(id)) {
+			Cliente cliente = new Cliente(alterarClienteDTO);
+			cliente.setId(id);
+			cliente.setNomeUsuario(alterarClienteDTO.getNomeUsuario());
+			cliente.setSenha(bCryptPasswordEncoder.encode(alterarClienteDTO.getSenha()));
+			cliente.setNomeCompleto(alterarClienteDTO.getNomeCompleto());
+			cliente.setCpf(alterarClienteDTO.getCpf());
+			cliente.setEmail(alterarClienteDTO.getEmail());
+			cliente.setDataNascimento(alterarClienteDTO.getDataNascimento());
+			cliente.setTelefone(alterarClienteDTO.getTelefone());
+			cliente.setEndereco(alterarClienteDTO.getEndereco());
+			cliente.setNumero(alterarClienteDTO.getNumero());
+			cliente.setComplemento(alterarClienteDTO.getComplemento());
+			//mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
+			clienteRepository.save(cliente);
 
-		cliente.setSenha(bCryptPasswordEncoder.encode(alterarClienteDTO.getSenha()));
-		clienteRepository.save(cliente);
-		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Alterado", cliente.toString());
-		return new ClienteDTO(cliente);
+			return new ClienteDTO(cliente);
+		}
+		throw new RecursoNotFoundException("Cliente não encontrado");
 	}
 
 	/**
@@ -133,7 +135,7 @@ public class ClienteService {
 	 * @param id
 	 * @return UM CLIENTE
 	 */
-	public ClienteDTO buscar(Long id) {
+	public ClienteDTO buscar(Long id) throws RecursoNotFoundException {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 		if (cliente.isPresent()) {
 			return new ClienteDTO(cliente.get());

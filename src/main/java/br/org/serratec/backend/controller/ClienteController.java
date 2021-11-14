@@ -86,7 +86,7 @@ public class ClienteController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     public ClienteDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarClienteDTO alterarClienteDTO) throws RecursoBadRequestException {
-    	return clienteService.alterar(alterarClienteDTO);
+    	return clienteService.alterar(id, alterarClienteDTO);
     }
 
 	@DeleteMapping("/{id}")

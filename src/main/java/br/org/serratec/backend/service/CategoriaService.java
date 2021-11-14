@@ -42,36 +42,9 @@ public class CategoriaService {
 	}
 
 	/**
-	 * METODO PARA ALTERAR UMA CATEGORIA
-	 * 
-	 * @param alterarCategoriaDTO
-	 * @return UMA CATEGORIA ALTERADA
-	 */
-	public CategoriaDTO alterar(Long id, AlterarCategoriaDTO alterarCategoriaDTO) {
-		
-		Optional<Categoria> categoria = categoriaRepository.findById(id);
-
-		if (categoria.isPresent()) {
-
-			if (alterarCategoriaDTO.getNome() != null) {
-				categoria.get().setNome(alterarCategoriaDTO.getNome());
-			}
-			if (alterarCategoriaDTO.getDescricao() != null) {
-				categoria.get().setDescricao(alterarCategoriaDTO.getDescricao());
-			}
-			
-			categoriaRepository.save(categoria.get());
-
-			return new CategoriaDTO(categoria.get());
-		} else {
-			throw new RecursoNotFoundException("Categoria não encontrada");
-		}
-	}
-
-	/**
 	 * METODO PARA LISTAR AS CATEGORIAS
 	 * 
-	 * @return UMA LISTA DE CATEGORIAS
+	 * @return LISTA DE CATEGORIAS
 	 */
 	public List<CategoriaDTO> listar() {
 		List<Categoria> categorias = categoriaRepository.findAll();
@@ -83,6 +56,26 @@ public class CategoriaService {
 		}
 
 		return categoriasDTO;
+	}
+
+	/**
+	 * METODO PARA ALTERAR UMA CATEGORIA
+	 * 
+	 * @param alterarCategoriaDTO
+	 * @return UMA CATEGORIA ALTERADA
+	 */
+	public CategoriaDTO alterar(Long id, AlterarCategoriaDTO alterarCategoriaDTO) throws RecursoNotFoundException {
+
+		if (categoriaRepository.existsById(id)) {
+			Categoria categoria = new Categoria(alterarCategoriaDTO);
+			categoria.setId(id);
+			categoria.setNome(alterarCategoriaDTO.getNome());
+			categoria.setDescricao(alterarCategoriaDTO.getDescricao());
+			categoriaRepository.save(categoria);
+
+			return new CategoriaDTO(categoria);
+		}
+		throw new RecursoNotFoundException("Categoria não encontrada");
 	}
 
 	/**

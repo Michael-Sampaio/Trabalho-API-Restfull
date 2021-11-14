@@ -44,20 +44,21 @@ public class PedidoService {
 	 * METODO PARA ALTERAR UM PEDIDO
 	 * 
 	 * @param alterarPedidoDTO
-	 * @return UM NOVO REGISTRO DE PEDIDO
+	 * @return UM PEDIDO ALTERADO
 	 */
-	public PedidoDTO alterar(Long id, AlterarPedidoDTO alterarPedidoDTO) {
+	public PedidoDTO alterar(Long id, AlterarPedidoDTO alterarPedidoDTO) throws RecursoNotFoundException {
 
-		if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
-
-			Pedido pedido = new Pedido();
-			pedido.setId(alterarPedidoDTO.getId());
+		if (pedidoRepository.existsById(id)) {
+			Pedido pedido = new Pedido(alterarPedidoDTO);
+			pedido.setId(id);
+			pedido.setDataEnvio(alterarPedidoDTO.getDataEnvio());
+			pedido.setDataEntrega(alterarPedidoDTO.getDataEntrega());
+			pedido.setStatus(alterarPedidoDTO.getStatus());
+			pedidoRepository.save(pedido);
 
 			return new PedidoDTO(pedido);
-
-		} else {
-			throw new RecursoNotFoundException("Pedido não encontrado");
 		}
+		throw new RecursoNotFoundException("Pedido não encontrado");
 	}
 
 	/**

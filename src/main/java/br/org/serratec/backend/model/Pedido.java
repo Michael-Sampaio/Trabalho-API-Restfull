@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.org.serratec.backend.dto.AlterarPedidoDTO;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -54,7 +56,10 @@ public class Pedido {
 	@Transient
 	private Double totalGeral;
 
-	public Long getId() {
+	public Pedido(AlterarPedidoDTO alterarPedidoDTO) {
+    }
+
+    public Long getId() {
 		return this.id;
 	}
 
