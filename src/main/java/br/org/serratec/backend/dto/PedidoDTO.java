@@ -3,7 +3,6 @@ package br.org.serratec.backend.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
@@ -23,8 +22,6 @@ public class PedidoDTO {
 	private Cliente cliente;
 	private List<PedidoItem> pedidosItem;
 	private Double totalGeral;
-	
-	
 
 	public PedidoDTO() {
 	}
@@ -40,6 +37,7 @@ public class PedidoDTO {
 		this.pedidosItem = pedido.getPedidosItem();
 
 		this.totalGeral = pedido.getTotalGeral();
+		this.pedidosItem = pedido.getPedidosItem();
 	}
 
 	public LocalDate getDataPedido() {
@@ -98,5 +96,4 @@ public class PedidoDTO {
 		this.pedidosItem = pedidosItem;
 	}
 
-	
 }

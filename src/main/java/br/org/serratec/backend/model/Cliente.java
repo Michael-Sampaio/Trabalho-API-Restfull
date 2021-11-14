@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 //import javax.persistence.OneToOne;
 
+import br.org.serratec.backend.dto.AlterarClienteDTO;
+
 @Entity
 public class Cliente {
 
@@ -71,6 +73,9 @@ public class Cliente {
 		this.complemento = complemento;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
+	}
+
+	public Cliente(AlterarClienteDTO alterarClienteDTO) {
 	}
 
 	public Long getId() {

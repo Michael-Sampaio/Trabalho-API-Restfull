@@ -41,22 +41,26 @@ public class PedidoItemService {
 	}
 
 	/**
-	 * METODO PARA ALTERAR UM PEDIDO
+	 * METODO PARA ALTERAR UM ITEM DE PEDIDO
 	 * 
 	 * @param alterarPedidoItemDTO
-	 * @return UM PEDIDO COM REGISTRO ALTERADO
+	 * @return UM ITEM ALTERADO DE UM PEDIDO
 	 */
-	public PedidoItemDTO alterar(AlterarPedidoItemDTO alterarPedidoItemDTO) {
+	public PedidoItemDTO alterar(Long id, AlterarPedidoItemDTO alterarPedidoItemDTO) throws RecursoNotFoundException {
 
-		if (pedidoItemRepository.findById(alterarPedidoItemDTO.getId()) != null) {
+		if (pedidoItemRepository.existsById(id)) {
+			PedidoItem pedidoItem = new PedidoItem(alterarPedidoItemDTO);
+			pedidoItem.setId(id);
+			pedidoItem.setPedido(alterarPedidoItemDTO.getId_pedido());
+			pedidoItem.setProduto(alterarPedidoItemDTO.getId_produto());
+			pedidoItem.setQntProduto(alterarPedidoItemDTO.getQntProduto());
+			pedidoItem.setVlrUnit(alterarPedidoItemDTO.getVlrUnit());
+			pedidoItem.setSubTotal(alterarPedidoItemDTO.getSubTotal());
+			pedidoItemRepository.save(pedidoItem);
 
-			PedidoItem pedidoItem = new PedidoItem();
-			pedidoItem.setId(alterarPedidoItemDTO.getId());
-
-			return new PedidoItemDTO();
-		} else {
-			throw new RecursoNotFoundException("Produto não encontrado");
+			return new PedidoItemDTO(pedidoItem);
 		}
+		throw new RecursoNotFoundException("Item do Pedido não encontrado");
 	}
 
 	/**

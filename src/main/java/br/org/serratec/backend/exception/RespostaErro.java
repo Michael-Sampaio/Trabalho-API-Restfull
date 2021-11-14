@@ -4,11 +4,13 @@ public class RespostaErro {
     private String titulo;
     private Integer status;
     private String classe;
+    private String mensagem;
     private String dataHora;
 
     public RespostaErro(String titulo, Integer status, String mensagem, String classe, String dataHora) {
         this.titulo = titulo;
         this.classe = classe;
+        this.mensagem = mensagem;
         this.status = status;
         this.dataHora = dataHora;
     }
@@ -27,6 +29,14 @@ public class RespostaErro {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getMensagem() {
+        return this.mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     public String getClasse() {
