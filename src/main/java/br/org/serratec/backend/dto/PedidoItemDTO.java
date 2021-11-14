@@ -12,7 +12,7 @@ public class PedidoItemDTO {
 	private Integer qntProduto;
 	private Double vlrUnit;
 	private Double subTotal;
-
+  
 	public PedidoItemDTO() {
 	}
 
