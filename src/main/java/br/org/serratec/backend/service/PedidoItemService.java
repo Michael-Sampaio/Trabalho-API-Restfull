@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.org.serratec.backend.dto.AlterarPedidoItemDTO;
 import br.org.serratec.backend.dto.InserirPedidoItemDTO;
 import br.org.serratec.backend.dto.PedidoItemDTO;
 import br.org.serratec.backend.exception.RecursoBadRequestException;
@@ -38,29 +37,7 @@ public class PedidoItemService {
 		} else {
 			throw new RecursoBadRequestException("Produto ja inserido!");
 		}
-	}
 
-	/**
-	 * METODO PARA ALTERAR UM ITEM DE PEDIDO
-	 * 
-	 * @param alterarPedidoItemDTO
-	 * @return UM ITEM ALTERADO DE UM PEDIDO
-	 */
-	public PedidoItemDTO alterar(Long id, AlterarPedidoItemDTO alterarPedidoItemDTO) throws RecursoNotFoundException {
-
-		if (pedidoItemRepository.existsById(id)) {
-			PedidoItem pedidoItem = new PedidoItem(alterarPedidoItemDTO);
-			pedidoItem.setId(id);
-			pedidoItem.setPedido(alterarPedidoItemDTO.getId_pedido());
-			pedidoItem.setProduto(alterarPedidoItemDTO.getId_produto());
-			pedidoItem.setQntProduto(alterarPedidoItemDTO.getQntProduto());
-			pedidoItem.setVlrUnit(alterarPedidoItemDTO.getVlrUnit());
-			pedidoItem.setSubTotal(alterarPedidoItemDTO.getSubTotal());
-			pedidoItemRepository.save(pedidoItem);
-
-			return new PedidoItemDTO(pedidoItem);
-		}
-		throw new RecursoNotFoundException("Item do Pedido não encontrado");
 	}
 
 	/**

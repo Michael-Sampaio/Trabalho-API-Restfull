@@ -59,6 +59,9 @@ public class Pedido {
 	public Pedido(AlterarPedidoDTO alterarPedidoDTO) {
     }
 
+    public Pedido() {
+    }
+
     public Long getId() {
 		return this.id;
 	}

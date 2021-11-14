@@ -33,9 +33,7 @@ public class PedidoDTO {
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
-
 		this.pedidosItem = pedido.getPedidosItem();
-
 		this.totalGeral = pedido.getTotalGeral();
 		this.pedidosItem = pedido.getPedidosItem();
 	}
