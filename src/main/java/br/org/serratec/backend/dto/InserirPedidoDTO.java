@@ -23,7 +23,6 @@ public class InserirPedidoDTO {
 
 	public InserirPedidoDTO(Pedido pedido) {
 		super();
-		this.id = pedido.getId();
 		this.dataPedido = pedido.getDataPedido();
 		this.dataEntrega = pedido.getDataEntrega();
 		this.dataEnvio = pedido.getDataEnvio();

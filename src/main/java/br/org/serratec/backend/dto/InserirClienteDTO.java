@@ -23,7 +23,6 @@ public class InserirClienteDTO {
     }
 
     public InserirClienteDTO(Cliente cliente) {
-        this.id = cliente.getId();
         this.email = cliente.getEmail();
         this.nomeUsuario = cliente.getNomeUsuario();
         this.nomeCompleto = cliente.getNomeCompleto();

@@ -22,6 +22,14 @@ public class InserirEnderecoDTO {
         this.uf = endereco.getUf();
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getCep() {
         return this.cep;
     }

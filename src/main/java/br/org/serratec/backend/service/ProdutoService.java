@@ -26,18 +26,23 @@ public class ProdutoService {
 	 * @param produto
 	 * @return UM NOVO PRODUTO
 	 */
-	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) {
+	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) throws RecursoBadRequestException {
 
-		if (produtoRepository.findById(inserirProdutoDTO.getId()) != null) {
-
-			Produto produto = new Produto();
-			produto.setNome(inserirProdutoDTO.getNome());
-
-			return new ProdutoDTO(produto);
-		} else {
+		if (produtoRepository.findByNome(inserirProdutoDTO.getNome()) != null) {
 			throw new RecursoBadRequestException("Produto ja cadastrado! Insira outro");
 		}
-	}
+			Produto produto = new Produto();
+			produto.setNome(inserirProdutoDTO.getNome());
+			produto.setCategoria(inserirProdutoDTO.getCategoria());
+			produto.setDataCadastro(inserirProdutoDTO.getDataCadastro());
+			produto.setDescricao(inserirProdutoDTO.getDescricao());
+			produto.setQtdEstoque(inserirProdutoDTO.getQtdEstoque());
+			produto.setValorUnitario(inserirProdutoDTO.getValorUnitario());
+			produtoRepository.save(produto);
+
+			return new ProdutoDTO(produto);
+			
+		}
 
 	/**
 	 * METODO PARA LISTAR OS PRODUTOS
@@ -63,7 +68,7 @@ public class ProdutoService {
 	 */
 	public ProdutoDTO alterar(AlterarProdutoDTO alterarProdutoDTO) {
 
-		if (produtoRepository.findBynome(alterarProdutoDTO.getNome()) != null) {
+		if (produtoRepository.findByNome(alterarProdutoDTO.getNome()) != null) {
 
 			Produto produto = new Produto();
 			produto.setNome(alterarProdutoDTO.getNome());

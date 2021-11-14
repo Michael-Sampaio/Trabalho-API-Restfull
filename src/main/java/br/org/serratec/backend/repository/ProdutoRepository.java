@@ -11,9 +11,10 @@ import br.org.serratec.backend.model.Produto;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+    
     public Optional<Produto> findById(Long id);
 
-    public Produto findBynome(String nome);
+    public Produto findByNome(String nome);
 
     public Produto findBydescricao(String descricao);
 

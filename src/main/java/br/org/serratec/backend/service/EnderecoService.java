@@ -93,7 +93,6 @@ public class EnderecoService {
 
 				Endereco e = enderecoViaCep.get();
 				EnderecoDTO eDTO = new EnderecoDTO(e);
-				e = enderecoRepository.save(e);
 				return eDTO;
 
 			} else {

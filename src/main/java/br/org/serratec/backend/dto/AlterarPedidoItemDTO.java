@@ -16,7 +16,6 @@ public class AlterarPedidoItemDTO {
 
 	public AlterarPedidoItemDTO(PedidoItem pedidoItem) {
 		super();
-		this.id = pedidoItem.getId();
 		this.id_pedido = pedidoItem.getPedido().getId();
 		this.id_produto = pedidoItem.getProduto().getId();
 		this.qntProduto = pedidoItem.getQntProduto();
