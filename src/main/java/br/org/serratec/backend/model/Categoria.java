@@ -22,6 +22,7 @@ public class Categoria {
 	@Size(max = 30)
 	private String nome;
 
+	@NotBlank
 	@Size(max = 150)
 	private String descricao;
 

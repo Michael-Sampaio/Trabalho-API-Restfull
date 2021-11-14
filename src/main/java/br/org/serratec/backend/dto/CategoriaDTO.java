@@ -1,11 +1,15 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 import br.org.serratec.backend.model.Categoria;
 
 @Embeddable
-public class CategoriaDTO {
+public class CategoriaDTO implements Serializable {
+
+	private static final long serialVersionUID = 3015792880071967121L;
 
 	private String nome;
 	private String descricao;

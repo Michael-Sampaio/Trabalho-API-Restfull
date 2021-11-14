@@ -1,11 +1,14 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Endereco;
 
-public class ClienteDTO {
+public class ClienteDTO implements Serializable {
+
+	private static final long serialVersionUID = 3015792880071967122L;
 
 	private String email;
 	private String nomeUsuario;

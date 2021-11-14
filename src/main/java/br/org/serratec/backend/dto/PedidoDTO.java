@@ -1,5 +1,6 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import br.org.serratec.backend.model.Status;
 
 @NotBlank
 @Embeddable
-public class PedidoDTO {
+public class PedidoDTO implements Serializable {
+
+	private static final long serialVersionUID = 3015792880071967124L;
 
 	private LocalDate dataPedido;
 	private LocalDate dataEntrega;

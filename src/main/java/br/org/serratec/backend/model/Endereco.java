@@ -1,13 +1,11 @@
 package br.org.serratec.backend.model;
 
-//import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -18,28 +16,30 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Long id;
 
+	@NotBlank
 	@Column
 	@Size(max = 9)
 	private String cep;
 
+	@NotBlank
 	@Column(name = "rua")
-	@Size(max = 30)
+	@Size(max = 60)
 	private String logradouro;
 
+	@NotBlank
 	@Column
-	@Size(max = 30)
+	@Size(max = 40)
 	private String bairro;
 
+	@NotBlank
 	@Column(name = "cidade")
-	@Size(max = 15)
+	@Size(max = 40)
 	private String localidade;
 
+	@NotBlank
 	@Column(name = "estado")
 	@Size(max = 15)
 	private String uf;
-
-//	@OneToMany(mappedBy = "endereco")
-//	private List<Cliente> cliente;
 
 	public Endereco() {
 	}

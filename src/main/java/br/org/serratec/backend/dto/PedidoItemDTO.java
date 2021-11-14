@@ -1,11 +1,15 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 import br.org.serratec.backend.model.PedidoItem;
 
 @Embeddable
-public class PedidoItemDTO {
+public class PedidoItemDTO implements Serializable {
+
+	private static final long serialVersionUID = 3015792880071967125L;
 
 	private Long id_pedido;
 	private Long id_produto;

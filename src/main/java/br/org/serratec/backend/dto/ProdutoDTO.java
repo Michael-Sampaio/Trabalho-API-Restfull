@@ -1,11 +1,14 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
-public class ProdutoDTO {
+public class ProdutoDTO implements Serializable {
+
+	private static final long serialVersionUID = 3015792880071967126L;
 
 	private String nome;
 	private String descricao;
