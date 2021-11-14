@@ -8,10 +8,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.org.serratec.backend.dto.AlterarCategoriaDTO;
-
 @Entity
 public class Categoria {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,15 +20,13 @@ public class Categoria {
 	@NotBlank
 	@Size(max = 30)
 	private String nome;
-
+	
+	@NotBlank
 	@Size(max = 150)
 	private String descricao;
 
 	public Categoria() {
 	}
-
-	public Categoria(AlterarCategoriaDTO alterarCategoriaDTO) {
-    }
 
 	public Categoria(Long id, String nome, String descricao) {
 		this.id = id;
@@ -37,7 +34,7 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-    public Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 

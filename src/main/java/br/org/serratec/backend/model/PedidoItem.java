@@ -13,12 +13,10 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import br.org.serratec.backend.dto.AlterarPedidoItemDTO;
-
 @Entity
 @Table(name = "item_pedido")
 public class PedidoItem {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_item_pedido")
@@ -55,10 +53,7 @@ public class PedidoItem {
 		this.subTotal = subTotal;
 	}
 
-	public PedidoItem(AlterarPedidoItemDTO alterarPedidoItemDTO) {
-    }
-
-    public Produto getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 

@@ -14,16 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-import br.org.serratec.backend.dto.AlterarPedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pedido")
@@ -56,13 +53,7 @@ public class Pedido {
 	@Transient
 	private Double totalGeral;
 
-	public Pedido(AlterarPedidoDTO alterarPedidoDTO) {
-    }
-
-    public Pedido() {
-    }
-
-    public Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 

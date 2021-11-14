@@ -11,13 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-//import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import br.org.serratec.backend.dto.AlterarClienteDTO;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
+//import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
@@ -25,32 +28,49 @@ public class Cliente {
 
 	//@OneToOne(mappedBy = "cliente")
 	//private FotoCliente fotoCliente;
-
+	
+	@NotBlank
 	@Column(name = "email")
+	@Size(max = 150)
 	private String email;
-
+	
+	@NotBlank
 	@Column(name = "nome_usuario")
+	@Size(max = 30)
 	private String nomeUsuario;
-
+	
+	@NotBlank
 	@Column(name = "nome_completo")
+	@Size(max = 120)
 	private String nomeCompleto;
-
+	
+	@NotBlank
 	@Column
 	private String senha;
-
+	
+	@NotBlank
 	@Column
+	@CPF
 	private String cpf;
 
+	@NotBlank
 	@Column
+	@Size(max = 13)
 	private String telefone;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 5)
 	private Integer numero;
-
+	
+	@NotBlank
 	@Column
+	@Size(max = 150)
 	private String complemento;
-
+	
+	@NotBlank
 	@Column(name = "data_nasc")
+	@DateTimeFormat
 	private LocalDate dataNascimento;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -73,9 +93,6 @@ public class Cliente {
 		this.complemento = complemento;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
-	}
-
-	public Cliente(AlterarClienteDTO alterarClienteDTO) {
 	}
 
 	public Long getId() {
