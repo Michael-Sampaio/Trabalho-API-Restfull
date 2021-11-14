@@ -72,6 +72,10 @@ public class ProdutoService {
 
 			Produto produto = new Produto();
 			produto.setNome(alterarProdutoDTO.getNome());
+			produto.setDescricao(alterarProdutoDTO.getDescricao());
+			produto.setQtdEstoque(alterarProdutoDTO.getQtdEstoque());
+			produto.setValorUnitario(alterarProdutoDTO.getValorUnitario());
+			produto.setCategoria(alterarProdutoDTO.getCategoria());
 
 			return new ProdutoDTO(produto);
 		} else {

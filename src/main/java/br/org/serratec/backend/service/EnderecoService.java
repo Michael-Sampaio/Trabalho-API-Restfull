@@ -74,9 +74,16 @@ public class EnderecoService {
 	 * @return UM NOVO ENDEREÇO
 	 */
 	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) {
+		
+//		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
+//			throw new RecursoBadRequestException("Endereço ja cadastrado!");
+//		}
+		
 		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
-			throw new RecursoBadRequestException("Endereço ja cadastrado!");
+			
+			return new EnderecoDTO(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
 		}
+		
 		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
 		if (end.isPresent()) {
 			return new EnderecoDTO(end.get());
@@ -111,5 +118,7 @@ public class EnderecoService {
 			enderecoRepository.deleteById(id);
 		}
 	}
+	
+	
 
 }
