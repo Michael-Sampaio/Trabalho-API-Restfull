@@ -121,7 +121,7 @@ public class Pedido {
 	public Double getTotalGeral() {
 		totalGeral = 0.0;
 		for (PedidoItem pedidoItem : pedidosItem) {
-			totalGeral = pedidoItem.getSubTotal();
+			totalGeral += pedidoItem.getSubTotal();
 		}
 		return totalGeral;
 	}

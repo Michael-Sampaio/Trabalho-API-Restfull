@@ -64,23 +64,23 @@ public class ProdutoService {
 	 * METODO PARA ALTERAR UM PRODUTO
 	 * 
 	 * @param alterarProdutoDTO
-	 * @return UM NOVO PRODUTO ALTERADO
+	 * @return UM PRODUTO ALTERADO
 	 */
-	public ProdutoDTO alterar(AlterarProdutoDTO alterarProdutoDTO) {
+	public ProdutoDTO alterar(Long id, AlterarProdutoDTO alterarProdutoDTO) throws RecursoNotFoundException {
 
-		if (produtoRepository.findByNome(alterarProdutoDTO.getNome()) != null) {
-
-			Produto produto = new Produto();
+		if (produtoRepository.existsById(id)) {
+			Produto produto = new Produto(alterarProdutoDTO);
+			produto.setId(id);
 			produto.setNome(alterarProdutoDTO.getNome());
 			produto.setDescricao(alterarProdutoDTO.getDescricao());
 			produto.setQtdEstoque(alterarProdutoDTO.getQtdEstoque());
 			produto.setValorUnitario(alterarProdutoDTO.getValorUnitario());
 			produto.setCategoria(alterarProdutoDTO.getCategoria());
+			produtoRepository.save(produto);
 
 			return new ProdutoDTO(produto);
-		} else {
-			throw new RecursoNotFoundException("Produto não encontrado");
 		}
+		throw new RecursoNotFoundException("Produto não encontrada");
 	}
 
 	/**

@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.org.serratec.backend.dto.AlterarProdutoDTO;
+
 @Entity
 public class Produto {
 
@@ -60,7 +62,10 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public Long getId() {
+	public Produto(AlterarProdutoDTO alterarProdutoDTO) {
+    }
+
+    public Long getId() {
 		return this.id;
 	}
 

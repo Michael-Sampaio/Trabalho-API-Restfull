@@ -56,9 +56,7 @@ public class Cliente {
 	@Size(max = 13)
 	private String telefone;
 
-	@NotBlank
 	@Column
-	@Size(max = 5)
 	private Integer numero;
 
 	@NotBlank
@@ -66,7 +64,6 @@ public class Cliente {
 	@Size(max = 150)
 	private String complemento;
 
-	@NotBlank
 	@Column(name = "data_nasc")
 	@DateTimeFormat
 	private LocalDate dataNascimento;

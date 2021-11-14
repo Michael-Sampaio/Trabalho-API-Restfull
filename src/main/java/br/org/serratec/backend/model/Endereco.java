@@ -21,22 +21,17 @@ public class Endereco {
 	@Size(max = 9)
 	private String cep;
 
-	@NotBlank
 	@Column(name = "rua")
-	@Size(max = 60)
 	private String logradouro;
 
-	@NotBlank
 	@Column
 	@Size(max = 40)
 	private String bairro;
 
-	@NotBlank
 	@Column(name = "cidade")
 	@Size(max = 40)
 	private String localidade;
 
-	@NotBlank
 	@Column(name = "estado")
 	@Size(max = 15)
 	private String uf;

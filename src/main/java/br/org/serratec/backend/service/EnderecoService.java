@@ -62,11 +62,11 @@ public class EnderecoService {
 	 * @param endereco
 	 * @return UM NOVO ENDEREÇO
 	 */
-	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) {
+	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) throws RecursoBadRequestException {
 
 		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
 
-			return new EnderecoDTO(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
+			throw new RecursoBadRequestException("Endereco ja cadastrado");
 		}
 
 		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));

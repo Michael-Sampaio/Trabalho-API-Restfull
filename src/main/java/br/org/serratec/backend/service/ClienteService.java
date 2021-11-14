@@ -70,7 +70,7 @@ public class ClienteService {
 				enderecoDTO.getLocalidade(), enderecoDTO.getUf());
 		cliente.setEndereco(endereco);
 		cliente.setSenha(bCryptPasswordEncoder.encode(inserirClienteDTO.getSenha()));
-		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
+		//mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
 		clienteRepository.save(cliente);
 		return new ClienteDTO(cliente);
 
@@ -112,9 +112,14 @@ public class ClienteService {
 			cliente.setDataNascimento(alterarClienteDTO.getDataNascimento());
 			cliente.setTelefone(alterarClienteDTO.getTelefone());
 			cliente.setEndereco(alterarClienteDTO.getEndereco());
+			InserirEnderecoDTO aedto = new InserirEnderecoDTO(alterarClienteDTO.getEndereco());
+			EnderecoDTO enderecoDTO = enderecoService.inserir(aedto);
+			Endereco endereco = new Endereco(enderecoDTO.getCep(), enderecoDTO.getLogradouro(), enderecoDTO.getBairro(),
+					enderecoDTO.getLocalidade(), enderecoDTO.getUf());
+			cliente.setEndereco(endereco);
 			cliente.setNumero(alterarClienteDTO.getNumero());
 			cliente.setComplemento(alterarClienteDTO.getComplemento());
-			mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
+			//mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
 			clienteRepository.save(cliente);
 
 			return new ClienteDTO(cliente);

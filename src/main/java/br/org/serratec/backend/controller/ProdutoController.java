@@ -90,7 +90,7 @@ public class ProdutoController {
             @ApiResponse(code = 500, message = "Erro de servidor") })
     public ProdutoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarProdutoDTO alterarProdutoDTO)
             throws RecursoBadRequestException {
-        return produtoService.alterar(alterarProdutoDTO);
+        return produtoService.alterar(id, alterarProdutoDTO);
     }
 
     @DeleteMapping("/{id}")
