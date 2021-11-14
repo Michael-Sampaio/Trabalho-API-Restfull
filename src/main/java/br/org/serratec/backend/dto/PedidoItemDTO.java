@@ -8,15 +8,11 @@ import br.org.serratec.backend.model.PedidoItem;
 public class PedidoItemDTO {
 
 	private Long id_pedido;
-
 	private Long id_produto;
-
 	private Integer qntProduto;
-
 	private Double vlrUnit;
-
 	private Double subTotal;
-
+  
 	public PedidoItemDTO() {
 	}
 

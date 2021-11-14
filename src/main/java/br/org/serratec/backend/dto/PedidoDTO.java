@@ -20,8 +20,8 @@ public class PedidoDTO {
 	private LocalDate dataEnvio;
 	private Status status;
 	private Cliente cliente;
-	private Double totalGeral;
 	private List<PedidoItem> pedidosItem;
+	private Double totalGeral;
 
 	public PedidoDTO() {
 	}
@@ -33,6 +33,9 @@ public class PedidoDTO {
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
+
+		this.pedidosItem = pedido.getPedidosItem();
+
 		this.totalGeral = pedido.getTotalGeral();
 		this.pedidosItem = pedido.getPedidosItem();
 	}
@@ -86,7 +89,7 @@ public class PedidoDTO {
 	}
 
 	public List<PedidoItem> getPedidosItem() {
-		return this.pedidosItem;
+		return pedidosItem;
 	}
 
 	public void setPedidosItem(List<PedidoItem> pedidosItem) {
