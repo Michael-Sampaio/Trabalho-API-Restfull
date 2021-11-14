@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -42,20 +40,17 @@ public class Pedido {
 	private LocalDate dataEnvio;
 
 	@Enumerated(EnumType.STRING)
+	@Column
 	private Status status;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
-	@ManyToMany
-	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "id_pedido"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
-	private List<Produto> produtos;
-	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<PedidoItem> pedidosItem;
-	
+
 	@Transient
 	private Double totalGeral;
 
@@ -107,14 +102,6 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
-
 	public List<PedidoItem> getPedidosItem() {
 		return pedidosItem;
 	}
@@ -124,12 +111,12 @@ public class Pedido {
 	}
 
 	public Double getTotalGeral() {
-        totalGeral = 0.0;
-        for (PedidoItem pedidoItem : pedidosItem) {
-            totalGeral = pedidoItem.getSubTotal();
-        } 
-        return totalGeral;
-    }
+		totalGeral = 0.0;
+		for (PedidoItem pedidoItem : pedidosItem) {
+			totalGeral = pedidoItem.getSubTotal();
+		}
+		return totalGeral;
+	}
 
 	@Override
 	public int hashCode() {
@@ -155,5 +142,5 @@ public class Pedido {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -1,44 +1,53 @@
 package br.org.serratec.backend.dto;
 
-import javax.persistence.Embeddable;
-
+import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.PedidoItem;
+import br.org.serratec.backend.model.Produto;
 
-@Embeddable
-public class PedidoItemDTO {
+public class InserirPedidoItemDTO {
 
-	private Long id_pedido;
-	private Long id_produto;
+	private Long id;
+	private Pedido pedido;
+	private Produto produto;
 	private Integer qntProduto;
 	private Double vlrUnit;
 	private Double subTotal;
 
-	public PedidoItemDTO() {
+	public InserirPedidoItemDTO() {
+		super();
 	}
 
-	public PedidoItemDTO(PedidoItem pedidoItem) {
+	public InserirPedidoItemDTO(PedidoItem pedidoItem) {
 		super();
-		this.id_pedido = pedidoItem.getPedido().getId();
-		this.id_produto = pedidoItem.getProduto().getId();
+		this.pedido = pedidoItem.getPedido();
+		this.produto = pedidoItem.getProduto();
 		this.qntProduto = pedidoItem.getQntProduto();
 		this.vlrUnit = pedidoItem.getVlrUnit();
 		this.subTotal = pedidoItem.getSubTotal();
 	}
 
-	public Long getId_pedido() {
-		return id_pedido;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_pedido(Long id_pedido) {
-		this.id_pedido = id_pedido;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Long getId_produto() {
-		return id_produto;
+	public Pedido getId_pedido() {
+		return pedido;
 	}
 
-	public void setId_produto(Long id_produto) {
-		this.id_produto = id_produto;
+	public void setId_pedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public Produto getId_produto() {
+		return produto;
+	}
+
+	public void setId_produto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Integer getQntProduto() {

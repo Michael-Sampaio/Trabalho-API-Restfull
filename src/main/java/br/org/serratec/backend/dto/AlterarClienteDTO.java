@@ -18,6 +18,8 @@ public class AlterarClienteDTO {
 	private String cpf;
 	private String telefone;
 	private LocalDate dataNascimento;
+	private Integer numero;
+	private String complemento;
 	private Endereco endereco;
 
 	public AlterarClienteDTO() {
@@ -26,13 +28,14 @@ public class AlterarClienteDTO {
 
 	public AlterarClienteDTO(Cliente cliente) {
 		super();
-		this.id = cliente.getId();
 		this.email = cliente.getEmail();
 		this.nomeUsuario = cliente.getNomeUsuario();
 		this.nomeCompleto = cliente.getNomeCompleto();
 		this.senha = cliente.getSenha();
 		this.cpf = cliente.getCpf();
 		this.dataNascimento = cliente.getDataNascimento();
+		this.numero = cliente.getNumero();
+		this.complemento = cliente.getComplemento();
 		this.endereco = cliente.getEndereco();
 	}
 
@@ -94,6 +97,25 @@ public class AlterarClienteDTO {
 
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getNumero() {
+		return this.numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return this.complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public Endereco getEndereco() {

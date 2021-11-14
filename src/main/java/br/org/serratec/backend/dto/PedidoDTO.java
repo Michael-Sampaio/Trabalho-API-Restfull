@@ -2,49 +2,41 @@ package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Pedido;
+import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.model.Status;
 
 @NotBlank
 @Embeddable
 public class PedidoDTO {
 
-	private Long id;
 	private LocalDate dataPedido;
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
 	private Status status;
 	private Cliente cliente;
-	private List<PedidoItemDTO> pedidosItemDTO;
+	private List<PedidoItem> pedidosItem;
 	private Double totalGeral;
+	
+	
 
 	public PedidoDTO() {
 	}
 
 	public PedidoDTO(Pedido pedido) {
 		super();
-		this.id = pedido.getId();
 		this.dataPedido = pedido.getDataPedido();
 		this.dataEntrega = pedido.getDataEntrega();
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
-		this.pedidosItemDTO = pedido.getPedidosItem().stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
+		this.pedidosItem = pedido.getPedidosItem();
 		this.totalGeral = pedido.getTotalGeral();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public LocalDate getDataPedido() {
@@ -87,15 +79,6 @@ public class PedidoDTO {
 		this.cliente = cliente;
 	}
 
-
-	public List<PedidoItemDTO> getPedidosItemDTO() {
-		return pedidosItemDTO;
-	}
-
-	public void setPedidosItemDTO(List<PedidoItemDTO> pedidosItemDTO) {
-		this.pedidosItemDTO = pedidosItemDTO;
-	}
-
 	public Double getTotalGeral() {
 		return totalGeral;
 	}
@@ -104,4 +87,13 @@ public class PedidoDTO {
 		this.totalGeral = totalGeral;
 	}
 
+	public List<PedidoItem> getPedidosItem() {
+		return pedidosItem;
+	}
+
+	public void setPedidosItem(List<PedidoItem> pedidosItem) {
+		this.pedidosItem = pedidosItem;
+	}
+
+	
 }

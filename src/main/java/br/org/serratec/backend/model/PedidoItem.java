@@ -8,11 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name = "item_pedido")
 public class PedidoItem {
 
 	@Id
@@ -34,13 +36,12 @@ public class PedidoItem {
 
 	@Column(name = "preco_venda")
 	private Double vlrUnit;
-	
+
 	@Transient
 	private Double subTotal;
-	
+
 	public PedidoItem() {
 	}
-	
 
 	public PedidoItem(Long id, Pedido pedido, Produto produto, Integer qntProduto, Double vlrUnit, Double subTotal) {
 		super();
@@ -51,7 +52,6 @@ public class PedidoItem {
 		this.vlrUnit = vlrUnit;
 		this.subTotal = subTotal;
 	}
-
 
 	public Produto getProduto() {
 		return produto;
@@ -70,7 +70,6 @@ public class PedidoItem {
 		this.subTotal = subTotal;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -103,7 +102,6 @@ public class PedidoItem {
 		this.vlrUnit = vlrUnit;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -128,6 +126,5 @@ public class PedidoItem {
 			return false;
 		return true;
 	}
-	
-	
+
 }

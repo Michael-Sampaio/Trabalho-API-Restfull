@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarProdutoDTO;
+import br.org.serratec.backend.dto.InserirProdutoDTO;
 import br.org.serratec.backend.dto.ProdutoDTO;
-import br.org.serratec.backend.exception.ProdutoException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Produto;
 import br.org.serratec.backend.repository.ProdutoRepository;
 
@@ -24,10 +26,23 @@ public class ProdutoService {
 	 * @param produto
 	 * @return UM NOVO PRODUTO
 	 */
-	public ProdutoDTO inserir(Produto produto) {
-		produto = produtoRepository.save(produto);
-		return new ProdutoDTO(produto);
-	}
+	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) throws RecursoBadRequestException {
+
+		if (produtoRepository.findByNome(inserirProdutoDTO.getNome()) != null) {
+			throw new RecursoBadRequestException("Produto ja cadastrado! Insira outro");
+		}
+			Produto produto = new Produto();
+			produto.setNome(inserirProdutoDTO.getNome());
+			produto.setCategoria(inserirProdutoDTO.getCategoria());
+			produto.setDataCadastro(inserirProdutoDTO.getDataCadastro());
+			produto.setDescricao(inserirProdutoDTO.getDescricao());
+			produto.setQtdEstoque(inserirProdutoDTO.getQtdEstoque());
+			produto.setValorUnitario(inserirProdutoDTO.getValorUnitario());
+			produtoRepository.save(produto);
+
+			return new ProdutoDTO(produto);
+			
+		}
 
 	/**
 	 * METODO PARA LISTAR OS PRODUTOS
@@ -53,14 +68,14 @@ public class ProdutoService {
 	 */
 	public ProdutoDTO alterar(AlterarProdutoDTO alterarProdutoDTO) {
 
-		if (produtoRepository.findBynome(alterarProdutoDTO.getNome()) != null) {
+		if (produtoRepository.findByNome(alterarProdutoDTO.getNome()) != null) {
 
 			Produto produto = new Produto();
 			produto.setNome(alterarProdutoDTO.getNome());
 
 			return new ProdutoDTO(produto);
 		} else {
-			throw new ProdutoException();
+			throw new RecursoNotFoundException("Produto não encontrado");
 		}
 	}
 

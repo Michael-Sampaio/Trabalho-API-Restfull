@@ -2,12 +2,9 @@ package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
 
-
-
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.Status;
-
 
 public class AlterarPedidoDTO {
 
@@ -23,7 +20,6 @@ public class AlterarPedidoDTO {
 
 	public AlterarPedidoDTO(Pedido pedido) {
 		super();
-		this.id = pedido.getId();
 		this.dataPedido = pedido.getDataPedido();
 		this.dataEntrega = pedido.getDataEntrega();
 		this.dataEnvio = pedido.getDataEnvio();

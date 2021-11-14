@@ -3,7 +3,7 @@ package br.org.serratec.backend.dto;
 import br.org.serratec.backend.model.PedidoItem;
 
 public class AlterarPedidoItemDTO {
-	
+
 	private Long id;
 	private Long id_pedido;
 	private Long id_produto;
@@ -16,14 +16,13 @@ public class AlterarPedidoItemDTO {
 
 	public AlterarPedidoItemDTO(PedidoItem pedidoItem) {
 		super();
-		this.id = pedidoItem.getId();
 		this.id_pedido = pedidoItem.getPedido().getId();
 		this.id_produto = pedidoItem.getProduto().getId();
 		this.qntProduto = pedidoItem.getQntProduto();
 		this.vlrUnit = pedidoItem.getVlrUnit();
 		this.subTotal = pedidoItem.getSubTotal();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

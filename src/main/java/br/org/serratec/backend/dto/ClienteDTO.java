@@ -12,8 +12,11 @@ public class ClienteDTO {
 	private String nomeCompleto;
 	private String cpf;
 	private String telefone;
+	private Integer numero;
+	private String complemento;
 	private LocalDate dataNascimento;
 	private Endereco endereco;
+	//private String uri;
 
 	public ClienteDTO() {
 	}
@@ -26,6 +29,8 @@ public class ClienteDTO {
 		this.cpf = cliente.getCpf();
 		this.telefone = cliente.getTelefone();
 		this.dataNascimento = cliente.getDataNascimento();
+		this.numero = cliente.getNumero();
+		this.complemento = cliente.getComplemento();
 		this.endereco = cliente.getEndereco();
 	}
 
@@ -77,6 +82,22 @@ public class ClienteDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public Integer getNumero() {
+		return this.numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return this.complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -84,5 +105,13 @@ public class ClienteDTO {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	//public String getUri() {
+	//	return this.uri;
+	//}
+
+	//public void setUri(String uri) {
+	//	this.uri = uri;
+	//}
 
 }

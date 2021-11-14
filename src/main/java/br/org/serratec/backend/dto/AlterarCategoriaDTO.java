@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AlterarCategoriaDTO {
 
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String descricao;
 
@@ -13,14 +13,13 @@ public class AlterarCategoriaDTO {
 		super();
 	}
 
-	public AlterarCategoriaDTO(Integer id, String nome, String descricao) {
+	public AlterarCategoriaDTO(Long id, String nome, String descricao) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

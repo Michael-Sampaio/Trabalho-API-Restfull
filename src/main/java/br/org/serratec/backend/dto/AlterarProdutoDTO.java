@@ -23,7 +23,6 @@ public class AlterarProdutoDTO {
 
     public AlterarProdutoDTO(Produto produto) {
         super();
-        this.id = produto.getId();
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
         this.qtdEstoque = produto.getQtdEstoque();

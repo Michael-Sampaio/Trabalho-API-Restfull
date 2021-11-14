@@ -19,12 +19,9 @@ public class InserirProdutoDTO {
 	private Categoria categoria;
 
 	public InserirProdutoDTO() {
-		super();
 	}
 
 	public InserirProdutoDTO(Produto produto) {
-		super();
-		this.id = produto.getId();
 		this.nome = produto.getNome();
 		this.descricao = produto.getDescricao();
 		this.qtdEstoque = produto.getQtdEstoque();

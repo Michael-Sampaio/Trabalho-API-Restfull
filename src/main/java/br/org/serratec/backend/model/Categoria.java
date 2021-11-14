@@ -1,5 +1,6 @@
 package br.org.serratec.backend.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,29 +10,33 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class Categoria {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
+	@Column(name = "id_categoria")
+	private Long id;
+
 	@NotBlank
 	@Size(max = 30)
 	private String nome;
-	
+
 	@Size(max = 150)
 	private String descricao;
 
-	private Categoria(Integer id, String nome, String descricao) {
+	public Categoria() {
+	}
+
+	public Categoria(Long id, String nome, String descricao) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,5 +80,5 @@ public class Categoria {
 			return false;
 		return true;
 	}
-	
+
 }

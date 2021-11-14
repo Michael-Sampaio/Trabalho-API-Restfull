@@ -1,15 +1,17 @@
 package br.org.serratec.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.AlterarPedidoDTO;
+import br.org.serratec.backend.dto.InserirPedidoDTO;
 import br.org.serratec.backend.dto.PedidoDTO;
-import br.org.serratec.backend.exception.PedidoException;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
+import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.repository.PedidoRepository;
 
@@ -25,9 +27,17 @@ public class PedidoService {
 	 * @param pedido
 	 * @return UM NOVO PEDIDO
 	 */
-	public PedidoDTO inserir(Pedido pedido) {
-		pedido = pedidoRepository.save(pedido);
-		return new PedidoDTO();
+	public PedidoDTO inserir(InserirPedidoDTO inserirPedidoDTO) {
+
+		if (pedidoRepository.findById(inserirPedidoDTO.getId()) != null) {
+
+			Pedido pedido = new Pedido();
+			pedido.setId(inserirPedidoDTO.getId());
+
+			return new PedidoDTO(pedido);
+		} else {
+			throw new RecursoBadRequestException("Pedido já cadastrado!");
+		}
 	}
 
 	/**
@@ -36,7 +46,7 @@ public class PedidoService {
 	 * @param alterarPedidoDTO
 	 * @return UM NOVO REGISTRO DE PEDIDO
 	 */
-	public PedidoDTO alterar(AlterarPedidoDTO alterarPedidoDTO) {
+	public PedidoDTO alterar(Long id, AlterarPedidoDTO alterarPedidoDTO) {
 
 		if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
 
@@ -46,7 +56,7 @@ public class PedidoService {
 			return new PedidoDTO(pedido);
 
 		} else {
-			throw new PedidoException();
+			throw new RecursoNotFoundException("Pedido não encontrado");
 		}
 	}
 
@@ -58,8 +68,11 @@ public class PedidoService {
 	 */
 	public PedidoDTO buscar(Long id) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
-		// return pedidoRepository.findBytotalGeral(totalGeral);
-		return new PedidoDTO(pedido.get());
+		if (pedido.isPresent()) {
+			return new PedidoDTO(pedido.get());
+		} else {
+			throw new RecursoBadRequestException("Pedido não encontrado");
+		}
 	}
 
 	/**
@@ -69,7 +82,13 @@ public class PedidoService {
 	 */
 	public List<PedidoDTO> listar() {
 		List<Pedido> pedidos = pedidoRepository.findAll();
-		return pedidos.stream().map(pedidoItem -> new PedidoDTO(pedidoItem)).collect(Collectors.toList());
+		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
+
+		for (Pedido pedido : pedidos) {
+			PedidoDTO pedidoDTO = new PedidoDTO(pedido);
+			pedidosDTO.add(pedidoDTO);
+		}
+		return pedidosDTO;
 	}
 
 	/**

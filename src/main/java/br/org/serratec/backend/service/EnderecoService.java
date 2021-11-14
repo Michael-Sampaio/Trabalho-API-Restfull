@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
+import br.org.serratec.backend.dto.InserirEnderecoDTO;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.Endereco;
 import br.org.serratec.backend.repository.EnderecoRepository;
 
@@ -26,30 +28,25 @@ public class EnderecoService {
 	 * @return O CEP DO CLIENTE
 	 * @throws HttpClientErrorException
 	 */
-	public EnderecoDTO buscar(Endereco endereco) throws HttpClientErrorException {
-		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(endereco.getCep()));
-		if (end.isPresent()) {
-			return new EnderecoDTO(end.get());
+	public EnderecoDTO buscar(String cep) throws HttpClientErrorException {
+		Optional<Endereco> endereco = Optional.ofNullable(enderecoRepository.findByCep(cep));
+		if (endereco.isPresent()) {
+			return new EnderecoDTO(endereco.get());
 		} else {
-			RestTemplate restTemplate = new RestTemplate();
-
-			String uriViaCep = "https://viacep.com.br/ws/" + endereco.getCep() + "/json/";
-
-			Optional<Endereco> enderecoViaCep = Optional
-					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
-			if (enderecoViaCep.get().getCep() != null) {
-				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
-				enderecoViaCep.get().setCep(cepSemTraco);
-				
-				Endereco e = enderecoViaCep.get();
-				e.setNumero(endereco.getNumero());
-				e.setComplemento(endereco.getComplemento());
-				EnderecoDTO eDTO = new EnderecoDTO(e);
-				e = enderecoRepository.save(e);
-				return eDTO;
-			}else {
-				return null;
-			} 
+			/*
+			 * RestTemplate restTemplate = new RestTemplate();
+			 * 
+			 * String uriViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
+			 * 
+			 * Optional<Endereco> enderecoViaCep = Optional
+			 * .ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class)); if
+			 * (enderecoViaCep.get().getCep() != null) { String cepSemTraco =
+			 * enderecoViaCep.get().getCep().replaceAll("-", "");
+			 * enderecoViaCep.get().setCep(cepSemTraco);
+			 * 
+			 */ InserirEnderecoDTO inserirEnderecoDTO = new InserirEnderecoDTO();
+			inserirEnderecoDTO.setCep(cep);
+			return inserir(inserirEnderecoDTO);
 		}
 	}
 
@@ -76,9 +73,32 @@ public class EnderecoService {
 	 * @param endereco
 	 * @return UM NOVO ENDEREÇO
 	 */
-	public EnderecoDTO inserir(Endereco endereco) {
-		endereco = enderecoRepository.save(endereco);
-		return new EnderecoDTO(endereco);
+	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) {
+		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
+			throw new RecursoBadRequestException("Endereço ja cadastrado!");
+		}
+		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
+		if (end.isPresent()) {
+			return new EnderecoDTO(end.get());
+		} else {
+			RestTemplate restTemplate = new RestTemplate();
+
+			String uriViaCep = "https://viacep.com.br/ws/" + inserirEnderecoDTO.getCep() + "/json/";
+
+			Optional<Endereco> enderecoViaCep = Optional
+					.ofNullable(restTemplate.getForObject(uriViaCep, Endereco.class));
+			if (enderecoViaCep.get().getCep() != null) {
+				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
+				enderecoViaCep.get().setCep(cepSemTraco);
+
+				Endereco e = enderecoViaCep.get();
+				EnderecoDTO eDTO = new EnderecoDTO(e);
+				return eDTO;
+
+			} else {
+				throw new RecursoBadRequestException("CEP informado não existe");
+			}
+		}
 	}
 
 	/**

@@ -1,19 +1,23 @@
 package br.org.serratec.backend.dto;
 
+import javax.persistence.Embeddable;
+
 import br.org.serratec.backend.model.Endereco;
 
-public class EnderecoDTO {
-
+@Embeddable
+public class AlterarEnderecoDTO {
+	
 	private String cep;
 	private String logradouro;
 	private String bairro;
 	private String localidade;
 	private String uf;
-
-	public EnderecoDTO() {
+	
+	public AlterarEnderecoDTO() {
+		super();
 	}
 
-	public EnderecoDTO(Endereco endereco) {
+	public AlterarEnderecoDTO(Endereco endereco) {
 		super();
 		this.cep = endereco.getCep();
 		this.logradouro = endereco.getLogradouro();
@@ -61,5 +65,5 @@ public class EnderecoDTO {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-
+	
 }

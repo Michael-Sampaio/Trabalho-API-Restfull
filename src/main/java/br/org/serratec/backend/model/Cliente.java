@@ -2,13 +2,16 @@ package br.org.serratec.backend.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+//import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -17,39 +20,46 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
 	private Long id;
-	
+
+	//@OneToOne(mappedBy = "cliente")
+	//private FotoCliente fotoCliente;
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "nome_usuario")
 	private String nomeUsuario;
-	
+
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
-	
+
 	@Column
 	private String senha;
-	
+
 	@Column
 	private String cpf;
-	
+
 	@Column
 	private String telefone;
-	
+
+	@Column
+	private Integer numero;
+
+	@Column
+	private String complemento;
+
 	@Column(name = "data_nasc")
 	private LocalDate dataNascimento;
-	
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 
 	public Cliente() {
-
 	}
 
 	public Cliente(Long id, String email, String nomeUsuario, String nomeCompleto, String senha, String cpf,
-			String telefone, LocalDate dataNascimento, Endereco endereco) {
-		super();
+			String telefone, Integer numero, String complemento, LocalDate dataNascimento, Endereco endereco) {
 		this.id = id;
 		this.email = email;
 		this.nomeUsuario = nomeUsuario;
@@ -57,6 +67,8 @@ public class Cliente {
 		this.senha = senha;
 		this.cpf = cpf;
 		this.telefone = telefone;
+		this.numero = numero;
+		this.complemento = complemento;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
 	}
@@ -115,6 +127,22 @@ public class Cliente {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public Integer getNumero() {
+		return this.numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return this.complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public LocalDate getDataNascimento() {
