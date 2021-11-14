@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.backend.dto.AlterarPedidoItemDTO;
 import br.org.serratec.backend.dto.PedidoItemDTO;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.repository.PedidoItemRepository;
 import br.org.serratec.backend.service.PedidoItemService;
@@ -75,6 +78,17 @@ public class PedidoItemController {
 	public PedidoItem inserir(@Valid @RequestBody PedidoItem PedidoItem) {
 		return pedidoItemRepository.save(PedidoItem);
 	}
+	
+	@PutMapping("/{id}")
+    @ApiOperation(value = "Alterar um pedidoItem", notes = "Alteração de um pedidoItem")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um pedidoItem"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+    public PedidoItemDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarPedidoItemDTO alterarPedidoItemDTO) throws RecursoBadRequestException {
+    	return pedidoItemService.alterar(alterarPedidoItemDTO);
+    }
 
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "Deletar um item de pedido", notes = "Deleta item de pedido")

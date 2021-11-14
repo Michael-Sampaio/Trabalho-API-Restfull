@@ -47,14 +47,22 @@ public class CategoriaService {
 	 * @param alterarCategoriaDTO
 	 * @return UMA CATEGORIA ALTERADA
 	 */
-	public CategoriaDTO alterar(AlterarCategoriaDTO alterarCategoriaDTO) {
+	public CategoriaDTO alterar(Long id, AlterarCategoriaDTO alterarCategoriaDTO) {
+		
+		Optional<Categoria> categoria = categoriaRepository.findById(id);
 
-		if (categoriaRepository.findById(alterarCategoriaDTO.getId()) != null) {
+		if (categoria.isPresent()) {
 
-			Categoria categoria = new Categoria();
-			categoria.setNome(alterarCategoriaDTO.getNome());
+			if (alterarCategoriaDTO.getNome() != null) {
+				categoria.get().setNome(alterarCategoriaDTO.getNome());
+			}
+			if (alterarCategoriaDTO.getDescricao() != null) {
+				categoria.get().setDescricao(alterarCategoriaDTO.getDescricao());
+			}
+			
+			categoriaRepository.save(categoria.get());
 
-			return new CategoriaDTO(categoria);
+			return new CategoriaDTO(categoria.get());
 		} else {
 			throw new RecursoNotFoundException("Categoria não encontrada");
 		}
