@@ -46,7 +46,7 @@ public class PedidoService {
 	 * @param alterarPedidoDTO
 	 * @return UM NOVO REGISTRO DE PEDIDO
 	 */
-	public PedidoDTO alterar(AlterarPedidoDTO alterarPedidoDTO) {
+	public PedidoDTO alterar(Long id, AlterarPedidoDTO alterarPedidoDTO) {
 
 		if (pedidoRepository.findById(alterarPedidoDTO.getId()) != null) {
 
