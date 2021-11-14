@@ -76,10 +76,11 @@ public class ProdutoController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoDTO inserir(@Valid @RequestBody InserirProdutoDTO inserirProdutoDTO) throws RecursoBadRequestException {
+    public ProdutoDTO inserir(@Valid @RequestBody InserirProdutoDTO inserirProdutoDTO)
+            throws RecursoBadRequestException {
         return produtoService.inserir(inserirProdutoDTO);
     }
-    
+
     @PutMapping("/{id}")
     @ApiOperation(value = "Alterar um cliente", notes = "Alteração de um cliente")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um cliente"),
@@ -87,8 +88,9 @@ public class ProdutoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public ProdutoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarProdutoDTO alterarProdutoDTO) throws RecursoBadRequestException {
-    	return produtoService.alterar(alterarProdutoDTO);
+    public ProdutoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarProdutoDTO alterarProdutoDTO)
+            throws RecursoBadRequestException {
+        return produtoService.alterar(alterarProdutoDTO);
     }
 
     @DeleteMapping("/{id}")

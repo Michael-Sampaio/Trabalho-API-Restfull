@@ -6,13 +6,13 @@ import br.org.serratec.backend.model.Endereco;
 
 @Embeddable
 public class AlterarEnderecoDTO {
-	
+
 	private String cep;
 	private String logradouro;
 	private String bairro;
 	private String localidade;
 	private String uf;
-	
+
 	public AlterarEnderecoDTO() {
 		super();
 	}
@@ -65,5 +65,5 @@ public class AlterarEnderecoDTO {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
+
 }

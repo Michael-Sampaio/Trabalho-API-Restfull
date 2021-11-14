@@ -98,6 +98,7 @@ public class AlterarClienteDTO {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

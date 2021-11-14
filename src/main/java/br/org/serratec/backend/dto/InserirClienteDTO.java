@@ -14,8 +14,8 @@ public class InserirClienteDTO {
     private String cpf;
     private String telefone;
     private LocalDate dataNascimento;
-	private Integer numero;
-	private String complemento;
+    private Integer numero;
+    private String complemento;
     private Endereco endereco;
     private String senha;
 
@@ -30,8 +30,8 @@ public class InserirClienteDTO {
         this.cpf = cliente.getCpf();
         this.telefone = cliente.getTelefone();
         this.dataNascimento = cliente.getDataNascimento();
-		this.numero = cliente.getNumero();
-		this.complemento = cliente.getComplemento();
+        this.numero = cliente.getNumero();
+        this.complemento = cliente.getComplemento();
         this.endereco = cliente.getEndereco();
     }
 

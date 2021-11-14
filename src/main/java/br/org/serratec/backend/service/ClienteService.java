@@ -66,8 +66,8 @@ public class ClienteService {
 		cliente.setComplemento(inserirClienteDTO.getComplemento());
 		InserirEnderecoDTO iedto = new InserirEnderecoDTO(inserirClienteDTO.getEndereco());
 		EnderecoDTO enderecoDTO = enderecoService.inserir(iedto);
-		Endereco endereco = new Endereco(enderecoDTO.getCep(), enderecoDTO.getLogradouro(), 
-		enderecoDTO.getBairro(), enderecoDTO.getLocalidade(), enderecoDTO.getUf());
+		Endereco endereco = new Endereco(enderecoDTO.getCep(), enderecoDTO.getLogradouro(), enderecoDTO.getBairro(),
+				enderecoDTO.getLocalidade(), enderecoDTO.getUf());
 		cliente.setEndereco(endereco);
 		cliente.setSenha(bCryptPasswordEncoder.encode(inserirClienteDTO.getSenha()));
 		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());

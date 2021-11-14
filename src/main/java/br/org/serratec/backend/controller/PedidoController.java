@@ -78,7 +78,7 @@ public class PedidoController {
     public Pedido inserir(@Valid @RequestBody Pedido Pedido) {
         return pedidoRepository.save(Pedido);
     }
-    
+
     @PutMapping("/{id}")
     @ApiOperation(value = "Alterar um pedido", notes = "Alteração de um pedido")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um pedido"),
@@ -86,8 +86,9 @@ public class PedidoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public PedidoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarPedidoDTO alterarPedidoDTO) throws RecursoBadRequestException {
-    	return pedidoService.alterar(id, alterarPedidoDTO);
+    public PedidoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarPedidoDTO alterarPedidoDTO)
+            throws RecursoBadRequestException {
+        return pedidoService.alterar(id, alterarPedidoDTO);
     }
 
     @DeleteMapping("/{id}")

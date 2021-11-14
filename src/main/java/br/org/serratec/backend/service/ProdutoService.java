@@ -31,18 +31,18 @@ public class ProdutoService {
 		if (produtoRepository.findByNome(inserirProdutoDTO.getNome()) != null) {
 			throw new RecursoBadRequestException("Produto ja cadastrado! Insira outro");
 		}
-			Produto produto = new Produto();
-			produto.setNome(inserirProdutoDTO.getNome());
-			produto.setCategoria(inserirProdutoDTO.getCategoria());
-			produto.setDataCadastro(inserirProdutoDTO.getDataCadastro());
-			produto.setDescricao(inserirProdutoDTO.getDescricao());
-			produto.setQtdEstoque(inserirProdutoDTO.getQtdEstoque());
-			produto.setValorUnitario(inserirProdutoDTO.getValorUnitario());
-			produtoRepository.save(produto);
+		Produto produto = new Produto();
+		produto.setNome(inserirProdutoDTO.getNome());
+		produto.setCategoria(inserirProdutoDTO.getCategoria());
+		produto.setDataCadastro(inserirProdutoDTO.getDataCadastro());
+		produto.setDescricao(inserirProdutoDTO.getDescricao());
+		produto.setQtdEstoque(inserirProdutoDTO.getQtdEstoque());
+		produto.setValorUnitario(inserirProdutoDTO.getValorUnitario());
+		produtoRepository.save(produto);
 
-			return new ProdutoDTO(produto);
-			
-		}
+		return new ProdutoDTO(produto);
+
+	}
 
 	/**
 	 * METODO PARA LISTAR OS PRODUTOS

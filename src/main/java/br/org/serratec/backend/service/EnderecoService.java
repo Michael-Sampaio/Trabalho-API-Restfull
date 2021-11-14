@@ -22,7 +22,7 @@ public class EnderecoService {
 	private EnderecoRepository enderecoRepository;
 
 	/**
-	 * METODO PARA BUSCAR ENDEREÇO POR CEP
+	 * METODO PARA INSERIR UM ENDERECO
 	 * 
 	 * @param cep
 	 * @return O CEP DO CLIENTE
@@ -63,12 +63,12 @@ public class EnderecoService {
 	 * @return UM NOVO ENDEREÇO
 	 */
 	public EnderecoDTO inserir(InserirEnderecoDTO inserirEnderecoDTO) {
-		
+
 		if (enderecoRepository.findByCep(inserirEnderecoDTO.getCep()) != null) {
-			
+
 			return new EnderecoDTO(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
 		}
-		
+
 		Optional<Endereco> end = Optional.ofNullable(enderecoRepository.findByCep(inserirEnderecoDTO.getCep()));
 		if (end.isPresent()) {
 			return new EnderecoDTO(end.get());
@@ -103,7 +103,5 @@ public class EnderecoService {
 			enderecoRepository.deleteById(id);
 		}
 	}
-	
-	
 
 }

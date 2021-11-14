@@ -49,7 +49,8 @@ public class Produto {
 	public Produto() {
 	}
 
-	public Produto(Long id, String nome, String descricao, Integer qtdEstoque, LocalDate dataCadastro, Double valorUnitario, Categoria categoria) {
+	public Produto(Long id, String nome, String descricao, Integer qtdEstoque, LocalDate dataCadastro,
+			Double valorUnitario, Categoria categoria) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;

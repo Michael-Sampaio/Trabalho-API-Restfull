@@ -56,9 +56,9 @@ public class PedidoItem {
 	}
 
 	public PedidoItem(AlterarPedidoItemDTO alterarPedidoItemDTO) {
-    }
+	}
 
-    public Produto getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 

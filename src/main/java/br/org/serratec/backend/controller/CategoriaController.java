@@ -74,10 +74,11 @@ public class CategoriaController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO) throws RecursoBadRequestException {
+    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO)
+            throws RecursoBadRequestException {
         return categoriaService.inserir(inserirCategoriaDTO);
     }
-    
+
     @PutMapping("/{id}")
     @ApiOperation(value = "Alterar uma categoria", notes = "Alteração de categoria")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera uma categoria"),
@@ -85,8 +86,9 @@ public class CategoriaController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public CategoriaDTO alterar(@PathVariable Long id, @RequestBody AlterarCategoriaDTO alterarCategoriaDTO) throws RecursoBadRequestException {
-    	return categoriaService.alterar(id,alterarCategoriaDTO);
+    public CategoriaDTO alterar(@PathVariable Long id, @RequestBody AlterarCategoriaDTO alterarCategoriaDTO)
+            throws RecursoBadRequestException {
+        return categoriaService.alterar(id, alterarCategoriaDTO);
 
     }
 

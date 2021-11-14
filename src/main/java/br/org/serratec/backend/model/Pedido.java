@@ -57,12 +57,12 @@ public class Pedido {
 	private Double totalGeral;
 
 	public Pedido(AlterarPedidoDTO alterarPedidoDTO) {
-    }
+	}
 
-    public Pedido() {
-    }
+	public Pedido() {
+	}
 
-    public Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 

@@ -30,7 +30,7 @@ public class Categoria {
 	}
 
 	public Categoria(AlterarCategoriaDTO alterarCategoriaDTO) {
-    }
+	}
 
 	public Categoria(Long id, String nome, String descricao) {
 		this.id = id;
@@ -38,7 +38,7 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-    public Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
