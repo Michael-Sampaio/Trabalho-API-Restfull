@@ -1,7 +1,5 @@
 package br.org.serratec.backend.service;
 
-//import java.io.IOException;
-//import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-//import org.springframework.web.multipart.MultipartFile;
-//import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.config.MailConfig;
 import br.org.serratec.backend.dto.AlterarClienteDTO;
@@ -32,9 +28,6 @@ public class ClienteService {
 
 	@Autowired
 	EnderecoService enderecoService;
-
-	@Autowired
-	FotoClienteService fotoClienteService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -144,25 +137,6 @@ public class ClienteService {
 		}
 	}
 
-	/*public ClienteDTO inserirFoto(Cliente cliente, MultipartFile file) throws IOException {
-		fotoClienteService.inserir(clienteRepository.save(cliente), file);
-		return adicionarUriFoto(cliente);
-	}
-
-	private ClienteDTO adicionarUriFoto(Cliente cliente) {
-		URI uri = ServletUriComponentsBuilder
-				  .fromCurrentContextPath()
-				  .path("/funcionarios/{id}/foto")
-				  .buildAndExpand(cliente.getId())
-				  .toUri();
-		
-		ClienteDTO clienteDTO = new ClienteDTO();
-		clienteDTO.setNomeUsuario(cliente.getNomeUsuario());
-		clienteDTO.setUri(uri.toString());
-		
-		return clienteDTO;
-	}
-*/
 	/**
 	 * METODO PARA DELETAR UM CLIENTE
 	 * 

@@ -16,7 +16,6 @@ public class ClienteDTO {
 	private String complemento;
 	private LocalDate dataNascimento;
 	private Endereco endereco;
-	//private String uri;
 
 	public ClienteDTO() {
 	}
@@ -105,13 +104,5 @@ public class ClienteDTO {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
-	//public String getUri() {
-	//	return this.uri;
-	//}
-
-	//public void setUri(String uri) {
-	//	this.uri = uri;
-	//}
 
 }
