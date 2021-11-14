@@ -1,12 +1,15 @@
 package br.org.serratec.backend.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Pedido;
+import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.model.Status;
 
 @NotBlank
@@ -18,7 +21,10 @@ public class PedidoDTO {
 	private LocalDate dataEnvio;
 	private Status status;
 	private Cliente cliente;
+	private List<PedidoItem> pedidosItem;
 	private Double totalGeral;
+	
+	
 
 	public PedidoDTO() {
 	}
@@ -30,6 +36,9 @@ public class PedidoDTO {
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
+
+		this.pedidosItem = pedido.getPedidosItem();
+
 		this.totalGeral = pedido.getTotalGeral();
 	}
 
@@ -81,4 +90,13 @@ public class PedidoDTO {
 		this.totalGeral = totalGeral;
 	}
 
+	public List<PedidoItem> getPedidosItem() {
+		return pedidosItem;
+	}
+
+	public void setPedidosItem(List<PedidoItem> pedidosItem) {
+		this.pedidosItem = pedidosItem;
+	}
+
+	
 }
