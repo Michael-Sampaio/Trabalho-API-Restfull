@@ -9,6 +9,7 @@ import br.org.serratec.backend.model.Endereco;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
+    
     public Optional<Endereco> findById(Long id);
 
     public Endereco findByCep(String cep);

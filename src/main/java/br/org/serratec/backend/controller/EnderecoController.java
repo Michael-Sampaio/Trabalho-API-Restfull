@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.dto.InserirEnderecoDTO;
 import br.org.serratec.backend.service.EnderecoService;
 import io.swagger.annotations.ApiOperation;
@@ -69,7 +70,8 @@ public class EnderecoController {
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
 	@ResponseStatus(HttpStatus.CREATED)
-	public EnderecoDTO inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO) {
+	public EnderecoDTO inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO)
+			throws RecursoBadRequestException {
 		return enderecoService.inserir(inserirEnderecoDTO);
 	}
 

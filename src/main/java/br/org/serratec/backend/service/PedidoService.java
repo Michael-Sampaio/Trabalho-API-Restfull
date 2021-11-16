@@ -33,6 +33,7 @@ public class PedidoService {
 
 			Pedido pedido = new Pedido();
 			pedido.setId(inserirPedidoDTO.getId());
+			pedidoRepository.save(pedido);
 
 			return new PedidoDTO(pedido);
 		} else {

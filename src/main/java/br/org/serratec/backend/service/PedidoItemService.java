@@ -32,6 +32,7 @@ public class PedidoItemService {
 			pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
 			pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
 			pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
+			pedidoItemRepository.save(pedidoItem);
 
 			return new PedidoItemDTO(pedidoItem);
 		} else {

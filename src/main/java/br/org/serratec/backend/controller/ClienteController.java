@@ -73,21 +73,23 @@ public class ClienteController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO) throws RecursoBadRequestException {
+	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO)
+			throws RecursoBadRequestException {
 		return clienteService.inserir(inserirClienteDTO);
 	}
-	
-	//ALTERAR CLIENTE
+
+	// ALTERAR CLIENTE
 	@PutMapping("/{id}")
-    @ApiOperation(value = "Alterar um cliente", notes = "Alteração de um cliente")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um cliente"),
-            @ApiResponse(code = 401, message = "Erro de autenticação"),
-            @ApiResponse(code = 403, message = "Recurso proibido"),
-            @ApiResponse(code = 404, message = "Recurso não encontrado"),
-            @ApiResponse(code = 500, message = "Erro de servidor") })
-    public ClienteDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarClienteDTO alterarClienteDTO) throws RecursoBadRequestException {
-    	return clienteService.alterar(id, alterarClienteDTO);
-    }
+	@ApiOperation(value = "Alterar um cliente", notes = "Alteração de um cliente")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um cliente"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Recurso proibido"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+	public ClienteDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarClienteDTO alterarClienteDTO)
+			throws RecursoBadRequestException {
+		return clienteService.alterar(id, alterarClienteDTO);
+	}
 
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "Deletar um cliente", notes = "Deleta cliente")

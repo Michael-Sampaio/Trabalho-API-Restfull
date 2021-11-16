@@ -11,6 +11,7 @@ import br.org.serratec.backend.model.Pedido;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+
 	public Optional<Pedido> findById(Long id);
 
 	public Pedido findBydataPedido(LocalDate dataPedido);
