@@ -20,24 +20,27 @@ public class PedidoItemService {
 	@Autowired
 	PedidoItemRepository pedidoItemRepository;
 
-	/*
-	 * METODO PARA INSERIR UM PEDIDO
+	/**
+	 * METODO PARA INSERIR UM PRODUTO
+	 * 
+	 * @param produto
+	 * @return UM NOVO PRODUTO
 	 */
 	public PedidoItemDTO inserir(InserirPedidoItemDTO inserirPedidoItemDTO) {
 
-		if (pedidoItemRepository.findById(inserirPedidoItemDTO.getId()) != null) {
-
-			PedidoItem pedidoItem = new PedidoItem();
-			pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
-			pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
-			pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
-			pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
-			pedidoItemRepository.save(pedidoItem);
-
-			return new PedidoItemDTO(pedidoItem);
-		} else {
+		if (pedidoItemRepository.findBypedido(inserirPedidoItemDTO.getId_pedido()) != null) {
 			throw new RecursoBadRequestException("Produto ja inserido!");
 		}
+
+		PedidoItem pedidoItem = new PedidoItem();
+		pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
+		pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
+		pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
+		pedidoItem.setSubTotal(inserirPedidoItemDTO.getSubTotal());
+		pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
+		pedidoItemRepository.save(pedidoItem);
+
+		return new PedidoItemDTO(pedidoItem);
 	}
 
 	/**

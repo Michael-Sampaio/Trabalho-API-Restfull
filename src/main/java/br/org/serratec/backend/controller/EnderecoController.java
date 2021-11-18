@@ -40,9 +40,9 @@ public class EnderecoController {
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
 	@ResponseStatus(HttpStatus.CREATED)
-	public EnderecoDTO inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO)
+	public EnderecoDTO inserirEndereco(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO)
 			throws RecursoBadRequestException {
-		return enderecoService.inserir(inserirEnderecoDTO);
+		return enderecoService.inserirEndereco(inserirEnderecoDTO);
 	}
 
 	@GetMapping

@@ -20,8 +20,6 @@ public class InserirPedidoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 3319694584715745242L;
 
-	private Long id;
-
 	@PastOrPresent
 	private LocalDate dataPedido;
 
@@ -46,14 +44,6 @@ public class InserirPedidoDTO implements Serializable {
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
 		this.cliente = pedido.getCliente();
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public LocalDate getDataPedido() {

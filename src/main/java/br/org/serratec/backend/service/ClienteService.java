@@ -96,8 +96,8 @@ public class ClienteService {
 			cliente.setDataNascimento(alterarClienteDTO.getDataNascimento());
 			cliente.setTelefone(alterarClienteDTO.getTelefone());
 			cliente.setEndereco(alterarClienteDTO.getEndereco());
-			InserirEnderecoDTO aedto = new InserirEnderecoDTO(alterarClienteDTO.getEndereco());
-			EnderecoDTO enderecoDTO = enderecoService.inserir(aedto);
+			InserirEnderecoDTO inserirEnderecoDTO = new InserirEnderecoDTO(alterarClienteDTO.getEndereco());
+			EnderecoDTO enderecoDTO = enderecoService.inserir(inserirEnderecoDTO);
 			Endereco endereco = new Endereco(enderecoDTO.getCep(), enderecoDTO.getLogradouro(), enderecoDTO.getBairro(),
 					enderecoDTO.getLocalidade(), enderecoDTO.getUf());
 			cliente.setEndereco(endereco);

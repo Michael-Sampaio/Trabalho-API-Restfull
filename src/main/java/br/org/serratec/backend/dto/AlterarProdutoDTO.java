@@ -1,9 +1,11 @@
 package br.org.serratec.backend.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -18,8 +20,6 @@ public class AlterarProdutoDTO implements Serializable {
      */
     private static final long serialVersionUID = 3720071495478922467L;
 
-    private Long id;
-
     @NotBlank
     @Size(max = 30)
     private String nome;
@@ -28,14 +28,15 @@ public class AlterarProdutoDTO implements Serializable {
     @Size(max = 100)
     private String descricao;
 
-    @NotBlank
     @PositiveOrZero
     private Integer qtdEstoque;
 
-    @NotBlank
     @Positive
     private Double valorUnitario;
 
+	@PastOrPresent
+	private LocalDate dataCadastro;
+    
     private Categoria categoria;
 
     public AlterarProdutoDTO() {
@@ -47,11 +48,8 @@ public class AlterarProdutoDTO implements Serializable {
         this.descricao = produto.getDescricao();
         this.qtdEstoque = produto.getQtdEstoque();
         this.valorUnitario = produto.getValorUnitario();
+        this.dataCadastro = produto.getDataCadastro();
         this.categoria = produto.getCategoria();
-    }
-
-    public Long getId() {
-        return this.id;
     }
 
     public String getNome() {
@@ -92,6 +90,14 @@ public class AlterarProdutoDTO implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public LocalDate getDataCadastro() {
+        return this.dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
 }

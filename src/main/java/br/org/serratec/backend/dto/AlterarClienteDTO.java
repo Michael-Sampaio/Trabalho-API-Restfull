@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -20,8 +21,6 @@ public class AlterarClienteDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1090611581919824774L;
-
-	private Long id;
 
 	@NotBlank
 	@Email
@@ -49,6 +48,7 @@ public class AlterarClienteDTO implements Serializable {
 	@Size(max = 9)
 	private String telefone;
 
+	@Positive
 	private Integer numero;
 
 	@NotBlank
@@ -75,10 +75,6 @@ public class AlterarClienteDTO implements Serializable {
 		this.numero = cliente.getNumero();
 		this.complemento = cliente.getComplemento();
 		this.endereco = cliente.getEndereco();
-	}
-
-	public Long getId() {
-		return this.id;
 	}
 
 	public String getEmail() {
@@ -135,10 +131,6 @@ public class AlterarClienteDTO implements Serializable {
 
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Integer getNumero() {

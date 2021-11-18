@@ -27,22 +27,22 @@ public class ProdutoService {
 	 * @param produto
 	 * @return UM NOVO PRODUTO
 	 */
-	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) throws RecursoBadRequestException {
+	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) {
 
 		if (produtoRepository.findByNome(inserirProdutoDTO.getNome()) != null) {
-			throw new RecursoBadRequestException("Produto ja cadastrado! Insira outro");
+			throw new RecursoBadRequestException("Produto ja cadastrado!");
 		}
+
 		Produto produto = new Produto();
-		produto.setNome(inserirProdutoDTO.getNome());
 		produto.setCategoria(inserirProdutoDTO.getCategoria());
 		produto.setDataCadastro(inserirProdutoDTO.getDataCadastro());
 		produto.setDescricao(inserirProdutoDTO.getDescricao());
+		produto.setNome(inserirProdutoDTO.getNome());
 		produto.setQtdEstoque(inserirProdutoDTO.getQtdEstoque());
 		produto.setValorUnitario(inserirProdutoDTO.getValorUnitario());
 		produtoRepository.save(produto);
 
 		return new ProdutoDTO(produto);
-
 	}
 
 	/**
@@ -57,6 +57,7 @@ public class ProdutoService {
 			Produto produto = new Produto(alterarProdutoDTO);
 			produto.setId(id);
 			produto.setNome(alterarProdutoDTO.getNome());
+			produto.setDataCadastro(alterarProdutoDTO.getDataCadastro());
 			produto.setDescricao(alterarProdutoDTO.getDescricao());
 			produto.setQtdEstoque(alterarProdutoDTO.getQtdEstoque());
 			produto.setValorUnitario(alterarProdutoDTO.getValorUnitario());

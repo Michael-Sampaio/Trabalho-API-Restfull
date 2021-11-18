@@ -20,8 +20,6 @@ public class InserirProdutoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1874537595817669750L;
 
-	private Long id;
-
 	@NotBlank
 	@Size(max = 30)
 	private String nome;
@@ -30,17 +28,15 @@ public class InserirProdutoDTO implements Serializable {
 	@Size(max = 100)
 	private String descricao;
 
-	@NotBlank
 	@PositiveOrZero
 	private Integer qtdEstoque;
 
-	@NotBlank
 	@Positive
 	private Double valorUnitario;
 
-	@NotBlank
 	@PastOrPresent
 	private LocalDate dataCadastro;
+
 
 	private Categoria categoria;
 
@@ -54,14 +50,6 @@ public class InserirProdutoDTO implements Serializable {
 		this.dataCadastro = produto.getDataCadastro();
 		this.valorUnitario = produto.getValorUnitario();
 		this.categoria = produto.getCategoria();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {

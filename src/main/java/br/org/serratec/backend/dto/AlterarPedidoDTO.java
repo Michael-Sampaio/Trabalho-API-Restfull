@@ -6,7 +6,9 @@ import java.time.LocalDate;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 
+import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.Status;
 
@@ -16,7 +18,8 @@ public class AlterarPedidoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -5842252635524606909L;
 
-	private Long id;
+	@PastOrPresent
+	private LocalDate dataPedido;
 
 	@FutureOrPresent
 	private LocalDate dataEntrega;
@@ -27,18 +30,18 @@ public class AlterarPedidoDTO implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
+	private Cliente cliente;
+
 	public AlterarPedidoDTO() {
 	}
 
 	public AlterarPedidoDTO(Pedido pedido) {
 		super();
+		this.dataPedido = pedido.getDataPedido();
 		this.dataEntrega = pedido.getDataEntrega();
 		this.dataEnvio = pedido.getDataEnvio();
 		this.status = pedido.getStatus();
-	}
-
-	public Long getId() {
-		return this.id;
+		this.cliente = pedido.getCliente();
 	}
 
 	public LocalDate getDataEntrega() {
@@ -63,6 +66,22 @@ public class AlterarPedidoDTO implements Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public LocalDate getDataPedido() {
+		return this.dataPedido;
+	}
+
+	public void setDataPedido(LocalDate dataPedido) {
+		this.dataPedido = dataPedido;
+	}
+
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

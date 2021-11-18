@@ -21,7 +21,7 @@ public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoRepository;
 
-	/**
+/**
 	 * METODO PARA INSERIR UM PEDIDO
 	 * 
 	 * @param pedido
@@ -29,16 +29,15 @@ public class PedidoService {
 	 */
 	public PedidoDTO inserir(InserirPedidoDTO inserirPedidoDTO) {
 
-		if (pedidoRepository.findById(inserirPedidoDTO.getId()) != null) {
+		Pedido pedido = new Pedido();
+		pedido.setCliente(inserirPedidoDTO.getCliente());
+		pedido.setDataPedido(inserirPedidoDTO.getDataPedido());
+		pedido.setDataEnvio(inserirPedidoDTO.getDataEnvio());
+		pedido.setDataEntrega(inserirPedidoDTO.getDataEntrega());
+		pedido.setStatus(inserirPedidoDTO.getStatus());
+		pedidoRepository.save(pedido);
 
-			Pedido pedido = new Pedido();
-			pedido.setId(inserirPedidoDTO.getId());
-			pedidoRepository.save(pedido);
-
-			return new PedidoDTO(pedido);
-		} else {
-			throw new RecursoBadRequestException("Pedido já cadastrado!");
-		}
+		return new PedidoDTO(pedido);
 	}
 
 	/**
@@ -52,6 +51,8 @@ public class PedidoService {
 		if (pedidoRepository.existsById(id)) {
 			Pedido pedido = new Pedido(alterarPedidoDTO);
 			pedido.setId(id);
+			pedido.setCliente(alterarPedidoDTO.getCliente());
+			pedido.setDataPedido(alterarPedidoDTO.getDataPedido());
 			pedido.setDataEnvio(alterarPedidoDTO.getDataEnvio());
 			pedido.setDataEntrega(alterarPedidoDTO.getDataEntrega());
 			pedido.setStatus(alterarPedidoDTO.getStatus());

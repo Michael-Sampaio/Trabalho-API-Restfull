@@ -13,8 +13,6 @@ public class InserirCategoriaDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 427669895544928229L;
 
-	private Long id;
-
 	@NotBlank
 	@Size(max = 30)
 	private String nome;
@@ -29,14 +27,6 @@ public class InserirCategoriaDTO implements Serializable {
 	public InserirCategoriaDTO(Categoria categoria) {
 		this.nome = categoria.getNome();
 		this.descricao = categoria.getDescricao();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {

@@ -12,7 +12,6 @@ public class InserirPedidoItemDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -1451153263290931159L;
 
-	private Long id;
 	private Pedido pedido;
 	private Produto produto;
 	private Integer qntProduto;
@@ -30,14 +29,6 @@ public class InserirPedidoItemDTO implements Serializable {
 		this.qntProduto = pedidoItem.getQntProduto();
 		this.vlrUnit = pedidoItem.getVlrUnit();
 		this.subTotal = pedidoItem.getSubTotal();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Pedido getId_pedido() {

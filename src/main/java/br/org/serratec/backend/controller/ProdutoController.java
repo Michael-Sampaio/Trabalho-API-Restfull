@@ -54,8 +54,8 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Alterar um cliente", notes = "Alteração de um cliente")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um cliente"),
+    @ApiOperation(value = "Alterar um produto", notes = "Alteração de um produto")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um produto"),
             @ApiResponse(code = 401, message = "Erro de autenticação"),
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
