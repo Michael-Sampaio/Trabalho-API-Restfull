@@ -13,29 +13,29 @@ import br.org.serratec.backend.model.Produto;
 
 @Embeddable
 public class AlterarProdutoDTO implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3720071495478922467L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3720071495478922467L;
 
     private Long id;
-    
-    @NotBlank
-	@Size(max = 30)
-	private String nome;
 
-	@NotBlank
-	@Size(max = 100)
-	private String descricao;
+    @NotBlank
+    @Size(max = 30)
+    private String nome;
+
+    @NotBlank
+    @Size(max = 100)
+    private String descricao;
 
     @NotBlank
     @PositiveOrZero
-	private Integer qtdEstoque;
+    private Integer qtdEstoque;
 
     @NotBlank
     @Positive
     private Double valorUnitario;
-    
+
     private Categoria categoria;
 
     public AlterarProdutoDTO() {

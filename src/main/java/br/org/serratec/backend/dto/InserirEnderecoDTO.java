@@ -8,28 +8,28 @@ import javax.validation.constraints.Size;
 import br.org.serratec.backend.model.Endereco;
 
 public class InserirEnderecoDTO implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7681121951525806758L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7681121951525806758L;
 
     private Long id;
-    
+
     @NotBlank
-	@Size(max = 9)
-	private String cep;
+    @Size(max = 9)
+    private String cep;
 
-	@Size(max = 100)
-	private String logradouro;
+    @Size(max = 100)
+    private String logradouro;
 
-	@Size(max = 50)
-	private String bairro;
+    @Size(max = 50)
+    private String bairro;
 
-	@Size(max = 30)
-	private String localidade;
+    @Size(max = 30)
+    private String localidade;
 
-	@Size(max = 2)
-	private String uf;
+    @Size(max = 2)
+    private String uf;
 
     public InserirEnderecoDTO() {
     }

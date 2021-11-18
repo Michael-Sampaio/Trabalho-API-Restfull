@@ -21,7 +21,6 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-
 	/**
 	 * METODO PARA INSERIR UM NOVO ENDEREÇO
 	 * 

@@ -48,8 +48,7 @@ public class PedidoController {
             @ApiResponse(code = 500, message = "Erro de servidor") })
 
     @ResponseStatus(HttpStatus.CREATED)
-    public PedidoDTO inserir(@Valid @RequestBody InserirPedidoDTO inserirPedidoDTO) 
-            throws RecursoBadRequestException {
+    public PedidoDTO inserir(@Valid @RequestBody InserirPedidoDTO inserirPedidoDTO) throws RecursoBadRequestException {
         return pedidoService.inserir(inserirPedidoDTO);
     }
 

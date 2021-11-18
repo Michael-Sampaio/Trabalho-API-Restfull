@@ -23,7 +23,7 @@ public class AlterarPedidoDTO implements Serializable {
 
 	@FutureOrPresent
 	private LocalDate dataEnvio;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
 

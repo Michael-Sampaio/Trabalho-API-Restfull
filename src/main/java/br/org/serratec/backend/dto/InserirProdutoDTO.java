@@ -30,18 +30,18 @@ public class InserirProdutoDTO implements Serializable {
 	@Size(max = 100)
 	private String descricao;
 
-    @NotBlank
-    @PositiveOrZero
+	@NotBlank
+	@PositiveOrZero
 	private Integer qtdEstoque;
 
-    @NotBlank
-    @Positive
-    private Double valorUnitario;
+	@NotBlank
+	@Positive
+	private Double valorUnitario;
 
 	@NotBlank
 	@PastOrPresent
 	private LocalDate dataCadastro;
-	
+
 	private Categoria categoria;
 
 	public InserirProdutoDTO() {

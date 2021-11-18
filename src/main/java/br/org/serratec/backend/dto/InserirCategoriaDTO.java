@@ -14,11 +14,11 @@ public class InserirCategoriaDTO implements Serializable {
 	private static final long serialVersionUID = 427669895544928229L;
 
 	private Long id;
-	
+
 	@NotBlank
 	@Size(max = 30)
 	private String nome;
-	
+
 	@NotBlank
 	@Size(max = 150)
 	private String descricao;

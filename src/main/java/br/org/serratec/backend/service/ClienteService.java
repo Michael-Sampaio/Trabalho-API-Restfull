@@ -70,7 +70,8 @@ public class ClienteService {
 				enderecoDTO.getLocalidade(), enderecoDTO.getUf());
 		cliente.setEndereco(endereco);
 		cliente.setSenha(bCryptPasswordEncoder.encode(inserirClienteDTO.getSenha()));
-		mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
+		// mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído",
+		// cliente.toString());
 		clienteRepository.save(cliente);
 		return new ClienteDTO(cliente);
 
@@ -102,7 +103,8 @@ public class ClienteService {
 			cliente.setEndereco(endereco);
 			cliente.setNumero(alterarClienteDTO.getNumero());
 			cliente.setComplemento(alterarClienteDTO.getComplemento());
-			mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído", cliente.toString());
+			// mailConfig.enviarEmail(cliente.getEmail(), "Cadastro de Usuário Concluído",
+			// cliente.toString());
 			clienteRepository.save(cliente);
 
 			return new ClienteDTO(cliente);

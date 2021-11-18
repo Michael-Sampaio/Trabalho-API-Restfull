@@ -63,9 +63,9 @@ public class Produto {
 	}
 
 	public Produto(AlterarProdutoDTO alterarProdutoDTO) {
-    }
+	}
 
-    public Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 

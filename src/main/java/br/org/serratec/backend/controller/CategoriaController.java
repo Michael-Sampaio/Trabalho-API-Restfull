@@ -39,7 +39,6 @@ public class CategoriaController {
     @Autowired
     CategoriaService categoriaService;
 
-
     @PostMapping
     @ApiOperation(value = "Cadastrar uma categoria", notes = "Cadastro de categoria")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra uma categoria"),

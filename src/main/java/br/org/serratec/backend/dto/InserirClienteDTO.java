@@ -14,47 +14,47 @@ import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Endereco;
 
 public class InserirClienteDTO implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6422406408629833352L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6422406408629833352L;
 
     private Long id;
 
-	@NotBlank
-	@Email
-	@Size(max = 30)
-	private String email;
+    @NotBlank
+    @Email
+    @Size(max = 30)
+    private String email;
 
-	@NotBlank
-	@Size(max = 20)
-	private String nomeUsuario;
+    @NotBlank
+    @Size(max = 20)
+    private String nomeUsuario;
 
-	@NotBlank
-	@Size(max = 60)
-	private String nomeCompleto;
+    @NotBlank
+    @Size(max = 60)
+    private String nomeCompleto;
 
-	@NotBlank
-	@Size(max = 255)
-	private String senha;
+    @NotBlank
+    @Size(max = 255)
+    private String senha;
 
-	@NotBlank
-	@CPF
-	@Size(min = 11, max = 11)
-	private String cpf;
+    @NotBlank
+    @CPF
+    @Size(min = 11, max = 11)
+    private String cpf;
 
-	@NotBlank
-	@Size(max = 9)
-	private String telefone;
+    @NotBlank
+    @Size(max = 9)
+    private String telefone;
 
-	private Integer numero;
+    private Integer numero;
 
-	@NotBlank
-	@Size(max = 20)
-	private String complemento;
+    @NotBlank
+    @Size(max = 20)
+    private String complemento;
 
-	@Past
-	private LocalDate dataNascimento;
+    @Past
+    private LocalDate dataNascimento;
 
     private Endereco endereco;
 

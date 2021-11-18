@@ -24,13 +24,13 @@ public class InserirPedidoDTO implements Serializable {
 
 	@PastOrPresent
 	private LocalDate dataPedido;
-	
+
 	@FutureOrPresent
 	private LocalDate dataEntrega;
 
 	@FutureOrPresent
 	private LocalDate dataEnvio;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
 

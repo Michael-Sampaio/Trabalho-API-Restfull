@@ -57,7 +57,7 @@ public class AlterarClienteDTO implements Serializable {
 
 	@Past
 	private LocalDate dataNascimento;
-	
+
 	private Endereco endereco;
 
 	public AlterarClienteDTO() {
