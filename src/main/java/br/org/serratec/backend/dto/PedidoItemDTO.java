@@ -8,8 +8,10 @@ import br.org.serratec.backend.model.PedidoItem;
 
 @Embeddable
 public class PedidoItemDTO implements Serializable {
-
-	private static final long serialVersionUID = 3015792880071967125L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1078708476707195509L;
 
 	private Long id_pedido;
 	private Long id_produto;

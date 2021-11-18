@@ -8,8 +8,10 @@ import br.org.serratec.backend.model.Categoria;
 
 @Embeddable
 public class CategoriaDTO implements Serializable {
-
-	private static final long serialVersionUID = 3015792880071967121L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -53470638566965986L;
 
 	private String nome;
 	private String descricao;

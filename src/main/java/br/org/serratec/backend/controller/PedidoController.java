@@ -39,6 +39,32 @@ public class PedidoController {
     @Autowired
     PedidoService pedidoService;
 
+    @PostMapping
+    @ApiOperation(value = "Cadastrar um pedido", notes = "Cadastro de pedido")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um pedido"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+
+    @ResponseStatus(HttpStatus.CREATED)
+    public PedidoDTO inserir(@Valid @RequestBody InserirPedidoDTO inserirPedidoDTO) 
+            throws RecursoBadRequestException {
+        return pedidoService.inserir(inserirPedidoDTO);
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "Alterar um pedido", notes = "Alteração de um pedido")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um pedido"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+    public PedidoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarPedidoDTO alterarPedidoDTO)
+            throws RecursoBadRequestException {
+        return pedidoService.alterar(id, alterarPedidoDTO);
+    }
+
     @GetMapping
     @ApiOperation(value = "Listar Pedidos", notes = "Listagem de pedidos")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os pedidos"),
@@ -65,32 +91,6 @@ public class PedidoController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(pedidoService.buscar(id));
-    }
-
-    @PostMapping
-    @ApiOperation(value = "Cadastrar um pedido", notes = "Cadastro de pedido")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um pedido"),
-            @ApiResponse(code = 401, message = "Erro de autenticação"),
-            @ApiResponse(code = 403, message = "Recurso proibido"),
-            @ApiResponse(code = 404, message = "Recurso não encontrado"),
-            @ApiResponse(code = 500, message = "Erro de servidor") })
-
-    @ResponseStatus(HttpStatus.CREATED)
-    public PedidoDTO inserir(@Valid @RequestBody InserirPedidoDTO inserirPedidoDTO) 
-            throws RecursoBadRequestException {
-        return pedidoService.inserir(inserirPedidoDTO);
-    }
-
-    @PutMapping("/{id}")
-    @ApiOperation(value = "Alterar um pedido", notes = "Alteração de um pedido")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Altera um pedido"),
-            @ApiResponse(code = 401, message = "Erro de autenticação"),
-            @ApiResponse(code = 403, message = "Recurso proibido"),
-            @ApiResponse(code = 404, message = "Recurso não encontrado"),
-            @ApiResponse(code = 500, message = "Erro de servidor") })
-    public PedidoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarPedidoDTO alterarPedidoDTO)
-            throws RecursoBadRequestException {
-        return pedidoService.alterar(id, alterarPedidoDTO);
     }
 
     @DeleteMapping("/{id}")

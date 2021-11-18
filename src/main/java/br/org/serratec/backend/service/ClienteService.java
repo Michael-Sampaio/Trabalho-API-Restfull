@@ -77,23 +77,6 @@ public class ClienteService {
 	}
 
 	/**
-	 * METODO PARA LISTAR OS CLIENTES
-	 * 
-	 * @return LISTA DE CLIENTES
-	 */
-	public List<ClienteDTO> listar() {
-		List<Cliente> clientes = clienteRepository.findAll();
-		List<ClienteDTO> clientesDTO = new ArrayList<ClienteDTO>();
-
-		for (Cliente cliente : clientes) {
-			ClienteDTO clienteDTO = new ClienteDTO(cliente);
-			clientesDTO.add(clienteDTO);
-		}
-
-		return clientesDTO;
-	}
-
-	/**
 	 * METODO PARA ALTERAR UMA CATEGORIA
 	 * 
 	 * @param alterarCategoriaDTO
@@ -125,6 +108,23 @@ public class ClienteService {
 			return new ClienteDTO(cliente);
 		}
 		throw new RecursoNotFoundException("Cliente não encontrado");
+	}
+
+	/**
+	 * METODO PARA LISTAR OS CLIENTES
+	 * 
+	 * @return LISTA DE CLIENTES
+	 */
+	public List<ClienteDTO> listar() {
+		List<Cliente> clientes = clienteRepository.findAll();
+		List<ClienteDTO> clientesDTO = new ArrayList<ClienteDTO>();
+
+		for (Cliente cliente : clientes) {
+			ClienteDTO clienteDTO = new ClienteDTO(cliente);
+			clientesDTO.add(clienteDTO);
+		}
+
+		return clientesDTO;
 	}
 
 	/**

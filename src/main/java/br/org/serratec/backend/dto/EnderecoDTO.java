@@ -1,8 +1,14 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
+
 import br.org.serratec.backend.model.Endereco;
 
-public class EnderecoDTO {
+public class EnderecoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8753494633742468821L;
 
 	private String cep;
 	private String logradouro;

@@ -1,21 +1,39 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.Status;
 
 @Embeddable
-public class InserirPedidoDTO {
+public class InserirPedidoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3319694584715745242L;
 
 	private Long id;
+
+	@PastOrPresent
 	private LocalDate dataPedido;
+	
+	@FutureOrPresent
 	private LocalDate dataEntrega;
+
+	@FutureOrPresent
 	private LocalDate dataEnvio;
+	
+	@Enumerated(EnumType.STRING)
 	private Status status;
+
 	private Cliente cliente;
 
 	public InserirPedidoDTO() {

@@ -1,15 +1,30 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.FutureOrPresent;
 
 import br.org.serratec.backend.model.Pedido;
 import br.org.serratec.backend.model.Status;
 
-public class AlterarPedidoDTO {
+public class AlterarPedidoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5842252635524606909L;
 
 	private Long id;
+
+	@FutureOrPresent
 	private LocalDate dataEntrega;
+
+	@FutureOrPresent
 	private LocalDate dataEnvio;
+	
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	public AlterarPedidoDTO() {

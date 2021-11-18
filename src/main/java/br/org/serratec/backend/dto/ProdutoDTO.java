@@ -7,8 +7,10 @@ import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
 public class ProdutoDTO implements Serializable {
-
-	private static final long serialVersionUID = 3015792880071967126L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2133256345092638331L;
 
 	private String nome;
 	private String descricao;

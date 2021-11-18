@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Entity
 public class Endereco {
@@ -16,24 +14,19 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Long id;
 
-	@NotBlank
 	@Column
-	@Size(max = 9)
 	private String cep;
 
 	@Column(name = "rua")
 	private String logradouro;
 
 	@Column
-	@Size(max = 40)
 	private String bairro;
 
 	@Column(name = "cidade")
-	@Size(max = 40)
 	private String localidade;
 
 	@Column(name = "estado")
-	@Size(max = 15)
 	private String uf;
 
 	public Endereco() {

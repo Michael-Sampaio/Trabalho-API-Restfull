@@ -39,32 +39,6 @@ public class CategoriaController {
     @Autowired
     CategoriaService categoriaService;
 
-    @GetMapping
-    @ApiOperation(value = "Listar Categorias", notes = "Listagem de categorias")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todas as categorias"),
-            @ApiResponse(code = 401, message = "Erro de autenticação"),
-            @ApiResponse(code = 403, message = "Recurso proibido"),
-            @ApiResponse(code = 404, message = "Recurso não encontrado"),
-            @ApiResponse(code = 500, message = "Erro de servidor") })
-
-    public ResponseEntity<List<CategoriaDTO>> listar() {
-        return ResponseEntity.ok(categoriaService.listar());
-    }
-
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Buscar uma categoria por id", notes = "Busca uma categoria")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma categoria"),
-            @ApiResponse(code = 401, message = "Erro de autenticação"),
-            @ApiResponse(code = 403, message = "Recurso proibido"),
-            @ApiResponse(code = 404, message = "Recurso não encontrado"),
-            @ApiResponse(code = 500, message = "Erro de servidor") })
-    public ResponseEntity<CategoriaDTO> buscar(@PathVariable Long id) {
-        Optional<Categoria> CategoriaDTO = categoriaRepository.findById(id);
-        if (!CategoriaDTO.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(categoriaService.buscar(id));
-    }
 
     @PostMapping
     @ApiOperation(value = "Cadastrar uma categoria", notes = "Cadastro de categoria")
@@ -90,6 +64,33 @@ public class CategoriaController {
             throws RecursoBadRequestException {
         return categoriaService.alterar(id, alterarCategoriaDTO);
 
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Listar Categorias", notes = "Listagem de categorias")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todas as categorias"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+
+    public ResponseEntity<List<CategoriaDTO>> listar() {
+        return ResponseEntity.ok(categoriaService.listar());
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Buscar uma categoria por id", notes = "Busca uma categoria")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma categoria"),
+            @ApiResponse(code = 401, message = "Erro de autenticação"),
+            @ApiResponse(code = 403, message = "Recurso proibido"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado"),
+            @ApiResponse(code = 500, message = "Erro de servidor") })
+    public ResponseEntity<CategoriaDTO> buscar(@PathVariable Long id) {
+        Optional<Categoria> CategoriaDTO = categoriaRepository.findById(id);
+        if (!CategoriaDTO.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(categoriaService.buscar(id));
     }
 
     @DeleteMapping("/{id}")

@@ -63,21 +63,6 @@ public class PedidoService {
 	}
 
 	/**
-	 * METODO PARA LISTAR PEDIDO POR NUMERO COM TOTAL GERAL
-	 * 
-	 * @param id
-	 * @return UM PEDIDO COM O TOTAL GERAL
-	 */
-	public PedidoDTO buscar(Long id) {
-		Optional<Pedido> pedido = pedidoRepository.findById(id);
-		if (pedido.isPresent()) {
-			return new PedidoDTO(pedido.get());
-		} else {
-			throw new RecursoBadRequestException("Pedido não encontrado");
-		}
-	}
-
-	/**
 	 * METODO PARA LISTAR PEDIDOS
 	 * 
 	 * @return LISTA DE PEDIDOS
@@ -91,6 +76,21 @@ public class PedidoService {
 			pedidosDTO.add(pedidoDTO);
 		}
 		return pedidosDTO;
+	}
+
+	/**
+	 * METODO PARA LISTAR PEDIDO POR NUMERO COM TOTAL GERAL
+	 * 
+	 * @param id
+	 * @return UM PEDIDO COM O TOTAL GERAL
+	 */
+	public PedidoDTO buscar(Long id) {
+		Optional<Pedido> pedido = pedidoRepository.findById(id);
+		if (pedido.isPresent()) {
+			return new PedidoDTO(pedido.get());
+		} else {
+			throw new RecursoBadRequestException("Pedido não encontrado");
+		}
 	}
 
 	/**

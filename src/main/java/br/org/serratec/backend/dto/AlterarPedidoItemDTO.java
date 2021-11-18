@@ -1,8 +1,14 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
+
 import br.org.serratec.backend.model.PedidoItem;
 
-public class AlterarPedidoItemDTO {
+public class AlterarPedidoItemDTO implements Serializable {	
+	/**
+	* 
+	*/
+   private static final long serialVersionUID = 8830468590060224047L;
 
 	private Long id;
 	private Long id_pedido;

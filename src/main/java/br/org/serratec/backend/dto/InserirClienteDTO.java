@@ -1,23 +1,62 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import br.org.serratec.backend.model.Cliente;
 import br.org.serratec.backend.model.Endereco;
 
-public class InserirClienteDTO {
+public class InserirClienteDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6422406408629833352L;
 
     private Long id;
-    private String email;
-    private String nomeUsuario;
-    private String nomeCompleto;
-    private String cpf;
-    private String telefone;
-    private LocalDate dataNascimento;
-    private Integer numero;
-    private String complemento;
+
+	@NotBlank
+	@Email
+	@Size(max = 30)
+	private String email;
+
+	@NotBlank
+	@Size(max = 20)
+	private String nomeUsuario;
+
+	@NotBlank
+	@Size(max = 60)
+	private String nomeCompleto;
+
+	@NotBlank
+	@Size(max = 255)
+	private String senha;
+
+	@NotBlank
+	@CPF
+	@Size(min = 11, max = 11)
+	private String cpf;
+
+	@NotBlank
+	@Size(max = 9)
+	private String telefone;
+
+	private Integer numero;
+
+	@NotBlank
+	@Size(max = 20)
+	private String complemento;
+
+	@Past
+	private LocalDate dataNascimento;
+
     private Endereco endereco;
-    private String senha;
 
     public InserirClienteDTO() {
     }

@@ -39,32 +39,6 @@ public class ClienteController {
 	@Autowired
 	ClienteRepository clienteRepository;
 
-	@GetMapping
-	@ApiOperation(value = "Listar todos clientes", notes = "Listagem de clientes")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os clientes"),
-			@ApiResponse(code = 401, message = "Erro de autenticação"),
-			@ApiResponse(code = 403, message = "Recurso proibido"),
-			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor") })
-	public ResponseEntity<List<ClienteDTO>> listar() {
-		return ResponseEntity.ok(clienteService.listar());
-	}
-
-	@GetMapping("/{id}")
-	@ApiOperation(value = "Buscar um cliente por id", notes = "Busca um cliente")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um cliente"),
-			@ApiResponse(code = 401, message = "Erro de autenticação"),
-			@ApiResponse(code = 403, message = "Recurso proibido"),
-			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor") })
-	public ResponseEntity<ClienteDTO> buscar(@PathVariable Long id) {
-		Optional<Cliente> ClienteDTO = clienteRepository.findById(id);
-		if (!ClienteDTO.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(clienteService.buscar(id));
-	}
-
 	@PostMapping
 	@ApiOperation(value = "Cadastrar um cliente", notes = "Cadastro de cliente")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um cliente"),
@@ -89,6 +63,32 @@ public class ClienteController {
 	public ClienteDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarClienteDTO alterarClienteDTO)
 			throws RecursoBadRequestException {
 		return clienteService.alterar(id, alterarClienteDTO);
+	}
+
+	@GetMapping
+	@ApiOperation(value = "Listar todos clientes", notes = "Listagem de clientes")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os clientes"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Recurso proibido"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+	public ResponseEntity<List<ClienteDTO>> listar() {
+		return ResponseEntity.ok(clienteService.listar());
+	}
+
+	@GetMapping("/{id}")
+	@ApiOperation(value = "Buscar um cliente por id", notes = "Busca um cliente")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um cliente"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Recurso proibido"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+	public ResponseEntity<ClienteDTO> buscar(@PathVariable Long id) {
+		Optional<Cliente> ClienteDTO = clienteRepository.findById(id);
+		if (!ClienteDTO.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(clienteService.buscar(id));
 	}
 
 	@DeleteMapping("/{id}")

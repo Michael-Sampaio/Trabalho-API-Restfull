@@ -38,7 +38,16 @@ public class PedidoItemService {
 		} else {
 			throw new RecursoBadRequestException("Produto ja inserido!");
 		}
+	}
 
+	/**
+	 * METODO PARA LISTAR PEDIDO ITEM
+	 * 
+	 * @return UMA LISTA DE PEDIDO ITEM
+	 */
+	public List<PedidoItemDTO> listar() {
+		List<PedidoItem> pedidoItems = pedidoItemRepository.findAll();
+		return pedidoItems.stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
 	}
 
 	/**
@@ -57,16 +66,6 @@ public class PedidoItemService {
 	}
 
 	/**
-	 * METODO PARA LISTAR PEDIDO ITEM
-	 * 
-	 * @return UMA LISTA DE PEDIDO ITEM
-	 */
-	public List<PedidoItemDTO> listar() {
-		List<PedidoItem> pedidoItems = pedidoItemRepository.findAll();
-		return pedidoItems.stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
-	}
-
-	/**
 	 * METODO PARA DELETAR PEDIDO ITEM
 	 * 
 	 * @param id
@@ -76,4 +75,5 @@ public class PedidoItemService {
 			pedidoItemRepository.deleteById(id);
 		}
 	}
+	
 }

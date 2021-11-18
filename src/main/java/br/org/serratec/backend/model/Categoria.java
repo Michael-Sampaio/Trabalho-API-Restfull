@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import br.org.serratec.backend.dto.AlterarCategoriaDTO;
 
@@ -18,12 +16,8 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Long id;
 
-	@NotBlank
-	@Size(max = 30)
 	private String nome;
 
-	@NotBlank
-	@Size(max = 150)
 	private String descricao;
 
 	public Categoria() {

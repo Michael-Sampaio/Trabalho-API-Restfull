@@ -42,23 +42,6 @@ public class CategoriaService {
 	}
 
 	/**
-	 * METODO PARA LISTAR AS CATEGORIAS
-	 * 
-	 * @return LISTA DE CATEGORIAS
-	 */
-	public List<CategoriaDTO> listar() {
-		List<Categoria> categorias = categoriaRepository.findAll();
-		List<CategoriaDTO> categoriasDTO = new ArrayList<CategoriaDTO>();
-
-		for (Categoria categoria : categorias) {
-			CategoriaDTO categoriaDTO = new CategoriaDTO(categoria);
-			categoriasDTO.add(categoriaDTO);
-		}
-
-		return categoriasDTO;
-	}
-
-	/**
 	 * METODO PARA ALTERAR UMA CATEGORIA
 	 * 
 	 * @param alterarCategoriaDTO
@@ -76,6 +59,23 @@ public class CategoriaService {
 			return new CategoriaDTO(categoria);
 		}
 		throw new RecursoNotFoundException("Categoria não encontrada");
+	}
+
+	/**
+	 * METODO PARA LISTAR AS CATEGORIAS
+	 * 
+	 * @return LISTA DE CATEGORIAS
+	 */
+	public List<CategoriaDTO> listar() {
+		List<Categoria> categorias = categoriaRepository.findAll();
+		List<CategoriaDTO> categoriasDTO = new ArrayList<CategoriaDTO>();
+
+		for (Categoria categoria : categorias) {
+			CategoriaDTO categoriaDTO = new CategoriaDTO(categoria);
+			categoriasDTO.add(categoriaDTO);
+		}
+
+		return categoriasDTO;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package br.org.serratec.backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,22 +46,6 @@ public class ProdutoService {
 	}
 
 	/**
-	 * METODO PARA LISTAR OS PRODUTOS
-	 * 
-	 * @return UMA LISTA DE PRODUTOS
-	 */
-	public List<ProdutoDTO> listar() {
-		List<Produto> produtos = produtoRepository.findAll();
-		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
-
-		for (Produto produto : produtos) {
-			ProdutoDTO produtoDTO = new ProdutoDTO(produto);
-			produtosDTO.add(produtoDTO);
-		}
-		return produtosDTO;
-	}
-
-	/**
 	 * METODO PARA ALTERAR UM PRODUTO
 	 * 
 	 * @param alterarProdutoDTO
@@ -81,6 +66,37 @@ public class ProdutoService {
 			return new ProdutoDTO(produto);
 		}
 		throw new RecursoNotFoundException("Produto não encontrada");
+	}
+
+	/**
+	 * METODO PARA LISTAR OS PRODUTOS
+	 * 
+	 * @return UMA LISTA DE PRODUTOS
+	 */
+	public List<ProdutoDTO> listar() {
+		List<Produto> produtos = produtoRepository.findAll();
+		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
+
+		for (Produto produto : produtos) {
+			ProdutoDTO produtoDTO = new ProdutoDTO(produto);
+			produtosDTO.add(produtoDTO);
+		}
+		return produtosDTO;
+	}
+
+	/**
+	 * METODO PARA LISTAR UM PRODUTO PELO ID
+	 * 
+	 * @param id
+	 * @return UM PRODUTO
+	 */
+	public ProdutoDTO buscar(Long id) {
+		Optional<Produto> produto = produtoRepository.findById(id);
+		if (produto.isPresent()) {
+			return new ProdutoDTO(produto.get());
+		} else {
+			throw new RecursoNotFoundException("Produto não encontrado");
+		}
 	}
 
 	/**

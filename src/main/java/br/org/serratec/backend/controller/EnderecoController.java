@@ -31,6 +31,32 @@ public class EnderecoController {
 	@Autowired
 	EnderecoService enderecoService;
 
+	@PostMapping
+	@ApiOperation(value = "Cadastrar um endereço", notes = "Cadastro de endereço")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um endereço"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Recurso proibido"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+
+	@ResponseStatus(HttpStatus.CREATED)
+	public EnderecoDTO inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO)
+			throws RecursoBadRequestException {
+		return enderecoService.inserir(inserirEnderecoDTO);
+	}
+
+	@GetMapping
+	@ApiOperation(value = "Listar Endereços", notes = "Listagem de endereços")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os endereços"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Recurso proibido"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 500, message = "Erro de servidor") })
+
+	public ResponseEntity<List<EnderecoDTO>> listar() {
+		return ResponseEntity.ok(enderecoService.listar());
+	}
+
 	@GetMapping("{cep}")
 	@ApiOperation(value = "Buscar um endereço por cep", notes = "Busca um endereço")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um endereço"),
@@ -47,32 +73,6 @@ public class EnderecoController {
 		}
 		return ResponseEntity.ok(enderecoDTO);
 
-	}
-
-	@GetMapping
-	@ApiOperation(value = "Listar Endereços", notes = "Listagem de endereços")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todos os endereços"),
-			@ApiResponse(code = 401, message = "Erro de autenticação"),
-			@ApiResponse(code = 403, message = "Recurso proibido"),
-			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor") })
-
-	public ResponseEntity<List<EnderecoDTO>> listar() {
-		return ResponseEntity.ok(enderecoService.listar());
-	}
-
-	@PostMapping
-	@ApiOperation(value = "Cadastrar um endereço", notes = "Cadastro de endereço")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um endereço"),
-			@ApiResponse(code = 401, message = "Erro de autenticação"),
-			@ApiResponse(code = 403, message = "Recurso proibido"),
-			@ApiResponse(code = 404, message = "Recurso não encontrado"),
-			@ApiResponse(code = 500, message = "Erro de servidor") })
-
-	@ResponseStatus(HttpStatus.CREATED)
-	public EnderecoDTO inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO)
-			throws RecursoBadRequestException {
-		return enderecoService.inserir(inserirEnderecoDTO);
 	}
 
 	@DeleteMapping("/{id}")

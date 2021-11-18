@@ -1,16 +1,34 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import br.org.serratec.backend.model.Endereco;
 
 @Embeddable
-public class AlterarEnderecoDTO {
+public class AlterarEnderecoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8111865095336035820L;
 
+	@NotBlank
+	@Size(max = 9)
 	private String cep;
+
+	@Size(max = 100)
 	private String logradouro;
+
+	@Size(max = 50)
 	private String bairro;
+
+	@Size(max = 30)
 	private String localidade;
+
+	@Size(max = 2)
 	private String uf;
 
 	public AlterarEnderecoDTO() {

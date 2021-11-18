@@ -12,12 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 
 @Entity
@@ -28,44 +22,31 @@ public class Cliente {
 	@Column(name = "id_cliente")
 	private Long id;
 
-	@NotBlank
 	@Column(name = "email")
-	@Size(max = 150)
 	private String email;
 
-	@NotBlank
 	@Column(name = "nome_usuario")
-	@Size(max = 30)
 	private String nomeUsuario;
 
-	@NotBlank
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
 
-	@NotBlank
 	@Column
 	private String senha;
 
-	@NotBlank
 	@Column
-	@CPF
 	private String cpf;
 
-	@NotBlank
 	@Column
-	@Size(max = 13)
 	private String telefone;
 
 	@Column
 	private Integer numero;
 
-	@NotBlank
 	@Column
-	@Size(max = 150)
 	private String complemento;
 
 	@Column(name = "data_nasc")
-	@DateTimeFormat
 	private LocalDate dataNascimento;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

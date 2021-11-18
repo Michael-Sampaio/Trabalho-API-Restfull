@@ -1,18 +1,41 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
 @Embeddable
-public class AlterarProdutoDTO {
+public class AlterarProdutoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3720071495478922467L;
 
     private Long id;
-    private String nome;
-    private String descricao;
-    private Integer qtdEstoque;
+    
+    @NotBlank
+	@Size(max = 30)
+	private String nome;
+
+	@NotBlank
+	@Size(max = 100)
+	private String descricao;
+
+    @NotBlank
+    @PositiveOrZero
+	private Integer qtdEstoque;
+
+    @NotBlank
+    @Positive
     private Double valorUnitario;
+    
     private Categoria categoria;
 
     public AlterarProdutoDTO() {

@@ -1,21 +1,47 @@
 package br.org.serratec.backend.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 import br.org.serratec.backend.model.Categoria;
 import br.org.serratec.backend.model.Produto;
 
 @Embeddable
-public class InserirProdutoDTO {
+public class InserirProdutoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1874537595817669750L;
 
 	private Long id;
+
+	@NotBlank
+	@Size(max = 30)
 	private String nome;
+
+	@NotBlank
+	@Size(max = 100)
 	private String descricao;
+
+    @NotBlank
+    @PositiveOrZero
 	private Integer qtdEstoque;
+
+    @NotBlank
+    @Positive
+    private Double valorUnitario;
+
+	@NotBlank
+	@PastOrPresent
 	private LocalDate dataCadastro;
-	private Double valorUnitario;
+	
 	private Categoria categoria;
 
 	public InserirProdutoDTO() {
