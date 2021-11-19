@@ -15,10 +15,8 @@ import br.org.serratec.backend.model.Status;
 @NotBlank
 @Embeddable
 public class PedidoDTO implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9188715150346410160L;
+
+	private static final long serialVersionUID = 3015792880071967124L;
 
 	private LocalDate dataPedido;
 	private LocalDate dataEntrega;

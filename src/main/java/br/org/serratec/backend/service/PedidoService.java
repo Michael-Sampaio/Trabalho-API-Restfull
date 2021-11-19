@@ -29,15 +29,15 @@ public class PedidoService {
 	 */
 	public PedidoDTO inserir(InserirPedidoDTO inserirPedidoDTO) {
 
-		Pedido pedido = new Pedido();
-		pedido.setCliente(inserirPedidoDTO.getCliente());
-		pedido.setDataPedido(inserirPedidoDTO.getDataPedido());
-		pedido.setDataEnvio(inserirPedidoDTO.getDataEnvio());
-		pedido.setDataEntrega(inserirPedidoDTO.getDataEntrega());
-		pedido.setStatus(inserirPedidoDTO.getStatus());
-		pedidoRepository.save(pedido);
+		if (pedidoRepository.findById(inserirPedidoDTO.getId()) != null) {
 
-		return new PedidoDTO(pedido);
+			Pedido pedido = new Pedido();
+			pedido.setId(inserirPedidoDTO.getId());
+
+			return new PedidoDTO(pedido);
+		} else {
+			throw new RecursoBadRequestException("Pedido já cadastrado!");
+		}
 	}
 
 	/**
@@ -51,8 +51,6 @@ public class PedidoService {
 		if (pedidoRepository.existsById(id)) {
 			Pedido pedido = new Pedido(alterarPedidoDTO);
 			pedido.setId(id);
-			pedido.setCliente(alterarPedidoDTO.getCliente());
-			pedido.setDataPedido(alterarPedidoDTO.getDataPedido());
 			pedido.setDataEnvio(alterarPedidoDTO.getDataEnvio());
 			pedido.setDataEntrega(alterarPedidoDTO.getDataEntrega());
 			pedido.setStatus(alterarPedidoDTO.getStatus());

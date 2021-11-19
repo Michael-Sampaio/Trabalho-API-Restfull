@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.dto.PedidoItemDTO;
-import br.org.serratec.backend.dto.InserirPedidoItemDTO;
 import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.repository.PedidoItemRepository;
 import br.org.serratec.backend.service.PedidoItemService;
@@ -46,9 +44,8 @@ public class PedidoItemController {
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 
 	@ResponseStatus(HttpStatus.CREATED)
-	public PedidoItemDTO inserir(@Valid @RequestBody InserirPedidoItemDTO inserirPedidoItemDTO)
-			throws RecursoBadRequestException {
-		return pedidoItemService.inserir(inserirPedidoItemDTO);
+	public PedidoItem inserir(@Valid @RequestBody PedidoItem PedidoItem) {
+		return pedidoItemRepository.save(PedidoItem);
 	}
 
 	@GetMapping

@@ -20,37 +20,24 @@ public class PedidoItemService {
 	@Autowired
 	PedidoItemRepository pedidoItemRepository;
 
-	/**
-	 * METODO PARA INSERIR UM PRODUTO
-	 * 
-	 * @param produto
-	 * @return UM NOVO PRODUTO
+	/*
+	 * METODO PARA INSERIR UM PEDIDO
 	 */
 	public PedidoItemDTO inserir(InserirPedidoItemDTO inserirPedidoItemDTO) {
 
-		if (pedidoItemRepository.findBypedido(inserirPedidoItemDTO.getId_pedido()) != null) {
+		if (pedidoItemRepository.findById(inserirPedidoItemDTO.getId()) != null) {
+
+			PedidoItem pedidoItem = new PedidoItem();
+			pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
+			pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
+			pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
+			pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
+
+			return new PedidoItemDTO(pedidoItem);
+		} else {
 			throw new RecursoBadRequestException("Produto ja inserido!");
 		}
 
-		PedidoItem pedidoItem = new PedidoItem();
-		pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
-		pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
-		pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
-		pedidoItem.setSubTotal(inserirPedidoItemDTO.getSubTotal());
-		pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
-		pedidoItemRepository.save(pedidoItem);
-
-		return new PedidoItemDTO(pedidoItem);
-	}
-
-	/**
-	 * METODO PARA LISTAR PEDIDO ITEM
-	 * 
-	 * @return UMA LISTA DE PEDIDO ITEM
-	 */
-	public List<PedidoItemDTO> listar() {
-		List<PedidoItem> pedidoItems = pedidoItemRepository.findAll();
-		return pedidoItems.stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
 	}
 
 	/**
@@ -69,6 +56,16 @@ public class PedidoItemService {
 	}
 
 	/**
+	 * METODO PARA LISTAR PEDIDO ITEM
+	 * 
+	 * @return UMA LISTA DE PEDIDO ITEM
+	 */
+	public List<PedidoItemDTO> listar() {
+		List<PedidoItem> pedidoItems = pedidoItemRepository.findAll();
+		return pedidoItems.stream().map(pedidoItem -> new PedidoItemDTO(pedidoItem)).collect(Collectors.toList());
+	}
+
+	/**
 	 * METODO PARA DELETAR PEDIDO ITEM
 	 * 
 	 * @param id
@@ -78,5 +75,4 @@ public class PedidoItemService {
 			pedidoItemRepository.deleteById(id);
 		}
 	}
-
 }
