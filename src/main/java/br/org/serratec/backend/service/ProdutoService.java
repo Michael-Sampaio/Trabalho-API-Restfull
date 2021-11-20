@@ -27,7 +27,7 @@ public class ProdutoService {
 	 * @param produto
 	 * @return UM NOVO PRODUTO
 	 */
-	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) {
+	public ProdutoDTO inserir(InserirProdutoDTO inserirProdutoDTO) throws RecursoBadRequestException {
 
 		if (produtoRepository.findByNome(inserirProdutoDTO.getNome()) != null) {
 			throw new RecursoBadRequestException("Produto ja cadastrado!");

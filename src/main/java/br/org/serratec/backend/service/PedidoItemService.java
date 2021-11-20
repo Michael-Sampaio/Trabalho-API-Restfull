@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.backend.dto.InserirPedidoItemDTO;
 import br.org.serratec.backend.dto.PedidoItemDTO;
-import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.exception.RecursoNotFoundException;
 import br.org.serratec.backend.model.PedidoItem;
 import br.org.serratec.backend.repository.PedidoItemRepository;
@@ -25,19 +24,13 @@ public class PedidoItemService {
 	 */
 	public PedidoItemDTO inserir(InserirPedidoItemDTO inserirPedidoItemDTO) {
 
-		if (pedidoItemRepository.findById(inserirPedidoItemDTO.getId()) != null) {
+		PedidoItem pedidoItem = new PedidoItem();
+		pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
+		pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
+		pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
+		pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
 
-			PedidoItem pedidoItem = new PedidoItem();
-			pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
-			pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
-			pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
-			pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
-
-			return new PedidoItemDTO(pedidoItem);
-		} else {
-			throw new RecursoBadRequestException("Produto ja inserido!");
-		}
-
+		return new PedidoItemDTO(pedidoItem);
 	}
 
 	/**

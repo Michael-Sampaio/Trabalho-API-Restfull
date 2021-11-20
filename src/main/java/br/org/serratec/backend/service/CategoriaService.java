@@ -27,7 +27,7 @@ public class CategoriaService {
 	 * @param categoria
 	 * @return UMA NOVA CATEGORIA
 	 */
-	public CategoriaDTO inserir(InserirCategoriaDTO inserirCategoriaDTO) {
+	public CategoriaDTO inserir(InserirCategoriaDTO inserirCategoriaDTO) throws RecursoBadRequestException {
 
 		if (categoriaRepository.findByNome(inserirCategoriaDTO.getNome()) != null) {
 			throw new RecursoBadRequestException("Categoria ja cadastrada!");
