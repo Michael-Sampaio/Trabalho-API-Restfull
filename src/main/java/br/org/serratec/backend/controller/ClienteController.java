@@ -1,5 +1,6 @@
 package br.org.serratec.backend.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.dto.AlterarClienteDTO;
 import br.org.serratec.backend.dto.ClienteDTO;
@@ -47,9 +49,16 @@ public class ClienteController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteDTO inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO)
-			throws RecursoBadRequestException {
-		return clienteService.inserir(inserirClienteDTO);
+
+	public ResponseEntity<Object> inserir(@Valid @RequestBody InserirClienteDTO inserirClienteDTO) {
+		try {
+			ClienteDTO clienteDTO = clienteService.inserir(inserirClienteDTO);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(clienteDTO.getNomeUsuario()).toUri();
+			return ResponseEntity.created(uri).body(clienteDTO);
+		} catch (RecursoBadRequestException recursoBadRequestException) {
+			return ResponseEntity.badRequest().body(recursoBadRequestException.getMessage());
+		}
 	}
 
 	// ALTERAR CLIENTE
@@ -60,9 +69,15 @@ public class ClienteController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-	public ClienteDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarClienteDTO alterarClienteDTO)
-			throws RecursoBadRequestException {
-		return clienteService.alterar(id, alterarClienteDTO);
+	@ResponseStatus(HttpStatus.OK)
+
+	public ResponseEntity<Object> alterar(@PathVariable Long id,
+			@Valid @RequestBody AlterarClienteDTO alterarClienteDTO) throws RecursoBadRequestException {
+
+		if (clienteService.alterar(id, alterarClienteDTO) != null) {
+			return ResponseEntity.ok(alterarClienteDTO);
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping

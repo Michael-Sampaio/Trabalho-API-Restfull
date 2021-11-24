@@ -1,5 +1,6 @@
 package br.org.serratec.backend.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.dto.AlterarProdutoDTO;
 import br.org.serratec.backend.exception.RecursoBadRequestException;
@@ -48,9 +50,16 @@ public class ProdutoController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoDTO inserir(@Valid @RequestBody InserirProdutoDTO inserirProdutoDTO)
-            throws RecursoBadRequestException {
-        return produtoService.inserir(inserirProdutoDTO);
+
+    public ResponseEntity<Object> inserir(@Valid @RequestBody InserirProdutoDTO inserirProdutoDTO) {
+        try {
+            ProdutoDTO produtoDTO = produtoService.inserir(inserirProdutoDTO);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(produtoDTO.getNome()).toUri();
+            return ResponseEntity.created(uri).body(produtoDTO);
+        } catch (RecursoBadRequestException recursoBadRequestException) {
+            return ResponseEntity.badRequest().body(recursoBadRequestException.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
@@ -60,10 +69,16 @@ public class ProdutoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public ProdutoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarProdutoDTO alterarProdutoDTO)
-            throws RecursoBadRequestException {
-        return produtoService.alterar(id, alterarProdutoDTO);
-    }
+    @ResponseStatus(HttpStatus.OK)
+
+    public ResponseEntity<Object> alterar(@PathVariable Long id,
+            @Valid @RequestBody AlterarProdutoDTO alterarProdutoDTO) throws RecursoBadRequestException {
+
+                if (produtoService.alterar(id, alterarProdutoDTO) != null) {
+                    return ResponseEntity.ok(alterarProdutoDTO);
+                }
+                return ResponseEntity.notFound().build();
+            }
 
     @GetMapping
     @ApiOperation(value = "Listar Produtos", notes = "Listagem de produtos")

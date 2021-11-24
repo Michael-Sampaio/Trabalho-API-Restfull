@@ -1,5 +1,6 @@
 package br.org.serratec.backend.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.dto.AlterarPedidoDTO;
+import br.org.serratec.backend.dto.InserirPedidoDTO;
 import br.org.serratec.backend.dto.PedidoDTO;
 import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.model.Pedido;
@@ -37,7 +40,7 @@ public class PedidoController {
 
     @Autowired
     PedidoService pedidoService;
-    
+
     @PostMapping
     @ApiOperation(value = "Cadastrar um pedido", notes = "Cadastro de pedido")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Cadastra um pedido"),
@@ -45,11 +48,22 @@ public class PedidoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-
     @ResponseStatus(HttpStatus.CREATED)
-    public Pedido inserir(@Valid @RequestBody Pedido pedido) {
-        return pedidoRepository.save(pedido);
+
+    public ResponseEntity<Object> inserir(@Valid @RequestBody InserirPedidoDTO inserirPedidoDTO) {
+        try {
+            PedidoDTO pedidoDTO = pedidoService.inserir(inserirPedidoDTO);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(pedidoDTO.getCliente()).toUri();
+            return ResponseEntity.created(uri).body(pedidoDTO);
+        } catch (RecursoBadRequestException recursoBadRequestException) {
+            return ResponseEntity.badRequest().body(recursoBadRequestException.getMessage());
+        }
     }
+
+    // public Pedido inserir(@Valid @RequestBody Pedido pedido) {
+    // return pedidoRepository.save(pedido);
+    // }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Alterar um pedido", notes = "Alteração de um pedido")
@@ -58,10 +72,16 @@ public class PedidoController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public PedidoDTO alterar(@PathVariable Long id, @Valid @RequestBody AlterarPedidoDTO alterarPedidoDTO)
-            throws RecursoBadRequestException {
-        return pedidoService.alterar(id, alterarPedidoDTO);
-    }
+    @ResponseStatus(HttpStatus.OK)
+
+    public ResponseEntity<Object> alterar(@PathVariable Long id,
+            @Valid @RequestBody AlterarPedidoDTO alterarPedidoDTO) throws RecursoBadRequestException {
+
+                if (pedidoService.alterar(id, alterarPedidoDTO) != null) {
+                    return ResponseEntity.ok(alterarPedidoDTO);
+                }
+                return ResponseEntity.notFound().build();
+            }
 
     @GetMapping
     @ApiOperation(value = "Listar Pedidos", notes = "Listagem de pedidos")

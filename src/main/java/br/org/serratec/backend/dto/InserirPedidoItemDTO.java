@@ -34,19 +34,19 @@ public class InserirPedidoItemDTO {
 		this.id = id;
 	}
 
-	public Pedido getId_pedido() {
-		return pedido;
+	public Pedido getPedido() {
+		return this.pedido;
 	}
 
-	public void setId_pedido(Pedido pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 
-	public Produto getId_produto() {
-		return produto;
+	public Produto getProduto() {
+		return this.produto;
 	}
 
-	public void setId_produto(Produto produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 

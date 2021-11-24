@@ -13,4 +13,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     public Categoria findByDescricao(String descricao);
 
     public Categoria findByNome(String nome);
+    
 }

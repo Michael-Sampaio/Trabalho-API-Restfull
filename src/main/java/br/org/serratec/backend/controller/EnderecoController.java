@@ -1,5 +1,6 @@
 package br.org.serratec.backend.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.dto.EnderecoDTO;
-import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.dto.InserirEnderecoDTO;
+import br.org.serratec.backend.exception.RecursoBadRequestException;
 import br.org.serratec.backend.service.EnderecoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,11 +40,17 @@ public class EnderecoController {
 			@ApiResponse(code = 403, message = "Recurso proibido"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 500, message = "Erro de servidor") })
-
 	@ResponseStatus(HttpStatus.CREATED)
-	public EnderecoDTO inserirEndereco(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO)
-			throws RecursoBadRequestException {
-		return enderecoService.inserirEndereco(inserirEnderecoDTO);
+	
+	public ResponseEntity<Object> inserir(@Valid @RequestBody InserirEnderecoDTO inserirEnderecoDTO) {
+		try {
+			EnderecoDTO enderencoDTO = enderecoService.inserirEndereco(inserirEnderecoDTO);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(enderencoDTO.getCep()).toUri();
+			return ResponseEntity.created(uri).body(enderencoDTO);
+		} catch (RecursoBadRequestException recursoBadRequestException) {
+			return ResponseEntity.badRequest().body(recursoBadRequestException.getMessage());
+		}
 	}
 
 	@GetMapping

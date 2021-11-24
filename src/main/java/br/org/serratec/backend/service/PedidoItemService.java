@@ -25,10 +25,11 @@ public class PedidoItemService {
 	public PedidoItemDTO inserir(InserirPedidoItemDTO inserirPedidoItemDTO) {
 
 		PedidoItem pedidoItem = new PedidoItem();
-		pedidoItem.setPedido(inserirPedidoItemDTO.getId_pedido());
-		pedidoItem.setProduto(inserirPedidoItemDTO.getId_produto());
+		pedidoItem.setPedido(inserirPedidoItemDTO.getPedido());
+		pedidoItem.setProduto(inserirPedidoItemDTO.getProduto());
 		pedidoItem.setQntProduto(inserirPedidoItemDTO.getQntProduto());
 		pedidoItem.setVlrUnit(inserirPedidoItemDTO.getVlrUnit());
+		pedidoItemRepository.save(pedidoItem);
 
 		return new PedidoItemDTO(pedidoItem);
 	}

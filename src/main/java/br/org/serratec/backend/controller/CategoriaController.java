@@ -1,5 +1,6 @@
 package br.org.serratec.backend.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.backend.dto.AlterarCategoriaDTO;
 import br.org.serratec.backend.dto.CategoriaDTO;
@@ -47,9 +49,16 @@ public class CategoriaController {
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoriaDTO inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO)
-            throws RecursoBadRequestException {
-        return categoriaService.inserir(inserirCategoriaDTO);
+
+    public ResponseEntity<Object> inserir(@Valid @RequestBody InserirCategoriaDTO inserirCategoriaDTO) {
+        try {
+            CategoriaDTO categoriaDTO = categoriaService.inserir(inserirCategoriaDTO);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(categoriaDTO.getNome()).toUri();
+            return ResponseEntity.created(uri).body(categoriaDTO);
+        } catch (RecursoBadRequestException recursoBadRequestException) {
+            return ResponseEntity.badRequest().body(recursoBadRequestException.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
@@ -59,12 +68,17 @@ public class CategoriaController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-    public CategoriaDTO alterar(@PathVariable Long id, @RequestBody AlterarCategoriaDTO alterarCategoriaDTO)
-            throws RecursoBadRequestException {
-        return categoriaService.alterar(id, alterarCategoriaDTO);
+    @ResponseStatus(HttpStatus.OK)
 
+    public ResponseEntity<Object> alterar(@PathVariable Long id,
+            @Valid @RequestBody AlterarCategoriaDTO alterarCategoriaDTO) throws RecursoBadRequestException {
+
+		if (categoriaService.alterar(id, alterarCategoriaDTO) != null) {
+			return ResponseEntity.ok(alterarCategoriaDTO);
+		}
+		return ResponseEntity.notFound().build();
     }
-
+    
     @GetMapping
     @ApiOperation(value = "Listar Categorias", notes = "Listagem de categorias")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna todas as categorias"),
@@ -72,7 +86,8 @@ public class CategoriaController {
             @ApiResponse(code = 403, message = "Recurso proibido"),
             @ApiResponse(code = 404, message = "Recurso não encontrado"),
             @ApiResponse(code = 500, message = "Erro de servidor") })
-
+    @ResponseStatus(HttpStatus.OK)
+    
     public ResponseEntity<List<CategoriaDTO>> listar() {
         return ResponseEntity.ok(categoriaService.listar());
     }
